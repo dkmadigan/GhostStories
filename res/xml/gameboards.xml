@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE GameBoards [
+  <!ELEMENT GameBoards (GameBoard+)>
+  <!ELEMENT GameBoard EMPTY>
+  <!ATTLIST GameBoard color CDATA #REQUIRED
+                      ability CDATA #REQUIRED
+                      left_image CDATA #REQUIRED                      
+                      middle_image CDATA #REQUIRED
+                      right_image CDATA #REQUIRED>
+]>
+
+<GameBoards>
+    <GameBoard color="YELLOW" ability="ENFEEBLEMENT_MANTRA" 
+        left_image="@drawable/yellow_left" 
+        middle_image="@drawable/yellow_middle"
+        right_image="@drawable/yellow_right"/>
+    <GameBoard color="YELLOW" ability="BOTTOMLESS_POCKETS" 
+        left_image="@drawable/yellow_left"
+        middle_image="@drawable/yellow_middle"
+        right_image="@drawable/yellow_right"/>
+    
+    <GameBoard color="RED" ability="DANCE_OF_THE_TWIN_WINDS" 
+        left_image="@drawable/red_left" 
+        middle_image="@drawable/red_middle"
+        right_image="@drawable/red_right"/>
+    <GameBoard color="RED" ability="DANCE_OF_THE_PEAKS" 
+        left_image="@drawable/red_left" 
+        middle_image="@drawable/red_middle"
+        right_image="@drawable/red_right"/>
+    
+    <GameBoard color="BLUE" ability="SECOND_WIND" 
+        left_image="@drawable/blue_left" 
+        middle_image="@drawable/blue_middle"
+        right_image="@drawable/blue_right"/>    
+    <GameBoard color="BLUE" ability="HEAVENLY_GUST" 
+        left_image="@drawable/blue_left" 
+        middle_image="@drawable/blue_middle"
+        right_image="@drawable/blue_right"/>
+    
+    <GameBoard color="GREEN" ability="STRENGTH_OF_THE_MOUNTAIN" 
+        left_image="@drawable/green_left" 
+        middle_image="@drawable/green_middle"
+        right_image="@drawable/green_right"/>    
+    <GameBoard color="GREEN" ability="GODS_FAVORITE" 
+        left_image="@drawable/green_left" 
+        middle_image="@drawable/green_middle"
+        right_image="@drawable/green_right"/>
+</GameBoards>

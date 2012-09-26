@@ -1,0 +1,13 @@
+package games.ghoststories.enums;
+
+public enum EVillageTile {
+   BUDDHIST_TEMPLE,
+   CEMETERY,
+   CIRCLE_OF_PRAYER,
+   HERBALISTS_SHOP,
+   NIGHT_WATCHMANS_BEAT,
+   PAVILION_OF_THE_HEAVENLY_WINDS,
+   SORCERERS_HUT,
+   TAOIST_ALTAR,   
+   TEA_HOUSE
+}

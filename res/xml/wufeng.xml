@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE Ghosts [
+  <!ELEMENT Ghosts (Ghost+)>
+  <!ELEMENT Ghost (Resistance, EnterAbility*, TurnAbility*, ExorciseAbility*)>
+  <!ATTLIST Ghost name CDATA #REQUIRED
+                  id CDATA #REQUIRED
+                  color CDATA #REQUIRED
+                  image CDATA #REQUIRED>
+  <!ELEMENT Resistance (Red?, Blue?, Green?, Yellow?, Black?)>
+  <!ELEMENT Red (#PCDATA)>
+  <!ELEMENT Blue (#PCDATA)>
+  <!ELEMENT Green (#PCDATA)>
+  <!ELEMENT Yellow (#PCDATA)>
+  <!ELEMENT Black (#PCDATA)>
+  <!ELEMENT EnterAbility (#PCDATA)>
+  <!ELEMENT TurnAbility (#PCDATA)>
+  <!ELEMENT ExorciseAbility (#PCDATA)>
+]>
+
+<Ghosts>
+    <Ghost name="Howling Nightmare" id="56" color="BLACK" image="@drawable/wu_feng_56_howling_nightmare">
+        <Resistance>
+            <Black>3</Black>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility>EMPTY_OPPOSITE_TILE</TurnAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Uncatchable" id="57" color="BLACK" image="@drawable/wu_feng_57_uncatchable">
+        <Resistance>
+            <Black>3</Black>
+        </Resistance>
+        <EnterAbility>ROLL_CURSE_DIE</EnterAbility>
+        <TurnAbility>REQUIRE_BUDDHA</TurnAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Hope Killer" id="58" color="BLACK" image="@drawable/wu_feng_58_hope_killer">
+        <Resistance>
+            <Red>2</Red>
+            <Blue>2</Blue>
+            <Green>2</Green>            
+            <Yellow>2</Yellow>            
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Deaths Army" id="59" color="BLACK" image="@drawable/wu_feng_59_deaths_army">
+        <Resistance>
+            <Black>5</Black>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+
+    <Ghost name="Forgotten Ones" id="60" color="BLACK" image="@drawable/wu_feng_60_forgotten_ones">
+        <Resistance>
+            <Black>3</Black>
+        </Resistance>
+        <EnterAbility>ALL_LOSE_ABILITY</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>        
+    </Ghost>    
+    
+    <Ghost name="Bone Cracker" id="61" color="RED" image="@drawable/wu_feng_61_bone_cracker">
+        <Resistance>
+            <Red>4</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ALL_LOSE_TAU</TurnAbility>
+        <ExorciseAbility>ALL_LOSE_TAU</ExorciseAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>   
+    
+    <Ghost name="Dark Mistress" id="62" color="BLUE" image="@drawable/wu_feng_62_dark_mistress">
+        <Resistance>
+            <Blue>3</Blue>
+        </Resistance>
+        <EnterAbility>NO_TAU</EnterAbility>
+        <TurnAbility></TurnAbility>        
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Creeping Horror" id="63" color="GREEN" image="@drawable/wu_feng_63_creeping_horror">
+        <Resistance>
+            <Green>4</Green>
+        </Resistance>
+        <EnterAbility>LOSE_DIE</EnterAbility>
+        <TurnAbility></TurnAbility>        
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Vampire Lord" id="64" color="YELLOW" image="@drawable/wu_feng_64_vampire_lord">
+        <Resistance>
+            <Yellow>4</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Nameless" id="65" color="BLACK" image="@drawable/wu_feng_65_nameless">
+        <Resistance>
+            <Red>1</Red>
+            <Blue>1</Blue>
+            <Green>1</Green>
+            <Yellow>1</Yellow>
+            <Black>1</Black>
+        </Resistance>
+        <EnterAbility>CLEAR_CIRCLE_OF_PRAYER</EnterAbility>
+        <TurnAbility>IGNORE_WHITE_DICE</TurnAbility>        
+        <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
+    </Ghost>      
+    
+    
+</Ghosts>

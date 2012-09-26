@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE Village [
+  <!ELEMENT Village (Tile+)>
+  <!ELEMENT Tile EMPTY>
+  <!ATTLIST Tile name CDATA #REQUIRED
+                 type CDATA #REQUIRED
+                 active_image CDATA #REQUIRED
+                 haunted_image CDATA #REQUIRED>                                                                    
+]>
+
+<Village>
+    <Tile name="Buddhist Temple" type="BUDDHIST_TEMPLE" 
+        active_image="@drawable/village_buddhist_temple"
+        haunted_image="@drawable/village_buddhist_temple_haunted"/>
+    
+    <Tile name="Cemetery" type="CEMETERY" 
+        active_image="@drawable/village_cemetery"
+        haunted_image="@drawable/village_cemetery_haunted"/>
+    
+    <Tile name="Circle Of Prayer" type="CIRCLE_OF_PRAYER" 
+        active_image="@drawable/village_circle_of_prayer"
+        haunted_image="@drawable/village_circle_of_prayer_haunted"/>
+    
+    <Tile name="Herbalist's Shop" type="HERBALISTS_SHOP" 
+        active_image="@drawable/village_herbalists_shop"
+        haunted_image="@drawable/village_herbalists_shop_haunted"/>
+    
+    <Tile name="Night Watchman's Beat" type="NIGHT_WATCHMANS_BEAT"
+        active_image="@drawable/village_night_watchmans_beat"
+        haunted_image="@drawable/village_night_watchmans_beat_haunted"/>
+    
+    <Tile name="Pavilion of the Heavenly Winds" type="PAVILION_OF_THE_HEAVENLY_WINDS"
+        active_image="@drawable/village_pavilion_of_the_heavenly_wind"
+        haunted_image="@drawable/village_pavilion_of_the_heavenly_wind_haunted"/>
+    
+    <Tile name="Sorcerer's Hut" type="SORCERERS_HUT"
+        active_image="@drawable/village_sorcerers_hut"
+        haunted_image="@drawable/village_sorcerers_hut_haunted"/>
+    
+    <Tile name="Taoist Altar" type="TAOIST_ALTAR"
+        active_image="@drawable/village_taoist_altar"
+        haunted_image="@drawable/village_taoist_altar_haunted"/>
+    
+    <Tile name="Tea House" type="TEA_HOUSE"
+        active_image="@drawable/village_tea_house"
+        haunted_image="@drawable/village_tea_house_haunted"/>
+</Village>

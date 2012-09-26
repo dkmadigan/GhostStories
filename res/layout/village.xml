@@ -1,0 +1,88 @@
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/village"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <TableRow android:layout_weight="1" >
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_1"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_2"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_3"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+    </TableRow>
+
+    <TableRow android:layout_weight="1" >
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_4"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_5"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_6"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+    </TableRow>
+
+    <TableRow android:layout_weight="1" >
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_7"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_8"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+
+        <games.ghoststories.views.VillageTileView
+            android:id="@+id/village_tile_9"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/village_tile"
+            android:scaleType="fitXY" >
+        </games.ghoststories.views.VillageTileView>
+    </TableRow>
+</TableLayout>

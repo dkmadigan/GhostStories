@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GhostStories</string>
+    <string name="left_space">Left Space</string>
+    <string name="middle_space">Middle Space</string>
+    <string name="right_space">Right Space</string>
+    <string name="board_haunter">Board Haunter</string>
+    <string name="tile_haunter">Tile Haunter</string>
+    <string name="village_tile">Village Tile</string>
+</resources>

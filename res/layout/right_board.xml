@@ -1,0 +1,107 @@
+<games.ghoststories.views.PlayerBoardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_board"
+    android:padding="5dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/right_tile_haunter"
+            android:contentDescription="@string/tile_haunter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/tile_haunter" />
+
+        <ImageView
+            android:id="@+id/middle_tile_haunter"
+            android:contentDescription="@string/tile_haunter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/tile_haunter" />
+
+        <ImageView            
+            android:id="@+id/left_tile_haunter"
+            android:contentDescription="@string/tile_haunter"            
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/tile_haunter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/right_board_haunter"
+            android:contentDescription="@string/board_haunter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/board_haunter" />
+
+        <ImageView
+            android:id="@+id/middle_board_haunter"
+            android:contentDescription="@string/board_haunter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/board_haunter" />
+
+        <ImageView
+            android:id="@+id/left_board_haunter"
+            android:contentDescription="@string/board_haunter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/board_haunter" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/right_space"
+            android:contentDescription="@string/right_space"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>  
+            <!-- android:src="@drawable/yellow_right" /> -->
+
+        <ImageView
+            android:id="@+id/middle_space"
+            android:contentDescription="@string/middle_space"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" 
+            android:scaleType="fitXY"/>
+            <!-- android:src="@drawable/yellow_middle" /> -->
+
+        <ImageView
+            android:id="@+id/left_space"
+            android:contentDescription="@string/left_space"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
+            <!-- android:src="@drawable/yellow_left" /> -->
+    </LinearLayout>
+
+</games.ghoststories.views.PlayerBoardView>

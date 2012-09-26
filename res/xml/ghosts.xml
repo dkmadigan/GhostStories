@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<!DOCTYPE Ghosts [
+  <!ELEMENT Ghosts (Ghost+)>
+  <!ELEMENT Ghost (Resistance, EnterAbility*, TurnAbility*, ExorciseAbility*)>
+  <!ATTLIST Ghost name CDATA #REQUIRED
+                  id CDATA #REQUIRED
+                  color CDATA #REQUIRED
+                  image CDATA #REQUIRED>
+  <!ELEMENT Resistance (Red?, Blue?, Green?, Yellow?, Black?)>
+  <!ELEMENT Red (#PCDATA)>
+  <!ELEMENT Blue (#PCDATA)>
+  <!ELEMENT Green (#PCDATA)>
+  <!ELEMENT Yellow (#PCDATA)>
+  <!ELEMENT Black (#PCDATA)>
+  <!ELEMENT EnterAbility (#PCDATA)>
+  <!ELEMENT TurnAbility (#PCDATA)>
+  <!ELEMENT ExorciseAbility (#PCDATA)>
+]>
+
+<Ghosts>
+    <Ghost name="Ghoul" id="1" color="YELLOW" image="@drawable/ghost_01_ghoul">               
+        <Resistance>
+            <Yellow>1</Yellow>        
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Walking Corpse" id="2" color="YELLOW" image="@drawable/ghost_02_walking_corpse">        
+        <Resistance>
+            <Yellow>1</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>DICE_IMMUNITY</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>        
+    </Ghost>
+    
+    <Ghost name="Coffin Breakers" id="3" color="YELLOW" image="@drawable/ghost_03_coffin_breakers">        
+        <Resistance>
+            <Yellow>1</Yellow>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <EnterAbility>LOSE_ABILITY</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Coffin Breakers" id="4" color="YELLOW" image="@drawable/ghost_04_coffin_breakers">
+        <Resistance>
+            <Yellow>1</Yellow>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Restless Dead" id="5" color="YELLOW" image="@drawable/ghost_05_restless_dead">
+        <Resistance>
+            <Yellow>2</Yellow>
+        </Resistance>        
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Zombie" id="6" color="YELLOW" image="@drawable/ghost_06_zombie">
+        <Resistance>
+            <Yellow>2</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>        
+    </Ghost>
+    
+    <Ghost name="Zombie" id="7" color="YELLOW" image="@drawable/ghost_07_zombie">
+        <Resistance>
+            <Yellow>2</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Hopping Vampire" id="8" color="YELLOW" image="@drawable/ghost_08_hopping_vampire">
+        <Resistance>
+            <Yellow>3</Yellow>
+        </Resistance> 
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility> 
+    </Ghost>
+    
+    <Ghost name="Hopping Vampire" id="9" color="YELLOW" image="@drawable/ghost_09_hopping_vampire">
+        <Resistance>
+            <Yellow>3</Yellow>
+        </Resistance>         
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>          
+    </Ghost>
+    
+    <Ghost name="Yellow Plague" id="10" color="YELLOW" image="@drawable/ghost_10_yellow_plague">
+        <Resistance>
+            <Yellow>4</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Lich" id="11" color="YELLOW" image="@drawable/ghost_11_lich">
+        <Resistance>
+            <Yellow>4</Yellow>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Drowned Maiden" id="12" color="BLUE" image="@drawable/ghost_12_drowned_maiden">
+        <Resistance>
+            <Blue>1</Blue>
+        </Resistance>   
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility> 
+    </Ghost>
+    
+    <Ghost name="Hound of Depth" id="13" color="BLUE" image="@drawable/ghost_13_hound_of_depth">
+        <Resistance>
+            <Blue>1</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Perfidious Nymph" id="14" color="BLUE" image="@drawable/ghost_14_perfidious_nymph">
+        <Resistance>
+            <Blue>1</Blue>
+        </Resistance>    
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <EnterAbility>LOSE_ABILITY</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+        <Ghost name="Perfidious Nymph" id="15" color="BLUE" image="@drawable/ghost_15_perfidious_nymph">
+        <Resistance>
+            <Blue>1</Blue>
+        </Resistance>    
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+        
+    <Ghost name="Sticky feet" id="16" color="BLUE" image="@drawable/ghost_16_sticky_feet">
+        <Resistance>
+            <Blue>2</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>  
+        
+    <Ghost name="Abysmal" id="17" color="BLUE" image="@drawable/ghost_17_abysmal">
+        <Resistance>
+            <Blue>2</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Abysmal" id="18" color="BLUE" image="@drawable/ghost_18_abysmal">
+        <Resistance>
+            <Blue>2</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Ooze Devil" id="19" color="BLUE" image="@drawable/ghost_19_ooze_devil">
+        <Resistance>
+            <Blue>3</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Ooze Devil" id="20" color="BLUE" image="@drawable/ghost_20_ooze_devil">
+        <Resistance>
+            <Blue>3</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Liquid Horror" id="21" color="BLUE" image="@drawable/ghost_21_liquid_horror">
+        <Resistance>
+            <Blue>4</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Fury of depth" id="22" color="BLUE" image="@drawable/ghost_22_fury_of_depth">
+        <Resistance>
+            <Blue>4</Blue>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Creeping One" id="23" color="GREEN" image="@drawable/ghost_23_creeping_one">
+        <Resistance>
+            <Green>1</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Fungus Thing" id="24" color="GREEN" image="@drawable/ghost_24_fungus_thing">
+        <Resistance>
+            <Green>1</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>DICE_IMMUNITY</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Fallen Monks" id="25" color="GREEN" image="@drawable/ghost_25_fallen_monks">
+        <Resistance>
+            <Green>1</Green>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <EnterAbility>LOSE_ABILITY</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Fallen Monk" id="26" color="GREEN" image="@drawable/ghost_26_fallen_monk">
+        <Resistance>
+            <Green>1</Green>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Restless Spirit" id="27" color="GREEN" image="@drawable/ghost_27_restless_spirit">
+        <Resistance>
+            <Green>2</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Rotten Soul" id="28" color="GREEN" image="@drawable/ghost_28_rotten_soul">
+        <Resistance>
+            <Green>2</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Rotten Soul" id="29" color="GREEN" image="@drawable/ghost_29_rotten_soul">
+        <Resistance>
+            <Green>2</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Wicked One" id="30" color="GREEN" image="@drawable/ghost_30_wicked_one">
+        <Resistance>
+            <Green>3</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Wicked One" id="31" color="GREEN" image="@drawable/ghost_31_wicked_one">
+        <Resistance>
+            <Green>3</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Green Abomination" id="32" color="GREEN" image="@drawable/ghost_32_green_abomination">
+        <Resistance>
+            <Green>4</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Great Putrid" id="33" color="GREEN" image="@drawable/ghost_33_great_putrid">
+        <Resistance>
+            <Green>4</Green>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Skinner" id="34" color="RED" image="@drawable/ghost_34_skinner">
+        <Resistance>
+            <Red>1</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Reaper" id="35" color="RED" image="@drawable/ghost_35_reaper">
+        <Resistance>
+            <Red>1</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>DICE_IMMUNITY</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+        
+    <Ghost name="Sharp-Nailed Mistresses" id="36" color="RED" image="@drawable/ghost_36_sharp_nailed_mistresses">
+        <Resistance>
+            <Red>1</Red>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <EnterAbility>LOSE_ABILITY</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Sharp-Nailed Mistresses" id="37" color="RED" image="@drawable/ghost_37_sharp_nailed_mistresses">
+        <Resistance>
+            <Red>1</Red>
+        </Resistance>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Bleeding eyes" id="38" color="RED" image="@drawable/ghost_38_bleeding_eyes">
+        <Resistance>
+            <Red>2</Red>
+        </Resistance>
+        <EnterAbility>HAUNT</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Blood drinker" id="39" color="RED" image="@drawable/ghost_39_blood_drinker">
+        <Resistance>
+            <Red>2</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Blood drinker" id="40" color="RED" image="@drawable/ghost_40_blood_drinker">
+        <Resistance>
+            <Red>2</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+    </Ghost>
+
+    <Ghost name="Scarlet Evildoer" id="41" color="RED" image="@drawable/ghost_41_scarlet_evildoer">
+        <Resistance>
+            <Red>3</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Scarlet Evildoer" id="42" color="RED" image="@drawable/ghost_42_scarlet_evildoer">
+        <Resistance>
+            <Red>3</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility></ExorciseAbility>
+    </Ghost>        
+    
+    <Ghost name="Flesh Devourer" id="43" color="RED" image="@drawable/ghost_43_flesh_devourer">
+        <Resistance>
+            <Red>4</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+    </Ghost>        
+    
+    <Ghost name="Raging One" id="44" color="RED" image="@drawable/ghost_44_raging_one">
+        <Resistance>
+            <Red>3</Red>
+        </Resistance>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Gloomy Minion" id="45" color="BLACK" image="@drawable/ghost_45_gloomy_minion">
+        <Resistance>
+            <Black>1</Black>
+        </Resistance>
+        <EnterAbility>HAUNT_BOARD</EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Repellent Beauty" id="46" color="BLACK" image="@drawable/ghost_46_repellent_beauty">
+        <Resistance>
+            <Black>1</Black>
+        </Resistance>
+        <EnterAbility>LOSE_DIE</EnterAbility>
+        <TurnAbility>DICE_IMMUNITY</TurnAbility>
+        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+    </Ghost>    
+    
+    <Ghost name="Severed Heads" id="47" color="BLACK" image="@drawable/ghost_47_severed_heads">
+        <Resistance>
+            <Black>1</Black>
+        </Resistance>
+        <EnterAbility>LOSE_DIE</EnterAbility>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+    </Ghost>      
+    
+    <Ghost name="Severed Heads" id="48" color="BLACK" image="@drawable/ghost_48_severed_heads">
+        <Resistance>
+            <Black>1</Black>
+        </Resistance>
+        <EnterAbility>LOSE_DIE</EnterAbility>
+        <EnterAbility>SUMMON_GHOST</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+    </Ghost>   
+    
+    <Ghost name="Grave Walker" id="49" color="BLACK" image="@drawable/ghost_49_grave_walker">
+        <Resistance>
+            <Black>2</Black>
+        </Resistance>
+        <EnterAbility>LOSE_QI</EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>   
+    
+    <Ghost name="Black Widow" id="50" color="BLACK" image="@drawable/ghost_50_black_widow">
+        <Resistance>
+            <Black>2</Black>
+        </Resistance>
+        <EnterAbility>NO_TAU</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Black Widow" id="51" color="BLACK" image="@drawable/ghost_51_black_widow">
+        <Resistance>
+            <Black>2</Black>
+        </Resistance>
+        <EnterAbility>NO_TAU</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost> 
+    
+    <Ghost name="Dark Wraith" id="52" color="BLACK" image="@drawable/ghost_52_dark_wraith">
+        <Resistance>
+            <Black>3</Black>
+        </Resistance>
+        <EnterAbility>HAUNT_BOARD</EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Dark Wraith" id="53" color="BLACK" image="@drawable/ghost_53_dark_wraith">
+        <Resistance>
+            <Black>3</Black>
+        </Resistance>
+        <EnterAbility>HAUNT_BOARD</EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Shapeless Evil" id="54" color="BLACK" image="@drawable/ghost_54_shapeless_evil">
+        <Resistance>
+            <Black>4</Black>
+        </Resistance>
+        <EnterAbility>HAUNT_TILE</EnterAbility>
+        <TurnAbility></TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+    
+    <Ghost name="Soul Eater" id="55" color="BLACK" image="@drawable/ghost_55_soul_eater">
+        <Resistance>
+            <Black>4</Black>
+        </Resistance>
+        <EnterAbility>ALL_LOSE_TAU</EnterAbility>
+        <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
+        <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
+    </Ghost>
+</Ghosts>
