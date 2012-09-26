@@ -34,7 +34,7 @@ public class PlayerTokenAreaView extends LinearLayout {
          TauTokenView tauTokenView = (TauTokenView)findViewById(color.getTokenId());
          tauTokenView.setPlayerData(mPlayerData);
       }
-      
+            
       YinYangTokenView yinYangTokenView = (YinYangTokenView)findViewById(R.id.yin_yang);
       yinYangTokenView.setPlayerData(mPlayerData);      
    }     

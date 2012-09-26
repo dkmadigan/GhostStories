@@ -43,6 +43,7 @@ public class QiTokenView extends AbstractNumberedTokenView {
    @Override
    public void setPlayerData(PlayerData pData) {
       super.setPlayerData(pData);
+      //Test comment
       setNumber(mPlayerData.getQi());
    }
 }
