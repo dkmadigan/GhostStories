@@ -42,6 +42,7 @@ public class PlayerBoardView extends LinearLayout implements IGameBoardListener 
       }
       ImageView card = (ImageView)findViewById(cardId);
 
+      //Test Comment
       //card.setColorFilter(cf)
    }
 
