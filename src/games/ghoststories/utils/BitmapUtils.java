@@ -1,12 +1,9 @@
 package games.ghoststories.utils;
 
-import games.ghoststories.R;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.os.AsyncTask;
-import android.view.View;
 
 public abstract class BitmapUtils {     
         
