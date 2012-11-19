@@ -24,12 +24,14 @@ public class GhostData {
     * @param pEnterAbilities The abilities of the ghost upon entry
     * @param pTurnAbilities The abilities of the ghost executed every turn
     * @param pExorciseAbilities The abilities of the ghost upon exorcism
+    * @param pIsWuFeng Whether or not this ghost is a WuFeng incarnation
     */
    public GhostData(String pName, int pId, EColor pColor, int pImageId,
          Map<EColor, Integer> pResistance, 
          List<EGhostAbility> pEnterAbilities,
          List<EGhostAbility> pTurnAbilities, 
-         List<EGhostAbility> pExorciseAbilities) {
+         List<EGhostAbility> pExorciseAbilities,
+         boolean pIsWuFeng) {
       mName = pName;
       mId = pId;
       mColor = pColor;
@@ -37,7 +39,8 @@ public class GhostData {
       mResistance = new HashMap<EColor, Integer>(pResistance);
       mEnterAbilities = new ArrayList<EGhostAbility>(pEnterAbilities);
       mTurnAbilities =  new ArrayList<EGhostAbility>(pTurnAbilities);
-      mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);            
+      mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);    
+      mIsWuFeng = pIsWuFeng;
    }   
         
    /**
@@ -97,10 +100,32 @@ public class GhostData {
    }
    
    /**
+    * @return Whether or not this card is being dragged
+    */
+   public boolean isDragging() {
+      return mIsDragging;
+   }
+   
+   /**
     * @return Whether or not this card is flipped over
     */
    public boolean isFlipped() {
       return mIsFlipped;
+   }
+   
+   /**
+    * @return Whether or not this is a wu feng incarnation
+    */
+   public boolean isWuFeng() {
+      return mIsWuFeng;
+   }
+   
+   /**
+    * Sets whether or not this card is being dragged
+    * @param pDragging
+    */
+   public void setIsDragging(boolean pDragging) {
+      mIsDragging = pDragging;
    }
    
    /**
@@ -140,8 +165,12 @@ public class GhostData {
    private final int mId;
    /** The id of the image file for the ghost card **/
    private final int mImageId;
+   /** Whether or not this ghost card is being dragged **/
+   private boolean mIsDragging = false;
    /** Whether or not this ghost card has been flipped over **/
    private boolean mIsFlipped = false;
+   /** Whether or not this ghost is a wu feng incarnation **/
+   private boolean mIsWuFeng;
    /** The name of the ghost **/
    private final String mName;
    /** Mapping of the resistance of this ghost **/

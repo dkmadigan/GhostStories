@@ -34,7 +34,7 @@ public class AbstractNumberedTokenView extends NumberedImageView {
    public AbstractNumberedTokenView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       //Since the text size is determined based on the view size, it must
       //be set in onDraw after the component has a height and width.
-      super(pContext, pAttrs, pDefStyle, sXOffset, sYOffset, -1);
+      super(pContext, pAttrs, pDefStyle, sXOffset, sYOffset, -1, sDefaultColor);
    }
    
    /**
@@ -52,7 +52,7 @@ public class AbstractNumberedTokenView extends NumberedImageView {
    @Override
    protected void onDraw(Canvas pCanvas) {
       //Set the text size based on the image size
-      mTextSize = Math.min(getWidth(), getHeight()) / 3;
+      mPaint.setTextSize(Math.min(getWidth(), getHeight()) / 3);
       super.onDraw(pCanvas);
    }
    

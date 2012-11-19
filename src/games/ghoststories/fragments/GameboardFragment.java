@@ -1,20 +1,26 @@
 package games.ghoststories.fragments;
 
 import games.ghoststories.R;
+import games.ghoststories.controllers.PlayerBoardCardController;
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
 import games.ghoststories.data.VillageTileData;
 import games.ghoststories.enums.EBoardLocation;
+import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.ETileLocation;
 import games.ghoststories.views.PlayerAreaView;
+import games.ghoststories.views.PlayerBoardCardView;
 import games.ghoststories.views.PlayerBoardView;
 import games.ghoststories.views.PlayerTokenAreaView;
 import games.ghoststories.views.VillageTileView;
 
 import java.util.Map;
 
+import com.views.layouts.ZoomableRelativeLayout;
+
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,17 +36,19 @@ public class GameboardFragment extends Fragment {
    @Override
    public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer,
          Bundle pSavedInstanceState) {            
-      GridLayout gridLayout = new GridLayout(getActivity());
-      gridLayout.setColumnCount(sNumCols);
-      gridLayout.setColumnCount(sNumRows);
-      
       Point size = new Point();
       getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-      int screenHeight = size.y;
+      //final int screenHeight = size.y*4;
+      final int screenHeight = size.y;
 
-      int boardHeight = (int)((float)screenHeight * (2.0f/7.0f));
-      int boardWidth = (int)((float)screenHeight * (5.0f/7.0f));
+      final int boardHeight = (int)((float)screenHeight * (2.0f/7.0f));
+      final int boardWidth = (int)((float)screenHeight * (5.0f/7.0f));
       int villageSize = (int)((float)screenHeight * (3.0f/7.0f));
+      
+      GridLayout gridLayout = new GridLayout(getActivity());               
+      gridLayout.setColumnCount(sNumCols);
+      gridLayout.setColumnCount(sNumRows);
+           
       GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
       
       createPlayerArea(pInflater, pContainer, gridLayout, R.layout.top_player_area, 
@@ -65,8 +73,8 @@ public class GameboardFragment extends Fragment {
       initVillageTiles(gridLayout);
       
       //Setup the player token areas
-      initPlayerTokenAreas(gridLayout);      
-                 
+      initPlayerTokenAreas(gridLayout);                                  
+      
       return gridLayout;
    }
    
@@ -107,7 +115,13 @@ public class GameboardFragment extends Fragment {
       for(GameBoardData gb : gameBoards.values()) {
          PlayerBoardView board = 
                (PlayerBoardView)pView.findViewById(gb.getLocation().getBoardId());
-         board.setGameBoardData(gb);         
+         board.setGameBoardData(gb);   
+         for(ECardLocation cardLoc : ECardLocation.values()) {
+            PlayerBoardCardView view = (PlayerBoardCardView)board.findViewById(
+                  cardLoc.getCardLocationId());
+            view.setGameBoardData(gb);            
+            new PlayerBoardCardController(gb, view, cardLoc);
+         }                  
       }     
    }
    
@@ -135,8 +149,10 @@ public class GameboardFragment extends Fragment {
       for(VillageTileData tileData : villageTiles.values()) {
          VillageTileView tileView = 
                (VillageTileView)pView.findViewById(tileData.getLocation().getLayoutId());
+         tileData.setViewId(tileView.getId());
          tileView.setVillageTileData(tileData);
       }
+      
    }
    
    private static final int sNumRows = 7;

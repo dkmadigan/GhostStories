@@ -1,5 +1,6 @@
 package games.ghoststories.data;
 
+import android.view.View;
 import games.ghoststories.enums.ETileLocation;
 import games.ghoststories.enums.EVillageTile;
 
@@ -60,6 +61,13 @@ public class VillageTileData {
    }
    
    /**
+    * @return The village tile view id
+    */
+   public int getViewId() {
+      return mViewId;
+   }
+   
+   /**
     * @return Whether or not this village tile is active
     */
    public boolean isActive() {
@@ -80,6 +88,13 @@ public class VillageTileData {
    public void setLocation(ETileLocation pLocation) {
       mLocation = pLocation;
    }
+   
+   /**
+    * @param pId The village tile view id
+    */
+   public void setViewId(int pId) {
+      mViewId = pId;
+   }
       
    /** The active tile image id **/
    private final int mActiveImageId;
@@ -93,5 +108,6 @@ public class VillageTileData {
    private final String mName;
    /** The type of village tile **/
    private final EVillageTile mType;
-   
+   /** The village tile view id **/
+   private int mViewId = View.NO_ID;
 }

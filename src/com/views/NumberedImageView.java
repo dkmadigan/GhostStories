@@ -43,7 +43,7 @@ public class NumberedImageView extends ImageView {
     * @param pDefStyle The default style applied to this view
     */
    public NumberedImageView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
-      this(pContext, pAttrs, pDefStyle, sDefaultXOffset, sDefaultYOffset, -1);      
+      this(pContext, pAttrs, pDefStyle, sDefaultXOffset, sDefaultYOffset, -1, sDefaultColor);      
    }
    
    /**
@@ -59,11 +59,18 @@ public class NumberedImageView extends ImageView {
     *                         one of the attributes
     */
    public NumberedImageView(Context pContext, AttributeSet pAttrs, int pDefStyle,
-         float pDefaultXOffset, float pDefaultYOffset, int pDefaultTextSize) {
+         float pDefaultXOffset, float pDefaultYOffset, int pDefaultTextSize,
+         int pDefaultColor) {
       super(pContext, pAttrs, pDefStyle);
       mXOffset = pDefaultXOffset;
-      mYOffset = pDefaultYOffset;
-      mTextSize = pDefaultTextSize;
+      mYOffset = pDefaultYOffset;          
+      
+      mPaint = new Paint();
+      mPaint.setColor(pDefaultColor);
+      mPaint.setStyle(Style.FILL);            
+      mPaint.setTextSize(pDefaultTextSize);      
+      mPaint.setTextAlign(Align.CENTER);
+      mPaint.setTypeface(Typeface.SERIF);
       
       //Read in the attributes and set the values if specified
       TypedArray a = pContext.obtainStyledAttributes(pAttrs,
@@ -74,7 +81,7 @@ public class NumberedImageView extends ImageView {
          switch (attr)
          {
          case R.styleable.NumberedImageView_text_size:            
-            mTextSize = a.getInteger(attr, pDefaultTextSize);            
+            mPaint.setTextSize(a.getInteger(attr, pDefaultTextSize));            
             break;
          case R.styleable.NumberedImageView_x_offset:
             mXOffset = a.getFloat(attr, pDefaultXOffset);
@@ -82,16 +89,21 @@ public class NumberedImageView extends ImageView {
          case R.styleable.NumberedImageView_y_offset:
             mYOffset = a.getFloat(attr, pDefaultYOffset);
             break;
+         case R.styleable.NumberedImageView_text_color:
+            mPaint.setColor(a.getInteger(attr, pDefaultColor));
+            break;
          }
       }
       a.recycle();
+      
+
    }
    
    /**
     * @return The text size of the number overlay
     */
    public int getTextSize() {
-      return mTextSize;
+      return (int)(mPaint.getTextSize());
    }
    
    /**
@@ -126,11 +138,21 @@ public class NumberedImageView extends ImageView {
    }
    
    /**
+    * Sets whether or not to show the number
+    * @param pShowNumber Whether or not to show the number
+    */
+   public void setShowNumber(boolean pShowNumber) {
+      mShowNumber = pShowNumber;
+      //Trigger a repaint of this component when the number changes
+      postInvalidate();
+   }
+   
+   /**
     * Sets the text size for the number overlay
     * @param pTextSize The text size of the number overlay
     */
    public void setTextSize(int pTextSize) {
-      mTextSize = pTextSize;
+      mPaint.setTextSize(pTextSize);      
       //Trigger a repaint of this component when the text size changes
       postInvalidate();
    }
@@ -181,30 +203,27 @@ public class NumberedImageView extends ImageView {
       super.onDraw(pCanvas);           
       
       //Draw the number on top of the image
-      Paint paint = new Paint();
-      paint.setColor(Color.WHITE);
-      paint.setStyle(Style.FILL);      
-      if(mTextSize != -1) {
-         paint.setTextSize(mTextSize);
-      }      
-      paint.setTextAlign(Align.CENTER);
-      paint.setTypeface(Typeface.SERIF);
-      pCanvas.drawText(Integer.toString(mNumber), 
-            getWidth() * mXOffset, getHeight() * mYOffset, paint);
-   }
+      if(mShowNumber) {
+         pCanvas.drawText(Integer.toString(mNumber), 
+               getWidth() * mXOffset, getHeight() * mYOffset, mPaint);
+      }
+   } 
    
-   /** The text size of the overlay **/
-   protected int mTextSize = -1;
+   /** The default text color **/
+   protected static final int sDefaultColor = Color.WHITE;
+   /** The paint to use for the number **/
+   protected Paint mPaint;
    
    /** The default x offset **/
    private static final float sDefaultXOffset = 0.5f;
    /** The default y offset **/
    private static final float sDefaultYOffset = 0.5f;
    /** The alpha value when the number is zero **/
-   private static final float sZeroAlpha = 0.3f;
-   
+   private static final float sZeroAlpha = 0.3f;      
    /** The number to show in the overlay **/
-   private int mNumber;
+   private int mNumber;   
+   /** Whether or not to show the number **/
+   private boolean mShowNumber = true;
    /** The x offset of the number overlay **/     
    private float mXOffset;
    /** The y offset of the number overlay **/

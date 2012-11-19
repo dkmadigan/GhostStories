@@ -80,7 +80,5 @@ public abstract class BitmapUtils {
       return Bitmap.createBitmap(pOriginal, 0, 0, 
             pOriginal.getWidth(), pOriginal.getHeight(), 
             matrix, true);
-   }
-   
-
+   }        
 }

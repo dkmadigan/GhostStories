@@ -10,11 +10,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 
 public class AuxAreaFragment extends Fragment {
    @Override
    public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer,
-         Bundle pSavedInstanceState) {
+         Bundle pSavedInstanceState) {      
       View auxAreaView = pInflater.inflate(R.layout.aux_area, pContainer, false);
       
       GhostDeckView ghostDeckView = 
@@ -22,8 +24,8 @@ public class AuxAreaFragment extends Fragment {
       GhostDeckData ghostDeckData = 
             GhostStoriesGameManager.getInstance().getGhostDeckData();      
       ghostDeckView.setGhostDeckData(ghostDeckData);
-      new GhostDeckController(ghostDeckData, ghostDeckView);
-
+      new GhostDeckController(ghostDeckData, ghostDeckView);                 
+      
       return auxAreaView;
-   }
+   }        
 }

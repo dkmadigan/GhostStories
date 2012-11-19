@@ -86,6 +86,7 @@ public class XmlUtils {
       int imageId = -1;
       int id = -1;
       EColor color = null;         
+      boolean isWuFeng = false;
       Map<EColor, Integer> resistance =
             new HashMap<EColor, Integer>();
       List<EGhostAbility> enterAbilities = new ArrayList<EGhostAbility>();
@@ -106,6 +107,7 @@ public class XmlUtils {
                   id = parser.getAttributeIntValue(null, "id", -1);
                   color = EColor.valueOf(parser.getAttributeValue(null, "color"));                  
                   imageId = parser.getAttributeResourceValue(null, "image", -1);
+                  isWuFeng = parser.getAttributeBooleanValue(null, "isWuFeng", false);
                } else if(name.equalsIgnoreCase("Resistance")) {
                   parseResistance(parser, resistance);
                } else if(name.equalsIgnoreCase("EnterAbility")) {
@@ -122,7 +124,7 @@ public class XmlUtils {
                   //Create the ghost and add it to the list of ghosts
                   GhostData ghost = new GhostData(ghostName, id, color, 
                         imageId, resistance, enterAbilities, turnAbilities, 
-                        exorciseAbilities);
+                        exorciseAbilities, isWuFeng);
                   ghostList.add(ghost);
 
                   ghostName = null;

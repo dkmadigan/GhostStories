@@ -1,4 +1,4 @@
-<TableLayout
+<games.ghoststories.views.VillageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/village"
     android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY"> 
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
     </TableRow>
 
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
     </TableRow>
 
@@ -66,7 +66,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
 
         <games.ghoststories.views.VillageTileView
@@ -82,7 +82,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY" >
+            android:scaleType="fitXY">
         </games.ghoststories.views.VillageTileView>
     </TableRow>
-</TableLayout>
+</games.ghoststories.views.VillageView>

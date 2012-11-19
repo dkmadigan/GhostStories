@@ -4,6 +4,7 @@
         <attr name="x_offset" format="float"/>
         <attr name="y_offset" format="float"/>
         <attr name="text_size" format="integer"/>
+        <attr name="text_color" format="integer"/>
     </declare-styleable>
     
     <declare-styleable name="TauTokenView">
@@ -15,4 +16,12 @@
             <enum name="yellow" value="4" />
         </attr>       
     </declare-styleable>
+    
+    <declare-styleable name="PlayerBoardCardView">
+        <attr name="card_location">
+            <enum name="left" value="0"/>
+            <enum name="middle" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+    </declare-styleable>     
 </resources>

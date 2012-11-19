@@ -1,20 +1,42 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<games.ghoststories.views.AuxAreaView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gs="http://schemas.android.com/apk/res/games.ghoststories"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"      
     android:orientation="vertical" >
 
-    <games.ghoststories.views.GamePhaseView
-        android:id="@+id/game_phase"
+    <RelativeLayout
+        android:id="@+id/game_phase_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@drawable/parchment"
-        android:gravity="center"
-        android:scaleType="fitXY"
-        android:textColor="@android:color/white"
-        android:textSize="48sp" />
-
+        android:background="@drawable/parchment">
+   
+        <games.ghoststories.views.GamePhaseView
+            android:id="@+id/game_phase"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"          
+            android:gravity="center_horizontal"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="15dp"
+            android:text="Yin Phase 1A: Ghost&apos;s Actions"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+        
+        <games.ghoststories.views.GamePhaseDetailsView
+            android:id="@+id/game_phase_details"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"          
+            android:gravity="left"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp"
+            android:paddingTop="15dp"
+            android:layout_below="@id/game_phase"
+            android:text="-Test Details"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />               
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,32 +45,37 @@
 
         <games.ghoststories.views.GhostDeckView
             android:id="@+id/ghost_deck"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="130dp"            
+            android:layout_height="195dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"                 
             android:src="@drawable/ghost_card_back"
             gs:text_size="24"
-            gs:x_offset="0.9"
-            gs:y_offset="0.8" />
+            gs:x_offset="0.85"
+            gs:y_offset="0.1" />
 
         <com.views.NumberedImageView
             android:id="@+id/ghost_graveyard"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/ghost_deck"
+            android:layout_width="130dp"
+            android:layout_height="195dp"
+            android:layout_marginBottom="15dp" 
+            android:layout_alignParentBottom="true"           
+            android:layout_toRightOf="@id/ghost_deck"
             android:src="@drawable/ghost_card_back"
             gs:text_size="24"
+            gs:text_color="0xFF000000"
             gs:x_offset="0.9"
-            gs:y_offset="0.8" />
+            gs:y_offset="0.8"/>
 
         <games.ghoststories.views.TauTokenView
             android:id="@+id/black_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/ghost_graveyard"
+            android:layout_alignTop="@id/ghost_deck"
+            android:layout_toRightOf="@id/ghost_graveyard"
             android:src="@drawable/tau_token_black"
             gs:token_color="black" />
 
@@ -56,8 +83,8 @@
             android:id="@+id/blue_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/black_tau_tokens"
+            android:layout_alignTop="@id/ghost_deck"
+            android:layout_toRightOf="@id/black_tau_tokens"
             android:src="@drawable/tau_token_blue"
             gs:token_color="blue" />
 
@@ -65,8 +92,8 @@
             android:id="@+id/green_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/blue_tau_tokens"
+            android:layout_alignTop="@id/ghost_deck"
+            android:layout_toRightOf="@id/blue_tau_tokens"
             android:src="@drawable/tau_token_green"
             gs:token_color="green" />
 
@@ -74,9 +101,9 @@
             android:id="@+id/red_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/black_tau_tokens"
+            android:layout_below="@id/black_tau_tokens"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/ghost_graveyard"
+            android:layout_toRightOf="@id/ghost_graveyard"
             android:src="@drawable/tau_token_red"
             gs:token_color="red" />
 
@@ -84,8 +111,8 @@
             android:id="@+id/yellow_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/blue_tau_tokens"
-            android:layout_toRightOf="@+id/red_tau_tokens"
+            android:layout_below="@id/blue_tau_tokens"
+            android:layout_toRightOf="@id/red_tau_tokens"
             android:src="@drawable/tau_token_yellow"
             gs:token_color="yellow" />
 
@@ -93,19 +120,39 @@
             android:id="@+id/qi_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/green_tau_tokens"
-            android:layout_toRightOf="@+id/yellow_tau_tokens"
+            android:layout_below="@id/green_tau_tokens"
+            android:layout_toRightOf="@id/yellow_tau_tokens"
             android:src="@drawable/qi_token" />
+        
+        <games.ghoststories.views.AuxAreaPlayerView
+            android:id="@+id/player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/yellow_tau_tokens"
+            android:layout_alignLeft="@id/yellow_tau_tokens"
+            android:src="@drawable/monk_blue"/>
 
         <Button
             android:id="@+id/next_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_alignTop="@id/ghost_deck"
             android:layout_toRightOf="@+id/green_tau_tokens"
             android:onClick="nextButtonCB"
             android:text="NEXT" />
+        
+        <ImageView 
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ghost_deck"
+            android:layout_alignRight="@id/ghost_deck"
+            android:onClick="cardInfoCB"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+            android:src="@drawable/info"/>
+        
     </RelativeLayout>
 
-</LinearLayout>
+</games.ghoststories.views.AuxAreaView>

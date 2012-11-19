@@ -18,7 +18,7 @@
 ]>
 
 <Ghosts>
-    <Ghost name="Howling Nightmare" id="56" color="BLACK" image="@drawable/wu_feng_56_howling_nightmare">
+    <Ghost name="Howling Nightmare" id="56" color="BLACK" image="@drawable/wu_feng_56_howling_nightmare" isWuFeng="true">
         <Resistance>
             <Black>3</Black>
         </Resistance>
@@ -27,7 +27,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
     
-    <Ghost name="Uncatchable" id="57" color="BLACK" image="@drawable/wu_feng_57_uncatchable">
+    <Ghost name="Uncatchable" id="57" color="BLACK" image="@drawable/wu_feng_57_uncatchable" isWuFeng="true">
         <Resistance>
             <Black>3</Black>
         </Resistance>
@@ -36,7 +36,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
     
-    <Ghost name="Hope Killer" id="58" color="BLACK" image="@drawable/wu_feng_58_hope_killer">
+    <Ghost name="Hope Killer" id="58" color="BLACK" image="@drawable/wu_feng_58_hope_killer" isWuFeng="true">
         <Resistance>
             <Red>2</Red>
             <Blue>2</Blue>
@@ -49,7 +49,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
     
-    <Ghost name="Deaths Army" id="59" color="BLACK" image="@drawable/wu_feng_59_deaths_army">
+    <Ghost name="Deaths Army" id="59" color="BLACK" image="@drawable/wu_feng_59_deaths_army" isWuFeng="true">
         <Resistance>
             <Black>5</Black>
         </Resistance>
@@ -59,7 +59,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
 
-    <Ghost name="Forgotten Ones" id="60" color="BLACK" image="@drawable/wu_feng_60_forgotten_ones">
+    <Ghost name="Forgotten Ones" id="60" color="BLACK" image="@drawable/wu_feng_60_forgotten_ones" isWuFeng="true">
         <Resistance>
             <Black>3</Black>
         </Resistance>
@@ -68,7 +68,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>        
     </Ghost>    
     
-    <Ghost name="Bone Cracker" id="61" color="RED" image="@drawable/wu_feng_61_bone_cracker">
+    <Ghost name="Bone Cracker" id="61" color="RED" image="@drawable/wu_feng_61_bone_cracker" isWuFeng="true">
         <Resistance>
             <Red>4</Red>
         </Resistance>
@@ -78,7 +78,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>   
     
-    <Ghost name="Dark Mistress" id="62" color="BLUE" image="@drawable/wu_feng_62_dark_mistress">
+    <Ghost name="Dark Mistress" id="62" color="BLUE" image="@drawable/wu_feng_62_dark_mistress" isWuFeng="true">
         <Resistance>
             <Blue>3</Blue>
         </Resistance>
@@ -87,7 +87,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
     
-    <Ghost name="Creeping Horror" id="63" color="GREEN" image="@drawable/wu_feng_63_creeping_horror">
+    <Ghost name="Creeping Horror" id="63" color="GREEN" image="@drawable/wu_feng_63_creeping_horror" isWuFeng="true">
         <Resistance>
             <Green>4</Green>
         </Resistance>
@@ -96,7 +96,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>    
     
-    <Ghost name="Vampire Lord" id="64" color="YELLOW" image="@drawable/wu_feng_64_vampire_lord">
+    <Ghost name="Vampire Lord" id="64" color="YELLOW" image="@drawable/wu_feng_64_vampire_lord" isWuFeng="true">
         <Resistance>
             <Yellow>4</Yellow>
         </Resistance>
@@ -105,7 +105,7 @@
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>
     
-    <Ghost name="Nameless" id="65" color="BLACK" image="@drawable/wu_feng_65_nameless">
+    <Ghost name="Nameless" id="65" color="BLACK" image="@drawable/wu_feng_65_nameless" isWuFeng="true">
         <Resistance>
             <Red>1</Red>
             <Blue>1</Blue>

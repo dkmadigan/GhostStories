@@ -113,7 +113,6 @@ public class GhostStoriesGameManager {
       return mGhostDeck;
    }
    
-
    /**
     * Called to initialize the game. Sets up all necessary game data before
     * returning. It is recommended to call this on a background thread to avoid
@@ -199,6 +198,16 @@ public class GhostStoriesGameManager {
    public PlayerData getPlayerData(EColor pColor) {
       return mPlayerData.get(pColor);
    }
+   
+   /**
+    * Gets the village tile where the passed in player is currently at.
+    * @param pColor The color of the player to get the tile for
+    * @return The tile where the player is at
+    */
+   public VillageTileData getVillageTile(EColor pColor) {
+      return mVillageTiles.get(mPlayerData.get(pColor).getLocation());
+   }
+   
    
    /**
     * Gets the village tile at the passed in {@link ETileLocation}
@@ -344,7 +353,7 @@ public class GhostStoriesGameManager {
       new EnumMap<ETileLocation, VillageTileData>(ETileLocation.class);
    
    /** The current game phase **/
-   private EGamePhase mGamePhase = EGamePhase.EYinPhase1A;
+   private EGamePhase mGamePhase = EGamePhase.EYinPhase3;
    /** Listeners for game phase updates **/
    private Set<IGamePhaseListener> mGamePhaseListeners = 
          new CopyOnWriteArraySet<IGamePhaseListener>();

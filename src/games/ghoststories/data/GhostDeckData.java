@@ -74,12 +74,21 @@ public class GhostDeckData {
    }
    
    /**
+    * Adds a card to the top of the deck.
+    * @param pGhostData The data of the card to add
+    */
+   public void addTopCard(GhostData pGhostData) {
+      mGhostDeck.push(pGhostData);
+      notifyListeners();
+   }
+   
+   /**
     * Sets the status of the top card to flipped
     */
    public void flipTopCard() {
       GhostData data = mGhostDeck.peek();
-      if(data != null && !data.isFlipped()) {
-         data.setIsFlipped(true);         
+      if(data != null) {
+         data.setIsFlipped(!data.isFlipped());         
          notifyListeners();
       }
    }
@@ -96,7 +105,7 @@ public class GhostDeckData {
     */
    public GhostData getTopCard() {
       return mGhostDeck.peek();
-   }
+   }   
    
    /**
     * Removes a listener from the listener list
@@ -113,6 +122,16 @@ public class GhostDeckData {
       GhostData topCard = mGhostDeck.pop();
       notifyListeners();
       return topCard;
+   }
+   
+   /**
+    * Sets the dragging state of the top card
+    * @param pDragging 
+    */
+   public void setTopCardDragging(boolean pDragging) {
+      GhostData topCard = mGhostDeck.peek();
+      topCard.setIsDragging(pDragging);
+      notifyListeners();      
    }
 
    /**

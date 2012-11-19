@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    
+<com.views.layouts.ZoomableRelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"   
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/canvas">
@@ -8,9 +9,7 @@
         android:id="@+id/gameboard_fragment"
         android:name="games.ghoststories.fragments.GameboardFragment"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
-        <!-- Preview: layout=@layout/square_layout -->
-    </fragment>
+        android:layout_height="match_parent" ></fragment>
     
     <include
         android:id="@+id/menu_bar"
@@ -28,7 +27,5 @@
         android:layout_below="@+id/menu_bar"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/gameboard_fragment">
-        <!-- Preview: layout=@layout/aux_area -->
-    </fragment>
-           
-</RelativeLayout>
+    </fragment>      
+</com.views.layouts.ZoomableRelativeLayout>

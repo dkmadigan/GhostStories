@@ -1,10 +1,15 @@
 package games.ghoststories.controllers;
 
 import android.content.ClipData;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.enums.EGamePhase;
@@ -34,10 +39,16 @@ public class GhostDeckController implements View.OnClickListener, View.OnTouchLi
       if(GhostStoriesGameManager.getInstance().getCurrentGamePhase() == 
             EGamePhase.EYinPhase3 && mGhostDeckData.getTopCard().isFlipped()) {
          if (pEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            ClipData clipData = ClipData.newPlainText("", "");
-            View.DragShadowBuilder dsb = new View.DragShadowBuilder(pView);
-            pView.startDrag(clipData, dsb, pView, 0);
-            //pView.setVisibility(View.INVISIBLE);
+            ClipData clipData = ClipData.newPlainText("", "");                
+            View.DragShadowBuilder dsb = new View.DragShadowBuilder(pView) {
+               @Override
+               public void onDrawShadow(Canvas canvas) {
+                  
+                  super.onDrawShadow(canvas);
+               }
+            };
+            mGhostDeckData.setTopCardDragging(true);
+            pView.startDrag(clipData, dsb, mGhostDeckData.getTopCard(), 0);            
             return true;
          } else {
             return false;
@@ -51,7 +62,11 @@ public class GhostDeckController implements View.OnClickListener, View.OnTouchLi
       switch(pEvent.getAction()) {
       case DragEvent.ACTION_DRAG_ENDED:
          Log.d("GhostCardController", "ACTION_DRAG_ENDED");
-         mGhostDeckData.removeTopCard();
+         if(pEvent.getResult()) {
+            mGhostDeckData.removeTopCard();
+         } else {
+            mGhostDeckData.setTopCardDragging(false);
+         }
          break;
       case DragEvent.ACTION_DRAG_ENTERED:
          Log.d("GhostCardController", "ACTION_DRAG_ENTERED");
@@ -66,7 +81,7 @@ public class GhostDeckController implements View.OnClickListener, View.OnTouchLi
          Log.d("GhostCardController", "ACTION_DRAG_STARTED");
          break;
       }
-      return true;
+      return false;
    }
    
    private final GhostDeckData mGhostDeckData;

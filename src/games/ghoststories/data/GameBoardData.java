@@ -47,6 +47,7 @@ public class GameBoardData {
     */
    public void addGhost(GhostData pGhost, ECardLocation pLocation) {
       mGhosts.put(pLocation, pGhost);
+      notifyListeners();
    }
    
    /**
@@ -61,6 +62,23 @@ public class GameBoardData {
     */
    public EColor getColor() {
       return mColor;
+   }
+   
+   /**
+    * @param pCardLocation The card location to get the ghost data for
+    * @return The data for the ghost at the specified card location or null
+    * if no ghost currently at the given location
+    */
+   public GhostData getGhostData(ECardLocation pCardLocation) {
+      return mGhosts.get(pCardLocation);
+   }
+   
+   /**
+    * @param pCardLocation The card location to get the empty id for
+    * @return The empty image resource id
+    */
+   public int getEmptyImageId(ECardLocation pCardLocation) {
+      return mEmptyImageIds.get(pCardLocation);
    }
    
    /**
@@ -97,6 +115,7 @@ public class GameBoardData {
     */
    public void removeGhost(ECardLocation pLocation) {
       mGhosts.remove(pLocation);
+      notifyListeners();
    }
    
    /**

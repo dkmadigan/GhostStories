@@ -1,9 +1,14 @@
 package games.ghoststories.views;
 
+import games.ghoststories.R;
+import games.ghoststories.data.GhostStoriesBitmaps;
+import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.VillageTileData;
+import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EVillageTile;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -55,11 +60,41 @@ public class VillageTileView extends ImageView {
    @Override
    protected void onDraw(Canvas pCanvas) {      
       super.onDraw(pCanvas);
-      if(mData.isActive()) {
-         setImageResource(mData.getActiveImageId());
-      } else {
-         setImageResource(mData.getHauntedImageId());
+      if(!isInEditMode()) {         
+         if(mData.isActive()) {
+            setImageResource(mData.getActiveImageId());
+         } else {
+            setImageResource(mData.getHauntedImageId());
+         }
+
+         GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
+         for(EColor c : EColor.getPlayerColors()) {
+            if(gm.getVillageTile(c).getLocation() == mData.getLocation()) {
+               float x = getWidth() / 2;
+               float y = getHeight() / 2;
+               pCanvas.drawBitmap(GhostStoriesBitmaps.sPlayerBitmaps.get(c), 
+                     null, getRect(c), null);
+            }
+         }          
+      }            
+   }
+   
+   private Rect getRect(EColor pColor) {
+      int h = getHeight();
+      int w = getWidth();
+      switch(pColor) {
+      case RED:
+         return new Rect(w/4, 0, w/2, h/3);
+      case BLUE:
+         return new Rect(w/2, 0, (w/4)*3, h/3);
+      case GREEN:
+         return new Rect(w/4, h/3, w/2, (h/3)*2);
+      case YELLOW:
+         return new Rect(w/2, h/3, (w/4)*3, (h/3)*2);
+      default:
+         break;
       }
+      return null;
    }
    
    /** The village tile data to use for this view **/

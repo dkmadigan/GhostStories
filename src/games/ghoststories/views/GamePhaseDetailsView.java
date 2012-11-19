@@ -9,19 +9,18 @@ import android.text.Html;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class GamePhaseView extends TextView implements IGamePhaseListener {
-
-   public GamePhaseView(Context pContext) {
+public class GamePhaseDetailsView extends TextView implements IGamePhaseListener {
+   public GamePhaseDetailsView(Context pContext) {
       super(pContext);
       init();
    }
 
-   public GamePhaseView(Context pContext, AttributeSet pAttrs) {
+   public GamePhaseDetailsView(Context pContext, AttributeSet pAttrs) {
       super(pContext, pAttrs);
       init();
    }
 
-   public GamePhaseView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
+   public GamePhaseDetailsView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
       init();
    }
@@ -34,22 +33,14 @@ public class GamePhaseView extends TextView implements IGamePhaseListener {
       GhostStoriesGameManager.getInstance().addGamePhaseListener(this);
       updateText(GhostStoriesGameManager.getInstance().getCurrentGamePhase());
    }
-
+   
    private void updateText(final EGamePhase pGamePhase) {
-      final String currentPlayerName; 
-      if(isInEditMode()) {
-         currentPlayerName = "Dave";
-      } else {
-         currentPlayerName = 
-               GhostStoriesGameManager.getInstance().getCurrentPlayerData().getName();
-      }
-
       if(GameUtils.isUIThread()) {         
-         setText(Html.fromHtml(pGamePhase.getName()));                
+         setText(Html.fromHtml(pGamePhase.getText()));
       } else {
          post(new Runnable() {
             public void run() {
-               setText(Html.fromHtml(pGamePhase.getName()));
+               setText(Html.fromHtml(pGamePhase.getText()));
             }});
       }
    }

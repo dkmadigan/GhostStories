@@ -3,6 +3,7 @@ package games.ghoststories.views;
 import games.ghoststories.R;
 import games.ghoststories.data.PlayerData;
 import games.ghoststories.utils.ImageRotationTask;
+import games.ghoststories.utils.ImageViewUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
@@ -43,28 +44,7 @@ public class BuddhaTokenView extends AbstractNumberedTokenView {
    public void setPlayerData(final PlayerData pData) {      
       super.setPlayerData(pData);        
       setNumber(mPlayerData.getNumBuddhaTokens());                 
-            
-      Integer rotateDegrees = null;
-      
-      //Rotate the buddha based on the current player location.
-      //TOP and BOTTOM are already rotated in the layout
-      switch(pData.getBoardLocation()) {      
-         case RIGHT:       
-         rotateDegrees = 270;      
-         break;  
-      case LEFT:
-         rotateDegrees = 90;               
-         break; 
-      }            
-      
-      if(rotateDegrees != null) {
-         ImageRotationTask rotateTask = new ImageRotationTask(this, R.drawable.buddha) {
-            @Override
-            protected void onPostExecute(Bitmap pResult) {          
-               setImageBitmap(pResult);
-            }
-         };
-         rotateTask.execute(rotateDegrees);
-      }
+      ImageViewUtils.setBoardLocationResource(this, pData.getBoardLocation(), 
+            R.drawable.buddha);           
    }     
 }
