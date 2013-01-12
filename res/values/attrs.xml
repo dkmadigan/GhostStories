@@ -23,5 +23,5 @@
             <enum name="middle" value="1"/>
             <enum name="right" value="2"/>
         </attr>
-    </declare-styleable>     
+    </declare-styleable>  
 </resources>

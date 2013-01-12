@@ -1,4 +1,4 @@
-<games.ghoststories.views.PlayerTokenAreaView 
+<games.ghoststories.views.gameboard.PlayerTokenAreaView 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gs="http://schemas.android.com/apk/res/games.ghoststories"
     android:id="@+id/bottom_token_area"
@@ -13,41 +13,41 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-        <games.ghoststories.views.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/black_tau_tokens"
             gs:token_color="black"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"             
-            android:src="@drawable/tau_token_black"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_black"/>
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/blue_tau_tokens"
             gs:token_color="blue"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"             
-            android:src="@drawable/tau_token_blue"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_blue"/>
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/green_tau_tokens"
             gs:token_color="green"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"            
-            android:src="@drawable/tau_token_green"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_green"/>
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/red_tau_tokens"
             gs:token_color="red"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"             
-            android:src="@drawable/tau_token_red"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_red"/>
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/yellow_tau_tokens"
             gs:token_color="yellow"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"             
-            android:src="@drawable/tau_token_yellow"/>
+            android:src="@drawable/tao_token_yellow"/>
     </LinearLayout>
     
     <LinearLayout
@@ -55,25 +55,19 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/player_ability"
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:src="@drawable/heavenly_gust"/>
-        <games.ghoststories.views.YinYangTokenView
+        <games.ghoststories.views.common.YinYangTokenView
             android:id="@+id/yin_yang"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"/>
             <!--  android:src="@drawable/yin_yang_blue"/> -->
-        <games.ghoststories.views.QiTokenView
+        <games.ghoststories.views.common.QiTokenView
             android:id="@+id/qi_tokens"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:src="@drawable/qi_token"/>
-        <games.ghoststories.views.BuddhaTokenView
+        <games.ghoststories.views.common.BuddhaTokenView
             android:id="@+id/buddha_tokens"
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -81,8 +75,10 @@
             android:src="@drawable/buddha"/>
     </LinearLayout>      
     
-    <Space 
+    <ImageView
+        android:id="@+id/ability"
+        android:contentDescription="@string/player_ability"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-</games.ghoststories.views.PlayerTokenAreaView>
+</games.ghoststories.views.gameboard.PlayerTokenAreaView>

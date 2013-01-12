@@ -4,9 +4,11 @@ import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.enums.ECardLocation;
-import games.ghoststories.enums.EColor;
+import games.ghoststories.enums.EGhostAbility;
+import games.ghoststories.enums.EHaunterLocation;
+import games.ghoststories.enums.EVillageTile;
 import games.ghoststories.utils.GameUtils;
-import games.ghoststories.views.PlayerBoardCardView;
+import games.ghoststories.views.gameboard.PlayerBoardCardView;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
@@ -41,10 +43,10 @@ public class PlayerBoardCardController implements OnDragListener {
             
             //Only allow dropping on this space if valid
             if(GameUtils.isSpaceValid(data, mGameBoardData, mCardLocation)) {
-               mGameBoardData.addGhost((GhostData)pEvent.getLocalState(), 
-                     mCardLocation);
+               GhostData ghostData = (GhostData)pEvent.getLocalState();
+               mGameBoardData.addGhost(ghostData, mCardLocation);
                handle = true;
-               GhostStoriesGameManager.getInstance().advanceGamePhase();
+               handleEnterAbility(ghostData);               
             }                       
          }         
          break;
@@ -56,6 +58,42 @@ public class PlayerBoardCardController implements OnDragListener {
             break;   
          }
          return handle;
+      }
+   
+      private void handleEnterAbility(GhostData pData) {
+         GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
+         boolean advanceGamePhase = true;
+         for(EGhostAbility ability : pData.getEnterAbilities()) {
+            switch(ability) {
+            case ALL_LOSE_ABILITY: //TODO Handle this
+               break;
+            case ALL_LOSE_TAU: //TODO Handle this
+               break;
+            case CLEAR_CIRCLE_OF_PRAYER:
+               gm.getVillageTile(EVillageTile.CIRCLE_OF_PRAYER).setTokenColor(null);
+               break;
+            case HAUNT_BOARD:
+               pData.setHaunterLocation(EHaunterLocation.BOARD, null);
+               break;
+            case HAUNT_TILE:
+               GameUtils.hauntVillageTile(mGameBoardData.getLocation(), 
+                     mCardLocation);
+               break;
+            case LOSE_ABILITY:
+               gm.getPlayerData(mGameBoardData.getColor()).setAbilityActive(false);
+               break;
+            case LOSE_DIE:
+               gm.adjustNumDice(-1);
+               break;
+            case SUMMON_GHOST:
+               //TODO Probably need to make it obvious you need to redraw a ghost
+               advanceGamePhase = false;
+               break;
+            }
+         }
+         if(advanceGamePhase) {
+            gm.advanceGamePhase();
+         }         
       }
 
       private final GameBoardData mGameBoardData;

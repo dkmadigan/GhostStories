@@ -1,8 +1,11 @@
 package games.ghoststories.data;
 
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import games.ghoststories.data.interfaces.IPlayerDataListener;
 import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EPlayerAbility;
@@ -32,12 +35,20 @@ public class PlayerData {
       }
    }
    
+   public void addPlayerDataListener(IPlayerDataListener pListener) {
+      mListeners.add(pListener);
+   }
+   
    public boolean isYinYangAvailable() {
       return mYinYangAvailable;
    }
    
    public EPlayerAbility getAbility() {
       return mBoardData.getAbility();
+   }
+   
+   public boolean getAbilityActive() {
+      return mAbilityActive;
    }
    
    public EBoardLocation getBoardLocation() {
@@ -68,24 +79,44 @@ public class PlayerData {
       return mQi;
    }
    
+   public void removePlayerDataListener(IPlayerDataListener pListener) {
+      mListeners.remove(pListener);
+   }
+   
+   public void setAbilityActive(boolean pAbilityActive) {
+      mAbilityActive = pAbilityActive;
+      notifyListeners();
+   }
+   
    public void setLocation(ETileLocation pLocation) {
       mLocation = pLocation;
+      notifyListeners();
    }
    
    public void setNumBuddhaTokens(int pNumBuddhaTokens) {
       mNumBuddhaTokens = pNumBuddhaTokens;
+      notifyListeners();
    }
    
    public void setNumTauTokens(EColor pColor, int pNumTokens) {
       mTauTokens.put(pColor, pNumTokens);
+      notifyListeners();
    }
    
    public void setQi(int pQi) {
       mQi = pQi;
+      notifyListeners();
    }
    
    public void setYinYangAvailable(boolean pAvailable) {
       mYinYangAvailable = pAvailable;
+      notifyListeners();
+   }
+   
+   private void notifyListeners() {
+      for(IPlayerDataListener listener : mListeners) {
+         listener.playerDataUpdated();
+      }
    }
    
    private final String mName;
@@ -97,4 +128,8 @@ public class PlayerData {
    private ETileLocation mLocation = ETileLocation.MIDDLE_CENTER;
    private final GameBoardData mBoardData;
    private int mNumBuddhaTokens;
+   private boolean mAbilityActive = true;
+   /** The set of listeners for ghost deck updates **/
+   private Set<IPlayerDataListener> mListeners = 
+         new HashSet<IPlayerDataListener>();
 }

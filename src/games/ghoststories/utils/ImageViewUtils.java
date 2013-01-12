@@ -1,9 +1,7 @@
 package games.ghoststories.utils;
 
 import games.ghoststories.enums.EBoardLocation;
-import games.ghoststories.enums.ECardLocation;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.widget.ImageView;
 
 public abstract class ImageViewUtils {

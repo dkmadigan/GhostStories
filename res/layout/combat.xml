@@ -1,0 +1,142 @@
+<games.ghoststories.views.combat.CombatView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7FFFFFFF"
+    tools:context=".activities.GameScreenActivity" >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginRight="300dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/background"
+        android:scaleType="fitXY"
+        android:src="@drawable/canvas" />
+
+    <include
+        android:id="@+id/info_area_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/background"
+        android:layout_alignTop="@id/background"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        layout="@layout/combat_player_info" />
+
+    <include
+        android:id="@+id/info_area_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/background"
+        android:layout_alignTop="@id/background"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        layout="@layout/combat_player_info" />
+
+    <include
+        android:id="@+id/info_area_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/background"
+        android:layout_below="@id/info_area_1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        layout="@layout/combat_player_info" />
+
+    <include
+        android:id="@+id/info_area_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/background"
+        android:layout_below="@id/info_area_2"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        layout="@layout/combat_player_info" />
+
+    <games.ghoststories.views.combat.CombatInstructions
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_area_3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/combat_attack"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+
+    <games.ghoststories.views.combat.CombatDiceAreaView
+        android:id="@+id/combat_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_area_3"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+
+        <games.ghoststories.views.combat.CombatDiceView
+            android:id="@+id/dice_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/dice"
+            android:src="@drawable/tao_dice_blue" />
+
+        <games.ghoststories.views.combat.CombatDiceView
+            android:id="@+id/dice_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/dice"
+            android:src="@drawable/tao_dice_yellow" />
+
+        <games.ghoststories.views.combat.CombatDiceView
+            android:id="@+id/dice_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/dice"
+            android:src="@drawable/tao_dice_white" />
+
+        <games.ghoststories.views.combat.CombatDiceView
+            android:id="@+id/extra_dice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/dice"
+            android:src="@drawable/extra_tao_dice_green" />
+    </games.ghoststories.views.combat.CombatDiceAreaView>
+    
+    <LinearLayout
+        android:id="@+id/combat_ghosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/combat_dice"
+        android:layout_centerHorizontal="true" >
+
+        <include
+            android:id="@+id/ghost1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            layout="@layout/combat_ghost" />
+
+        <include
+            android:id="@+id/ghost2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            layout="@layout/combat_ghost" />
+    </LinearLayout>
+
+</games.ghoststories.views.combat.CombatView>

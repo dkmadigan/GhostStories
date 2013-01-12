@@ -1,7 +1,9 @@
 package games.ghoststories.fragments;
 
 import games.ghoststories.R;
+import games.ghoststories.controllers.HaunterController;
 import games.ghoststories.controllers.PlayerBoardCardController;
+import games.ghoststories.controllers.VillageTileController;
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
@@ -10,20 +12,18 @@ import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.ETileLocation;
-import games.ghoststories.views.PlayerAreaView;
-import games.ghoststories.views.PlayerBoardCardView;
-import games.ghoststories.views.PlayerBoardView;
-import games.ghoststories.views.PlayerTokenAreaView;
-import games.ghoststories.views.VillageTileView;
+import games.ghoststories.views.gameboard.PlayerAreaView;
+import games.ghoststories.views.gameboard.PlayerBoardCardView;
+import games.ghoststories.views.gameboard.PlayerBoardView;
+import games.ghoststories.views.gameboard.PlayerTokenAreaView;
+import games.ghoststories.views.gameboard.VillageTileView;
 
 import java.util.Map;
 
-import com.views.layouts.ZoomableRelativeLayout;
-
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,16 +41,24 @@ public class GameboardFragment extends Fragment {
       //final int screenHeight = size.y*4;
       final int screenHeight = size.y;
 
-      final int boardHeight = (int)((float)screenHeight * (2.0f/7.0f));
-      final int boardWidth = (int)((float)screenHeight * (5.0f/7.0f));
-      int villageSize = (int)((float)screenHeight * (3.0f/7.0f));
+      //final int boardHeight = (int)((float)screenHeight * (2.0f/7.0f));
+      //final int boardWidth = (int)((float)screenHeight * (5.0f/7.0f));
+      //int villageSize = (int)((float)screenHeight * (3.0f/7.0f));
       
-      GridLayout gridLayout = new GridLayout(getActivity());               
+      final int boardHeight = (int)((float)screenHeight * (13.0f/56.0f));
+      final int boardWidth = (int)((float)screenHeight * (43.0f/56.0f));
+      int villageSize = (int)((float)screenHeight * (30.0f/56.0f));
+      
+      GridLayout gridLayout = new GridLayout(getActivity());
+      gridLayout.setClipChildren(false);
       gridLayout.setColumnCount(sNumCols);
       gridLayout.setColumnCount(sNumRows);
            
+      //1280x752      Log.d("GameboardFragment", "screenHeight = " + screenHeight);
+      Log.d("GameboardFragment", "screenWidth = " + size.x);
       GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
       
+      /*
       createPlayerArea(pInflater, pContainer, gridLayout, R.layout.top_player_area, 
             GridLayout.spec(0, 2), GridLayout.spec(0, 5), boardWidth, boardHeight,
             gm.getGameBoard(EBoardLocation.TOP));
@@ -65,7 +73,23 @@ public class GameboardFragment extends Fragment {
             gm.getGameBoard(EBoardLocation.BOTTOM));      
       createVillageArea(pInflater, pContainer, gridLayout, R.layout.village, 
             GridLayout.spec(2, 3), GridLayout.spec(2, 3), villageSize, villageSize);
-            
+      */
+      
+      createVillageArea(pInflater, pContainer, gridLayout, R.layout.village, 
+            GridLayout.spec(13, 30), GridLayout.spec(13, 30), villageSize, villageSize);
+      createPlayerArea(pInflater, pContainer, gridLayout, R.layout.top_player_area, 
+            GridLayout.spec(0, 13), GridLayout.spec(0, 43), boardWidth, boardHeight,
+            gm.getGameBoard(EBoardLocation.TOP));
+      createPlayerArea(pInflater, pContainer, gridLayout, R.layout.left_player_area,
+            GridLayout.spec(13, 43), GridLayout.spec(0, 13), boardHeight, boardWidth,
+            gm.getGameBoard(EBoardLocation.LEFT));
+      createPlayerArea(pInflater, pContainer, gridLayout, R.layout.right_player_area, 
+            GridLayout.spec(0, 43), GridLayout.spec(43, 13), boardHeight, boardWidth,
+            gm.getGameBoard(EBoardLocation.RIGHT));
+      createPlayerArea(pInflater, pContainer, gridLayout, R.layout.bottom_player_area, 
+            GridLayout.spec(43, 13), GridLayout.spec(13, 43), boardWidth, boardHeight,
+            gm.getGameBoard(EBoardLocation.BOTTOM));      
+      
       //Set the game board graphics
       initGameBoards(gridLayout);
       
@@ -95,8 +119,7 @@ public class GameboardFragment extends Fragment {
    private void createVillageArea(LayoutInflater pInflater, ViewGroup pContainer,
          GridLayout pLayout, int pVillageAreaId, Spec pRowSpec, Spec pColSpec,
          int pWidth, int pHeight) {
-      TableLayout view = 
-            (TableLayout)pInflater.inflate(pVillageAreaId, pContainer, false);
+      View view = pInflater.inflate(pVillageAreaId, pContainer, false);
       GridLayout.LayoutParams parms = 
             new GridLayout.LayoutParams(pRowSpec, pColSpec);
       parms.width = pWidth;
@@ -123,6 +146,7 @@ public class GameboardFragment extends Fragment {
             new PlayerBoardCardController(gb, view, cardLoc);
          }                  
       }     
+      new HaunterController();
    }
    
    /**
@@ -149,12 +173,16 @@ public class GameboardFragment extends Fragment {
       for(VillageTileData tileData : villageTiles.values()) {
          VillageTileView tileView = 
                (VillageTileView)pView.findViewById(tileData.getLocation().getLayoutId());
-         tileData.setViewId(tileView.getId());
+         tileData.setViewId(tileView.getId());         
          tileView.setVillageTileData(tileData);
+         new VillageTileController(tileData, tileView);
       }
       
    }
    
-   private static final int sNumRows = 7;
-   private static final int sNumCols = 7;
+   //private static final int sNumRows = 7;
+   //private static final int sNumCols = 7;
+   
+   private static final int sNumRows = 56;
+   private static final int sNumCols = 56;
 }

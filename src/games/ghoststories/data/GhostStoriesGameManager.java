@@ -1,11 +1,15 @@
 package games.ghoststories.data;
 
 import games.ghoststories.R;
+import games.ghoststories.data.interfaces.IGamePhaseListener;
+import games.ghoststories.data.interfaces.IGhostDeckListener;
 import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EDifficulty;
 import games.ghoststories.enums.EGamePhase;
+import games.ghoststories.enums.EPlayerAbility;
 import games.ghoststories.enums.ETileLocation;
+import games.ghoststories.enums.EVillageTile;
 import games.ghoststories.utils.XmlUtils;
 
 import java.io.IOException;
@@ -13,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -68,41 +71,78 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * Adjust the number of available dice by the specified value.
+    * @param pValue The value to adjust the dice by
+    */
+   public void adjustNumDice(int pValue) {
+      mNumDice = Math.max(0, mNumDice + pValue);
+   }
+   
+   /**
     * Advances the game to the next game phase. Will update to the next player's
     * turn if currently at the last phase.
     */
    public void advanceGamePhase() {
+      boolean notify = true;
+      PlayerData currentPlayer = getCurrentPlayerData();
+      GameBoardData currentBoard = getCurrentPlayerBoard();
       switch(mGamePhase) {
-      case EYinPhase1A:
-         mGamePhase = EGamePhase.EYinPhase1B;
-         break;
-      case EYinPhase1B:
-         mGamePhase = EGamePhase.EYinPhase2;
-         break;
-      case EYinPhase2:
-         mGamePhase = EGamePhase.EYinPhase3;
-         break;
-      case EYinPhase3:
-         mGamePhase = EGamePhase.EYangPhase1;
-         break;
-      case EYangPhase1:
-         mGamePhase = EGamePhase.EYangPhase2;
-         break;
-      case EYangPhase2:
-         mGamePhase = EGamePhase.EYangPhase3;
-         break;
-      case EYangPhase3:
-         mGamePhase = EGamePhase.EYinPhase1A;
-         mCurrentPlayerIndex++;
-         if(mCurrentPlayerIndex >= mPlayerOrder.size()) {
-            mCurrentPlayerIndex = 0;
+      case YinPhase1A:
+         mGamePhase = EGamePhase.YinPhase1B;
+         if(currentBoard.getCursedDieRollCount() == 0) {
+            //Don't need to roll the cursed die so skip to the next phase
+            notify = false;
+            advanceGamePhase();
          }
+         break;
+      case YinPhase1B:
+         mGamePhase = EGamePhase.YinPhase2;
+         if(currentBoard.getNumGhosts() < 3) {
+            //No board overrun so skip to the next phase
+            notify = false;
+            advanceGamePhase();
+         }
+         break;
+      case YinPhase2:
+         mGamePhase = EGamePhase.YinPhase3;
+         if(currentBoard.getNumGhosts() == 3) {
+            //There was a board overrun so do not draw a new ghost and
+            //skip to the next phase
+            notify = false;
+            advanceGamePhase();
+         }
+         break;
+      case YinPhase3:
+         mGamePhase = EGamePhase.YangPhase1;
+         break;
+      case YangPhase1:
+         mGamePhase = EGamePhase.YangPhase2;
+         break;
+      case YangPhase2:
+         mGamePhase = EGamePhase.YangPhase3;
+         if(currentPlayer.getNumBuddhaTokens() == 0) {            
+            //If the player has no buddhas then skip to the next phase
+            notify = false;
+            advanceGamePhase();            
+         }
+         break;
+      case YangPhase3:
+         mGamePhase = EGamePhase.YinPhase1A;
+         updateCurrentPlayer();
+         if(!(getCurrentPlayerBoard().hasHaunter())) {
+            //If the next player has no haunter to advance then skip to the 
+            //next phase
+            notify = false;
+            advanceGamePhase();
+         }               
          break;
       }      
       
       //Notify listeners that the game phase has changed
-      for(IGamePhaseListener listener : mGamePhaseListeners) {
-         listener.gamePhaseUpdated(mGamePhase);
+      if(notify) {
+         for(IGamePhaseListener listener : mGamePhaseListeners) {
+            listener.gamePhaseUpdated(mGamePhase);
+         }
       }
    }
    
@@ -111,6 +151,18 @@ public class GhostStoriesGameManager {
     */
    public GhostDeckData getGhostDeckData() {
       return mGhostDeck;
+   }
+   
+   /**
+    * @return The number of dice available to use by the player.
+    */
+   public int getNumDice(EColor pPlayerColor) {
+      //The strength of the mountain ability gives the player an extra dice
+      if(getPlayerData(pPlayerColor).getAbility() == 
+            EPlayerAbility.STRENGTH_OF_THE_MOUNTAIN) {
+         return mNumDice + 1;
+      }
+      return mNumDice;
    }
    
    /**
@@ -159,6 +211,14 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * Gets the {@link GameBoardData} for the current player
+    * @return The {@link GameBoardData} for the current player
+    */
+   public GameBoardData getCurrentPlayerBoard() {
+      return mGameBoards.get(getCurrentPlayerData().getColor());
+   }
+   
+   /**
     * Gets the game board data for the passed in {@link EColor}
     * @param pColor The color to get the game board for
     * @return The {@link GameBoardData} for the specified color
@@ -200,6 +260,14 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * @return An unmodifiable list of player colors in the order that they take 
+    * turns.
+    */
+   public List<EColor> getPlayerOrder() {
+      return Collections.unmodifiableList(mPlayerOrder);
+   }
+   
+   /**
     * Gets the village tile where the passed in player is currently at.
     * @param pColor The color of the player to get the tile for
     * @return The tile where the player is at
@@ -216,6 +284,21 @@ public class GhostStoriesGameManager {
     */
    public VillageTileData getVillageTile(ETileLocation pLocation) {
       return mVillageTiles.get(pLocation);
+   }
+   
+   /**
+    * Gets the specified village tile.
+    * @param pVillageTile The village tile to get
+    */
+   public VillageTileData getVillageTile(EVillageTile pVillageTile) {
+      VillageTileData vtd = null;
+      for(VillageTileData v : mVillageTiles.values()) {
+         if(v.getType() == pVillageTile) {
+            vtd = v;
+            break;
+         }
+      }
+      return vtd;
    }
    
    /**
@@ -331,6 +414,16 @@ public class GhostStoriesGameManager {
       mPlayerOrder.add(getGameBoard(EBoardLocation.TOP).getColor());
       mPlayerOrder.add(getGameBoard(EBoardLocation.RIGHT).getColor());
    }
+   
+   /**
+    * Updates the current player to the next one
+    */
+   private void updateCurrentPlayer() {
+      mCurrentPlayerIndex++;  
+      if(mCurrentPlayerIndex >= mPlayerOrder.size()) {
+         mCurrentPlayerIndex = 0;
+      }
+   }
         
    /**
     * Constructor
@@ -353,7 +446,7 @@ public class GhostStoriesGameManager {
       new EnumMap<ETileLocation, VillageTileData>(ETileLocation.class);
    
    /** The current game phase **/
-   private EGamePhase mGamePhase = EGamePhase.EYinPhase3;
+   private EGamePhase mGamePhase = EGamePhase.YinPhase3;
    /** Listeners for game phase updates **/
    private Set<IGamePhaseListener> mGamePhaseListeners = 
          new CopyOnWriteArraySet<IGamePhaseListener>();
@@ -364,4 +457,7 @@ public class GhostStoriesGameManager {
    private int mCurrentPlayerIndex = 0;
    /** The order of player turns **/
    private List<EColor> mPlayerOrder = new ArrayList<EColor>();
+   
+   /** The number of dice available to the player **/
+   private int mNumDice = 3;
 }

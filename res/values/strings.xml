@@ -4,7 +4,15 @@
     <string name="left_space">Left Space</string>
     <string name="middle_space">Middle Space</string>
     <string name="right_space">Right Space</string>
-    <string name="board_haunter">Board Haunter</string>
-    <string name="tile_haunter">Tile Haunter</string>
+    <string name="haunter">Haunter</string>   
+    <string name="highlight">Highlight</string> 
     <string name="village_tile">Village Tile</string>
+    <string name="monk">Monk</string>
+    <string name="player_ability">Player Ability</string>
+    <string name="combat_health">Ghost Health</string>
+    <string name="combat_ghost">Ghost</string>
+    <string name="background">Background</string>
+    <string name="dice">Dice</string>
+    <string name="combat_attack">Tap Dice to Attack</string>
+    <string name="combat_resolution">Drag Dice and Tao Tokens Onto Ghosts To Attack</string>
 </resources>

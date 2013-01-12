@@ -1,5 +1,6 @@
 package games.ghoststories.data;
 
+import games.ghoststories.data.interfaces.IGhostDeckListener;
 import games.ghoststories.enums.EDifficulty;
 
 import java.util.ArrayDeque;

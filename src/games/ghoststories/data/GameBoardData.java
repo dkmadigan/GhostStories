@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import games.ghoststories.data.interfaces.IGameBoardListener;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EBoardLocation;
+import games.ghoststories.enums.EGhostAbility;
+import games.ghoststories.enums.EHaunterLocation;
 import games.ghoststories.enums.EPlayerAbility;
 
 /**
@@ -65,6 +68,20 @@ public class GameBoardData {
    }
    
    /**
+    * @return How many times the player must roll the cursed die based on
+    * the number of haunters with that ability on the board.
+    */
+   public int getCursedDieRollCount() {
+      int count = 0;
+      for(GhostData gd : mGhosts.values()) {
+         if(gd.getTurnAbilities().contains(EGhostAbility.ROLL_CURSE_DIE)) {
+            count++;
+         }
+      }
+      return count;
+   }
+   
+   /**
     * @param pCardLocation The card location to get the ghost data for
     * @return The data for the ghost at the specified card location or null
     * if no ghost currently at the given location
@@ -99,6 +116,26 @@ public class GameBoardData {
     */
    public EBoardLocation getLocation() {
       return mLocation;
+   }
+   
+   /**
+    * @return The number of ghosts occupying this board
+    */
+   public int getNumGhosts() {
+      return mGhosts.values().size();
+   }
+   
+   /**
+    * @return Whether or not this game board currently contains a haunter
+    */
+   public boolean hasHaunter() {
+      boolean hasHaunter = false;
+      for(GhostData gd : mGhosts.values()) {
+         if(gd.getHaunterLocation() != EHaunterLocation.NONE) {
+            hasHaunter = true;
+         }
+      }
+      return hasHaunter;
    }
    
    /**

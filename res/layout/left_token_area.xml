@@ -1,94 +1,98 @@
-<games.ghoststories.views.PlayerTokenAreaView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<games.ghoststories.views.gameboard.PlayerTokenAreaView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gs="http://schemas.android.com/apk/res/games.ghoststories"
     android:id="@+id/left_token_area"
-    android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"    
-    android:background="@android:color/transparent">
-    
-    <Space 
+    android:background="@android:color/transparent"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <ImageView
+        android:id="@+id/ability"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
-    
+        android:layout_weight="1"
+        android:contentDescription="@string/player_ability" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/player_ability"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            android:src="@drawable/heavenly_gust"/>
-        <games.ghoststories.views.YinYangTokenView
+        android:orientation="vertical" >
+
+        <games.ghoststories.views.common.YinYangTokenView
             android:id="@+id/yin_yang"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:rotation="90"/>
-            <!--  android:src="@drawable/yin_yang_blue"/> -->
-        <games.ghoststories.views.QiTokenView
+            android:rotation="90" />
+        <!-- android:src="@drawable/yin_yang_blue"/> -->
+
+        <games.ghoststories.views.common.QiTokenView
             android:id="@+id/qi_tokens"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/qi_token"/>
-        <games.ghoststories.views.BuddhaTokenView
+            android:src="@drawable/qi_token" />
+
+        <games.ghoststories.views.common.BuddhaTokenView
             android:id="@+id/buddha_tokens"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>      
-    
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
-        <games.ghoststories.views.TauTokenView
+        android:orientation="vertical" >
+
+        <games.ghoststories.views.common.TauTokenView
             android:id="@+id/black_tau_tokens"
-            gs:token_color="black"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1" 
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/tau_token_black"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_black"
+            gs:token_color="black" />
+
+        <games.ghoststories.views.common.TauTokenView
             android:id="@+id/blue_tau_tokens"
-            gs:token_color="blue"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1" 
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/tau_token_blue"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_blue"
+            gs:token_color="blue" />
+
+        <games.ghoststories.views.common.TauTokenView
             android:id="@+id/green_tau_tokens"
-            gs:token_color="green"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1" 
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/tau_token_green"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_green"
+            gs:token_color="green" />
+
+        <games.ghoststories.views.common.TauTokenView
             android:id="@+id/red_tau_tokens"
-            gs:token_color="red"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1" 
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/tau_token_red"/>
-        <games.ghoststories.views.TauTokenView
+            android:src="@drawable/tao_token_red"
+            gs:token_color="red" />
+
+        <games.ghoststories.views.common.TauTokenView
             android:id="@+id/yellow_tau_tokens"
-            gs:token_color="yellow"
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1" 
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:rotation="90"
-            android:src="@drawable/tau_token_yellow"/>
+            android:src="@drawable/tao_token_yellow"
+            gs:token_color="yellow" />
     </LinearLayout>
-</games.ghoststories.views.PlayerTokenAreaView>
+
+</games.ghoststories.views.gameboard.PlayerTokenAreaView>

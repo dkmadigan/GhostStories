@@ -1,12 +1,16 @@
 package games.ghoststories.data;
 
+import games.ghoststories.data.interfaces.IGhostListener;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EGhostAbility;
+import games.ghoststories.enums.EHaunterLocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 /**
@@ -41,7 +45,22 @@ public class GhostData {
       mTurnAbilities =  new ArrayList<EGhostAbility>(pTurnAbilities);
       mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);    
       mIsWuFeng = pIsWuFeng;
+      if(pTurnAbilities.contains(EGhostAbility.HAUNT)) {
+         mHaunterLocation = EHaunterLocation.CARD;
+      } else if(pTurnAbilities.contains(EGhostAbility.HAUNT_BOARD)) {
+         mHaunterLocation = EHaunterLocation.BOARD;
+      } else if(pTurnAbilities.contains(EGhostAbility.HAUNT_TILE)) {
+         mHaunterLocation = EHaunterLocation.TILE;
+      }
    }   
+   
+   /**
+    * Adds a listener for updates to this ghost data
+    * @param pListener The listener to add
+    */
+   public void addGhostListener(IGhostListener pListener) {
+      mGhostListeners.add(pListener);
+   }
         
    /**
     * @return Color of the ghost
@@ -62,6 +81,13 @@ public class GhostData {
     */
    public List<EGhostAbility> getExorciseAbilities() {
       return mExorciseAbilities;
+   }
+   
+   /**
+    * @return The haunter location for the ghost
+    */
+   public EHaunterLocation getHaunterLocation() {
+      return mHaunterLocation;
    }
 
    /**
@@ -121,6 +147,14 @@ public class GhostData {
    }
    
    /**
+    * Removes a listener for updates to this ghost data
+    * @param pListener The listener to remove
+    */
+   public void removeGhostListener(IGhostListener pListener) {
+      mGhostListeners.remove(pListener);
+   }
+   
+   /**
     * Sets whether or not this card is being dragged
     * @param pDragging
     */
@@ -134,6 +168,18 @@ public class GhostData {
     */
    public void setIsFlipped(boolean pFlipped) {
       mIsFlipped = pFlipped;
+   }
+   
+   /**
+    * Sets the haunter location for this ghost.
+    * @param pHaunterLocation
+    * @param pRunnable
+    */
+   public void setHaunterLocation(EHaunterLocation pHaunterLocation, 
+         Runnable pRunnable) {
+      EHaunterLocation oldHaunterLocation = mHaunterLocation;
+      mHaunterLocation = pHaunterLocation;
+      notifyListeners(oldHaunterLocation, pRunnable);
    }
 
    /*
@@ -154,6 +200,16 @@ public class GhostData {
       sb.append("---------------------------------").append("\n");
       return sb.toString();
    }
+   
+   /**
+    * Notify listeners of an update to this ghost data
+    */
+   private void notifyListeners(EHaunterLocation pOldHaunterLocation, 
+         Runnable pRunnable) {
+      for(IGhostListener listener : mGhostListeners) {
+         listener.haunterUpdated(pOldHaunterLocation, mHaunterLocation, pRunnable);
+      }
+   }
 
    /** The color of the ghost card **/
    private final EColor mColor;
@@ -161,6 +217,11 @@ public class GhostData {
    private final List<EGhostAbility> mEnterAbilities;
    /** The abilities of the ghost upon exorcism **/
    private final List<EGhostAbility> mExorciseAbilities;
+   /** Listeners for updates to this ghost data**/
+   private Set<IGhostListener> mGhostListeners = 
+         new CopyOnWriteArraySet<IGhostListener>();
+   /** The location of the haunter for this ghost **/
+   private EHaunterLocation mHaunterLocation = EHaunterLocation.NONE;
    /** The card id of the ghost **/
    private final int mId;
    /** The id of the image file for the ghost card **/

@@ -1,12 +1,15 @@
 package games.ghoststories.data;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-
 import games.ghoststories.R;
+import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EColor;
+import games.ghoststories.enums.EHaunterLocation;
+import games.ghoststories.utils.BitmapUtils;
+
+import java.util.EnumMap;
+import java.util.Map;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +20,12 @@ import android.graphics.BitmapFactory;
 public abstract class GhostStoriesBitmaps {
    public static Bitmap sGhostCardBitmap;
    public static Bitmap sWuFengCardBitmap;
-   public static Bitmap sHighlightCardBitmap;
+
+   public static Map<EBoardLocation, Map<EHaunterLocation, Bitmap>> sHaunterBitmaps = 
+         new EnumMap<EBoardLocation, Map<EHaunterLocation, Bitmap>>(EBoardLocation.class);   
+   
+   public static Bitmap sHighlightCardBitmap;   
+   public static Bitmap sXOutBitmap;
    public static Map<EColor, Map<ECardLocation, Bitmap>> sPlayerBoardBitmaps = 
          new EnumMap<EColor, Map<ECardLocation, Bitmap> >(EColor.class);
    public static Map<EColor, Bitmap> sPlayerBitmaps = 
@@ -35,10 +43,48 @@ public abstract class GhostStoriesBitmaps {
       if(sHighlightCardBitmap == null) {         
          sHighlightCardBitmap = BitmapFactory.decodeResource(pResources, 
                R.drawable.card_halo);
-      }      
+      }     
+      if(sXOutBitmap == null) {
+         sXOutBitmap = BitmapFactory.decodeResource(pResources, 
+               R.drawable.xout);
+      }
+      initHaunterBitmaps(pResources);
       initPlayerBoardBitmaps(pResources);
       initPlayerBitmaps(pResources);
    }  
+   
+   private static void initHaunterBitmaps(Resources pResources) {
+      Map<EHaunterLocation, Bitmap> bottomBitmaps = 
+            new EnumMap<EHaunterLocation, Bitmap>(EHaunterLocation.class);
+      bottomBitmaps.put(EHaunterLocation.CARD, 
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_card));
+      bottomBitmaps.put(EHaunterLocation.BOARD, 
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board));
+      bottomBitmaps.put(EHaunterLocation.TILE, 
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board));
+      sHaunterBitmaps.put(EBoardLocation.BOTTOM, bottomBitmaps);
+      sHaunterBitmaps.put(EBoardLocation.TOP, bottomBitmaps);
+      
+      Map<EHaunterLocation, Bitmap> leftBitmaps = 
+            new EnumMap<EHaunterLocation, Bitmap>(EHaunterLocation.class);
+      leftBitmaps.put(EHaunterLocation.CARD,  BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_card), 90));
+      leftBitmaps.put(EHaunterLocation.BOARD, BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board), 90));
+      leftBitmaps.put(EHaunterLocation.TILE, BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board), 90));
+      sHaunterBitmaps.put(EBoardLocation.LEFT, leftBitmaps);
+            
+      Map<EHaunterLocation, Bitmap> rightBitmaps = 
+            new EnumMap<EHaunterLocation, Bitmap>(EHaunterLocation.class);
+      rightBitmaps.put(EHaunterLocation.CARD,  BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_card), 270));
+      rightBitmaps.put(EHaunterLocation.BOARD, BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board), 270));
+      rightBitmaps.put(EHaunterLocation.TILE, BitmapUtils.rotateBitmap(
+            BitmapFactory.decodeResource(pResources, R.drawable.haunter_board), 270));
+      sHaunterBitmaps.put(EBoardLocation.RIGHT, rightBitmaps);      
+   }
    
    private static void initPlayerBoardBitmaps(Resources pResources) {
       Map<ECardLocation, Bitmap> blueBitmaps = 

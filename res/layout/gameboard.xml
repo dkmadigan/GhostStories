@@ -1,0 +1,53 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="752dp"
+    android:layout_height="752dp"
+    android:rowCount="56"
+    android:columnCount="56"
+    android:clipChildren="false">              
+    
+    <include
+        android:layout_width="403dp"
+        android:layout_height="403dp"
+        android:layout_row="13"
+        android:layout_rowSpan="30"
+        android:layout_column="13"
+        android:layout_columnSpan="30"
+        layout="@layout/village2"/>
+    
+    <include 
+        android:layout_width="577dp"
+        android:layout_height="175dp"
+        android:layout_row="0"
+        android:layout_rowSpan="13"
+        android:layout_column="0"
+        android:layout_columnSpan="43"
+        layout="@layout/top_player_area"/>
+    
+    <include 
+        android:layout_width="175dp"
+        android:layout_height="577dp"
+        android:layout_row="13"
+        android:layout_rowSpan="43"
+        android:layout_column="0"
+        android:layout_columnSpan="13"
+        layout="@layout/left_player_area"/>
+    
+    <include 
+        android:layout_width="175dp"
+        android:layout_height="577dp"
+        android:layout_row="0"
+        android:layout_rowSpan="43"
+        android:layout_column="43"
+        android:layout_columnSpan="13"
+        layout="@layout/right_player_area"/>
+    
+    <include 
+        android:layout_width="577dp"
+        android:layout_height="175dp"
+        android:layout_row="43"
+        android:layout_rowSpan="13"
+        android:layout_column="13"
+        android:layout_columnSpan="43"
+        layout="@layout/bottom_player_area"/>
+    
+</GridLayout>

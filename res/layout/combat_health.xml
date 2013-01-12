@@ -1,0 +1,39 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <games.ghoststories.views.combat.GhostHealthView
+        android:id="@+id/combat_health_1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/combat_health"
+        android:src="@drawable/tao_token_black"
+        android:visibility="invisible" />
+
+    <games.ghoststories.views.combat.GhostHealthView
+        android:id="@+id/combat_health_2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/combat_health"
+        android:src="@drawable/tao_token_blue"
+        android:visibility="invisible" />
+
+    <games.ghoststories.views.combat.GhostHealthView
+        android:id="@+id/combat_health_3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/combat_health"
+        android:src="@drawable/tao_token_red"
+        android:visibility="invisible" />
+
+    <games.ghoststories.views.combat.GhostHealthView
+        android:id="@+id/combat_health_4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/combat_health"
+        android:src="@drawable/tao_token_yellow"
+        android:visibility="invisible" />
+
+</merge>

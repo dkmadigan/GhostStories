@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<games.ghoststories.views.combat.CombatGhostView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/combat_ghost"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/ghost"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/combat_ghost"
+        android:scaleType="fitXY"
+        android:src="@drawable/ghost_49_grave_walker" />
+    
+    <LinearLayout 
+        android:id="@+id/top_attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ghost"
+        android:layout_alignTop="@id/ghost"
+        android:layout_alignRight="@id/ghost"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="10dp"        
+        android:orientation="horizontal">
+        <include layout="@layout/combat_attack"/>
+    </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/bottom_attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/top_attack"        
+        android:layout_below="@id/top_attack"    
+        android:layout_alignRight="@id/top_attack"           
+        android:orientation="horizontal">
+        <include layout="@layout/combat_attack"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ghost"
+        android:layout_below="@id/ghost"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/combat_health"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ghost"
+        android:layout_below="@+id/top_health"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/combat_health"/>
+    </LinearLayout>
+
+</games.ghoststories.views.combat.CombatGhostView>

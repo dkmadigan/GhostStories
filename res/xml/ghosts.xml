@@ -359,8 +359,8 @@
         <Resistance>
             <Red>2</Red>
         </Resistance>
-        <EnterAbility>HAUNT</EnterAbility>
-        <TurnAbility></TurnAbility>
+        <EnterAbility></EnterAbility>
+        <TurnAbility>HAUNT</TurnAbility>
         <ExorciseAbility></ExorciseAbility>
     </Ghost>    
     

@@ -1,7 +1,7 @@
 <scale xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/linear_interpolator"
     android:duration="400"
-    android:fillBefore="true"
+    android:fillAfter="true"
     android:fromXScale="0.0"
     android:fromYScale="0.0"
     android:pivotX="50%"

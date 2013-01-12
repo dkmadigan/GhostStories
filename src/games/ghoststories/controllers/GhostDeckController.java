@@ -1,19 +1,15 @@
 package games.ghoststories.controllers;
 
+import games.ghoststories.data.GhostDeckData;
+import games.ghoststories.data.GhostStoriesGameManager;
+import games.ghoststories.enums.EGamePhase;
+import games.ghoststories.views.aux_area.GhostDeckView;
 import android.content.ClipData;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import games.ghoststories.data.GhostData;
-import games.ghoststories.data.GhostDeckData;
-import games.ghoststories.data.GhostStoriesGameManager;
-import games.ghoststories.enums.EGamePhase;
-import games.ghoststories.views.GhostDeckView;
 
 public class GhostDeckController implements View.OnClickListener, View.OnTouchListener, View.OnDragListener {
    public GhostDeckController(GhostDeckData pGhostDeckData, 
@@ -29,7 +25,7 @@ public class GhostDeckController implements View.OnClickListener, View.OnTouchLi
       Log.d("GhostDeckController", "onClick");
       //Only allow flipping the top card during the correct phase
       if(GhostStoriesGameManager.getInstance().getCurrentGamePhase() ==
-            EGamePhase.EYinPhase3 && !mGhostDeckData.getTopCard().isFlipped()) {
+            EGamePhase.YinPhase3 && !mGhostDeckData.getTopCard().isFlipped()) {
          mGhostDeckData.flipTopCard();      
       }              
    }
@@ -37,7 +33,7 @@ public class GhostDeckController implements View.OnClickListener, View.OnTouchLi
    public boolean onTouch(View pView, MotionEvent pEvent) {           
       Log.d("GhostDeckController", "onTouch " + pEvent.getAction());
       if(GhostStoriesGameManager.getInstance().getCurrentGamePhase() == 
-            EGamePhase.EYinPhase3 && mGhostDeckData.getTopCard().isFlipped()) {
+            EGamePhase.YinPhase3 && mGhostDeckData.getTopCard().isFlipped()) {
          if (pEvent.getAction() == MotionEvent.ACTION_DOWN) {
             ClipData clipData = ClipData.newPlainText("", "");                
             View.DragShadowBuilder dsb = new View.DragShadowBuilder(pView) {

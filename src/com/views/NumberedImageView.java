@@ -1,6 +1,7 @@
 package com.views;
 
 import games.ghoststories.R;
+import games.ghoststories.utils.GameUtils;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -134,7 +135,7 @@ public class NumberedImageView extends ImageView {
    public void setNumber(int pNumber) {
       mNumber = pNumber;
       //Trigger a repaint of this component when the number changes
-      postInvalidate();      
+      GameUtils.invalidateView(this);  
    }
    
    /**
@@ -144,7 +145,7 @@ public class NumberedImageView extends ImageView {
    public void setShowNumber(boolean pShowNumber) {
       mShowNumber = pShowNumber;
       //Trigger a repaint of this component when the number changes
-      postInvalidate();
+      GameUtils.invalidateView(this);
    }
    
    /**
@@ -154,7 +155,7 @@ public class NumberedImageView extends ImageView {
    public void setTextSize(int pTextSize) {
       mPaint.setTextSize(pTextSize);      
       //Trigger a repaint of this component when the text size changes
-      postInvalidate();
+      GameUtils.invalidateView(this);
    }
    
    /**
@@ -165,7 +166,7 @@ public class NumberedImageView extends ImageView {
    public void setXOffset(float pXOffset) {
       mXOffset = pXOffset;
       //Trigger a repaint of this component when the offset changes
-      postInvalidate();
+      GameUtils.invalidateView(this);
    }
    
    /**
@@ -176,7 +177,7 @@ public class NumberedImageView extends ImageView {
    public void setYOffset(float pYOffset) {
       mYOffset = pYOffset;
       //Trigger a repaint of this component when the offset changes
-      postInvalidate();
+      GameUtils.invalidateView(this);
    }
    
    /**

@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <include 
+        android:id="@+id/info_area_1"        
+        android:layout_margin="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"        
+        layout="@layout/player_info"/>
+    
+    <include 
+        android:id="@+id/info_area_2"
+        android:layout_margin="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/info_area_1"
+        android:layout_centerHorizontal="true"
+        layout="@layout/player_info"/>
+    
+    <include 
+        android:id="@+id/info_area_3"
+        android:layout_margin="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_area_2"
+        android:layout_centerHorizontal="true"
+        layout="@layout/player_info"/>
+    
+    <include 
+        android:id="@+id/info_area_4"
+        android:layout_margin="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_area_3"
+        android:layout_centerHorizontal="true"
+        layout="@layout/player_info"/>
+</RelativeLayout>
