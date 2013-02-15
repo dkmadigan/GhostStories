@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="graveyard_card_height">300dp</dimen>
+    <dimen name="graveyard_card_width">200dp</dimen>
+    <dimen name="graveyard_margin">100dp</dimen> 
+</resources>

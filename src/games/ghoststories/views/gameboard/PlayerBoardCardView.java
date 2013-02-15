@@ -1,15 +1,11 @@
 package games.ghoststories.views.gameboard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import games.ghoststories.R;
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesBitmaps;
 import games.ghoststories.data.GhostStoriesGameManager;
-import games.ghoststories.data.VillageTileData;
 import games.ghoststories.data.interfaces.IGameBoardListener;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
 import games.ghoststories.data.interfaces.IGhostDeckListener;
@@ -17,16 +13,18 @@ import games.ghoststories.data.interfaces.IGhostListener;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EGamePhase;
 import games.ghoststories.enums.EHaunterLocation;
-import games.ghoststories.enums.ETileLocation;
 import games.ghoststories.utils.BitmapUtils;
 import games.ghoststories.utils.GameUtils;
 import games.ghoststories.utils.ImageViewUtils;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -114,6 +112,20 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
    
    /*
     * (non-Javadoc)
+    * @see games.ghoststories.data.interfaces.IGhostListener#ghostKilled()
+    */
+   public void ghostKilled() {
+      //Remove this ghost from the game board when killed
+      mGameBoardData.removeGhost(mCardLocation);
+      
+      //Play the smoke effect and remove the ghost when killed
+      mSmokeView.setVisibility(View.VISIBLE); 
+      mSmokeAnimation.start();
+      sSmokeHandler.sendMessageDelayed(Message.obtain(sSmokeHandler, 0, mSmokeView), 1000);
+   }
+   
+   /*
+    * (non-Javadoc)
     * @see games.ghoststories.data.interfaces.IGamePhaseListener#gamePhaseUpdated(games.ghoststories.enums.EGamePhase)
     */
    public void gamePhaseUpdated(EGamePhase pGamePhase) {
@@ -176,6 +188,13 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
                sHaunterAnimationDuration, pRunnable);               
       } 
    }
+   
+   /*
+    * (non-Javadoc)
+    * @see games.ghoststories.data.interfaces.IGhostListener#resistanceUpdated()
+    */
+   public void resistanceUpdated() {
+   }
   
    /**
     * Sets the {@link GameBoardData} for this view.
@@ -186,7 +205,9 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
      
       mCardImageView = (ImageView)findViewById(R.id.card);
       mHaunterImageView = (ImageView)findViewById(R.id.haunter);
-      mHighlightView = (ImageView)findViewById(R.id.highlight);           
+      mHighlightView = (ImageView)findViewById(R.id.highlight);     
+      mSmokeView = (ImageView)findViewById(R.id.smoke_effect);
+      mSmokeAnimation = (AnimationDrawable)mSmokeView.getBackground();
       
       loadBitmaps();
       updateBoardImage();
@@ -313,6 +334,17 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
       }
    }   
    
+   private static final Handler sSmokeHandler = new Handler() {
+      public void handleMessage(android.os.Message msg) {
+         ((ImageView)msg.obj).setVisibility(INVISIBLE);   
+         //TODO This is hacky. Find a better place to do this.
+         if(GhostStoriesGameManager.getInstance().getCurrentGamePhase() ==
+               EGamePhase.TaoistResolution) {
+            GhostStoriesGameManager.getInstance().advanceGamePhase();
+         }
+      };
+   };
+   
    /** The location of this view **/
    private ECardLocation mCardLocation;
    /** The image view of the card **/
@@ -330,7 +362,11 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
    /** The image view of the highlight **/
    private ImageView mHighlightView = null;
    /** Whether or not this view is highlighted **/
-   private boolean mIsHighlighted = false;    
+   private boolean mIsHighlighted = false;   
+   /** The image view of the smoke animation **/
+   private ImageView mSmokeView = null;
+   /** The animation of the smoke effect **/
+   private AnimationDrawable mSmokeAnimation = null;
    
    /** The duration of the haunter move animation **/
    private static final int sHaunterAnimationDuration = 2000;

@@ -31,6 +31,48 @@ public class GameUtils {
       return (Looper.getMainLooper() == Looper.myLooper());
    }
    
+   public static List<GhostData> getAdjacentGhosts(ETileLocation pTile) {
+      List<GhostData> ghosts = new ArrayList<GhostData>();
+      GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
+      GhostData gd1 = null;
+      GhostData gd2 = null;
+      switch(pTile) {
+      case TOP_LEFT:
+         gd1 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.RIGHT);
+         gd2 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.RIGHT);         
+         break;
+      case TOP_CENTER:
+         gd1 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.MIDDLE);
+         break;
+      case TOP_RIGHT:
+         gd1 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.LEFT);
+         gd2 = gm.getGameBoard(EBoardLocation.RIGHT).getGhostData(ECardLocation.RIGHT);
+         break;
+      case MIDDLE_LEFT:
+         gd1 = gm.getGameBoard(EBoardLocation.LEFT).getGhostData(ECardLocation.MIDDLE);
+         break;
+      case MIDDLE_CENTER:
+         break;
+      case MIDDLE_RIGHT:
+         gd1 = gm.getGameBoard(EBoardLocation.RIGHT).getGhostData(ECardLocation.MIDDLE);
+         break;
+      case BOTTOM_LEFT:
+         gd1 = gm.getGameBoard(EBoardLocation.LEFT).getGhostData(ECardLocation.RIGHT);
+         gd2 = gm.getGameBoard(EBoardLocation.BOTTOM).getGhostData(ECardLocation.LEFT);         
+         break;
+      case BOTTOM_CENTER:
+         gd1 = gm.getGameBoard(EBoardLocation.BOTTOM).getGhostData(ECardLocation.MIDDLE);
+         break;
+      case BOTTOM_RIGHT:
+         gd1 = gm.getGameBoard(EBoardLocation.RIGHT).getGhostData(ECardLocation.LEFT);
+         gd2 = gm.getGameBoard(EBoardLocation.BOTTOM).getGhostData(ECardLocation.RIGHT);         
+         break;
+      }
+      if(gd1 != null) ghosts.add(gd1);
+      if(gd2 != null) ghosts.add(gd2);
+      return ghosts;
+   }
+   
    public static int getTaoTokenId(EColor pColor) {
       int id = -1;
       switch(pColor) {

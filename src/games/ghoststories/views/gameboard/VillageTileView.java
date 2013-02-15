@@ -93,6 +93,7 @@ IGamePhaseListener, IVillageTileListener {
    public void setVillageTileData(VillageTileData pData) {
       mData = pData;      
       mData.addVillageTileListener(this);
+      setImageResource(mData.getActiveImageId());
       GameUtils.invalidateView(this);
    }
    

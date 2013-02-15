@@ -1,0 +1,7 @@
+-Implement a Ghost Graveyard View
+-Update combat view to allow removing applied dice/tao tokens
+-Handle killing ghosts
+-Auto apply dice/tokens to ghosts during combat
+-Make combat directions more obvious
+-Implement players abilities
+-Implement village abilities

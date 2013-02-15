@@ -95,9 +95,14 @@ public class NumberedImageView extends ImageView {
             break;
          }
       }
-      a.recycle();
-      
-
+      a.recycle();      
+   }
+   
+   /**
+    * Decrement the number by 1
+    */
+   public void decrement() {
+      setNumber(getNumber() - 1);
    }
    
    /**
@@ -129,6 +134,13 @@ public class NumberedImageView extends ImageView {
    }
    
    /**
+    * Increment the number by 1
+    */
+   public void increment() {
+      setNumber(getNumber()+1);
+   }
+   
+   /**
     * Sets the number shown in the overlay
     * @param pNumber The number shown in the overlay
     */
@@ -145,6 +157,15 @@ public class NumberedImageView extends ImageView {
    public void setShowNumber(boolean pShowNumber) {
       mShowNumber = pShowNumber;
       //Trigger a repaint of this component when the number changes
+      GameUtils.invalidateView(this);
+   }
+   
+   /**
+    * Sets the color for the text
+    * @param pColor The color of the text
+    */
+   public void setTextColor(int pColor) {
+      mPaint.setColor(pColor);
       GameUtils.invalidateView(this);
    }
    

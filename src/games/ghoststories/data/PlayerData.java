@@ -35,6 +35,20 @@ public class PlayerData {
       }
    }
    
+   @Override
+   public int hashCode() {
+      return mColor.hashCode();
+   }
+   
+   @Override
+   public boolean equals(Object o) { 
+      boolean equals = false;
+      if(o instanceof PlayerData) {
+         equals = ((PlayerData)o).mColor == mColor;
+      }
+      return equals; 
+   }
+   
    public void addPlayerDataListener(IPlayerDataListener pListener) {
       mListeners.add(pListener);
    }

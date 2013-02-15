@@ -1,8 +1,12 @@
 package games.ghoststories.views.common;
 
+import com.interfaces.IDraggable;
+
 import games.ghoststories.R;
+import games.ghoststories.data.DragData;
 import games.ghoststories.data.PlayerData;
 import games.ghoststories.enums.EColor;
+import games.ghoststories.enums.EDragItem;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -10,7 +14,7 @@ import android.util.AttributeSet;
 /**
  * View representing a stack of tao tokens.
  */
-public class TaoTokenView extends AbstractNumberedTokenView {
+public class TaoTokenView extends AbstractNumberedTokenView implements IDraggable<DragData>{
 
    /**
     * Constructor 
@@ -53,6 +57,14 @@ public class TaoTokenView extends AbstractNumberedTokenView {
          }
       }
       a.recycle();
+   }
+   
+   /*
+    * (non-Javadoc)
+    * @see com.interfaces.IDraggable#getDragData()
+    */
+   public DragData getDragData() {
+      return new DragData(EDragItem.COMBAT_TAO, mTokenColor, this);
    }
    
    /*

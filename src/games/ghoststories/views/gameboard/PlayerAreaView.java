@@ -54,7 +54,7 @@ public class PlayerAreaView extends LinearLayout {
          if(mRect == null) {                              
             mRect = new RectF(0, 0, getWidth(), getHeight());
          }
-         pCanvas.drawRoundRect(mRect, 15, 15, mPaint);
+         //pCanvas.drawRoundRect(mRect, 15, 15, mPaint);
       }      
    }
    

@@ -41,6 +41,7 @@ public class GhostData {
       mColor = pColor;
       mImageId = pImageId;
       mResistance = new HashMap<EColor, Integer>(pResistance);
+      mFullHealth = new HashMap<EColor, Integer>(pResistance);
       mEnterAbilities = new ArrayList<EGhostAbility>(pEnterAbilities);
       mTurnAbilities =  new ArrayList<EGhostAbility>(pTurnAbilities);
       mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);    
@@ -52,7 +53,30 @@ public class GhostData {
       } else if(pTurnAbilities.contains(EGhostAbility.HAUNT_TILE)) {
          mHaunterLocation = EHaunterLocation.TILE;
       }
+      updateHealth();
    }   
+   
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Object#hashCode()
+    */
+   @Override
+   public int hashCode() {
+      return mId;
+   }
+   
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Object#equals(java.lang.Object)
+    */
+   @Override
+   public boolean equals(Object o) {      
+      boolean equals = false;
+      if(o instanceof GhostData) {
+         equals = ((GhostData)o).mId == mId;
+      }
+      return equals;
+   }
    
    /**
     * Adds a listener for updates to this ghost data
@@ -103,6 +127,13 @@ public class GhostData {
    public int getImageId() {
       return mImageId;
    }
+   
+   /**
+    * @return The total amount of health this ghost has left
+    */
+   public int getHealth() {
+      return mHealth;
+   }
 
    /**
     * @return The name of the ghost
@@ -123,6 +154,13 @@ public class GhostData {
     */
    public List<EGhostAbility> getTurnAbilities() {
       return mTurnAbilities;
+   }
+   
+   /**
+    * @return true if this ghost has no more health, false otherwise
+    */
+   public boolean isDead() {
+      return mIsDead;
    }
    
    /**
@@ -147,11 +185,42 @@ public class GhostData {
    }
    
    /**
+    * Sets the status of this ghost to killed and notifies listeners
+    */
+   public void killGhost() {
+      mIsDead = true;
+      for(IGhostListener listener : mGhostListeners) {
+         listener.ghostKilled();
+      }
+   }
+   
+   /**
     * Removes a listener for updates to this ghost data
     * @param pListener The listener to remove
     */
    public void removeGhostListener(IGhostListener pListener) {
       mGhostListeners.remove(pListener);
+   }
+   
+   /**
+    * Reset the resistance of this ghost to full health
+    */
+   public void resetResistance() {      
+      mResistance = new HashMap<EColor, Integer>(mFullHealth);
+   }
+
+   /**
+    * Sets the haunter location for this ghost.
+    * @param pHaunterLocation
+    * @param pRunnable
+    */
+   public void setHaunterLocation(EHaunterLocation pHaunterLocation, 
+         Runnable pRunnable) {
+      EHaunterLocation oldHaunterLocation = mHaunterLocation;
+      mHaunterLocation = pHaunterLocation;
+      for(IGhostListener listener : mGhostListeners) {
+         listener.haunterUpdated(oldHaunterLocation, mHaunterLocation, pRunnable);
+      }
    }
    
    /**
@@ -168,18 +237,24 @@ public class GhostData {
     */
    public void setIsFlipped(boolean pFlipped) {
       mIsFlipped = pFlipped;
-   }
+   }     
    
    /**
-    * Sets the haunter location for this ghost.
-    * @param pHaunterLocation
-    * @param pRunnable
+    * Increments or decrements the resistance value for a given color by the
+    * specified amount 
+    * @param pColor The color of the resistance to update
+    * @param pIncOrDec The increment/decrement value
     */
-   public void setHaunterLocation(EHaunterLocation pHaunterLocation, 
-         Runnable pRunnable) {
-      EHaunterLocation oldHaunterLocation = mHaunterLocation;
-      mHaunterLocation = pHaunterLocation;
-      notifyListeners(oldHaunterLocation, pRunnable);
+   public void updateResistance(EColor pColor, int pIncOrDec) {
+      Integer resistance = mResistance.get(pColor);
+      if(resistance != null) {
+         resistance = Math.max(0, resistance + pIncOrDec);
+         mResistance.put(pColor, resistance);         
+         updateHealth();         
+         for(IGhostListener listener : mGhostListeners) {
+            listener.resistanceUpdated();
+         }         
+      }
    }
 
    /*
@@ -202,12 +277,13 @@ public class GhostData {
    }
    
    /**
-    * Notify listeners of an update to this ghost data
+    * Compute and set the health for this ghost. The health is the total amount
+    * of resistance across all colors.
     */
-   private void notifyListeners(EHaunterLocation pOldHaunterLocation, 
-         Runnable pRunnable) {
-      for(IGhostListener listener : mGhostListeners) {
-         listener.haunterUpdated(pOldHaunterLocation, mHaunterLocation, pRunnable);
+   private void updateHealth() {
+      mHealth = 0;
+      for(Integer health : mResistance.values()) {
+         mHealth += health;
       }
    }
 
@@ -226,6 +302,8 @@ public class GhostData {
    private final int mId;
    /** The id of the image file for the ghost card **/
    private final int mImageId;
+   /** Whether or not this ghost is dead **/
+   private boolean mIsDead = false;
    /** Whether or not this ghost card is being dragged **/
    private boolean mIsDragging = false;
    /** Whether or not this ghost card has been flipped over **/
@@ -234,8 +312,12 @@ public class GhostData {
    private boolean mIsWuFeng;
    /** The name of the ghost **/
    private final String mName;
-   /** Mapping of the resistance of this ghost **/
-   private final Map<EColor, Integer> mResistance;
+   /** Current resistance of this ghost **/
+   private Map<EColor, Integer> mResistance;
+   /** The total resistance count **/
+   private int mHealth = 0;
+   /** Full health resistance for this ghost **/
+   private final Map<EColor, Integer> mFullHealth;
    /** The abilities of the ghost that occurs every turn **/
    private final List<EGhostAbility> mTurnAbilities;
 }

@@ -62,20 +62,17 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
             //color.getLightColor(), color.getDarkColor(), 25));
             Color.argb(125, Color.red(lightColor), Color.green(lightColor), Color.blue(lightColor)),
             Color.argb(125, Color.red(darkColor), Color.green(darkColor), Color.blue(darkColor)), 25,
-            sInstanceCount == 2 ? Color.WHITE : Color.BLACK));
-      
-      //Set the correct monk image
-      /*
-      ImageView monkView = (ImageView)findViewById(R.id.monk);
-      monkView.setImageBitmap(
-            GhostStoriesBitmaps.sPlayerBitmaps.get(mPlayerData.getColor()));
-      */
+            sInstanceCount == 2 ? Color.WHITE : Color.BLACK));      
       //Update the different token views in this player area      
       BuddhaTokenView buddhaTokenView = (BuddhaTokenView)findViewById(R.id.buddha_tokens);
-      buddhaTokenView.setPlayerData(mPlayerData);
+      if(buddhaTokenView != null) {
+         buddhaTokenView.setPlayerData(mPlayerData);
+      }
       
       QiTokenView qiTokenView = (QiTokenView)findViewById(R.id.qi_tokens);
-      qiTokenView.setPlayerData(mPlayerData);
+      if(qiTokenView != null) {
+         qiTokenView.setPlayerData(mPlayerData);
+      }
       
       for(EColor c : EColor.values()) {
          TaoTokenView tauTokenView = (TaoTokenView)findViewById(c.getTokenId());
@@ -83,7 +80,9 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       }
             
       YinYangTokenView yinYangTokenView = (YinYangTokenView)findViewById(R.id.yin_yang);
-      yinYangTokenView.setPlayerData(mPlayerData); 
+      if(yinYangTokenView != null) {
+         yinYangTokenView.setPlayerData(mPlayerData);
+      }
       
       mPaint.setColor(color.getColor());      
       GameUtils.invalidateView(this);
@@ -96,14 +95,18 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       if(mRect == null) {
          mRect = new RectF(0, 0, getWidth(), getHeight());
       }
-      
+
       if(isInEditMode()) {    
-         
+
       } else {
          //Highlight the player data if it is their turn
+         GradientRectangle bg = ((GradientRectangle)getBackground());
          if(mPlayerData != null && mPlayerData.getColor() == 
                GhostStoriesGameManager.getInstance().getCurrentPlayerData().getColor()) {
-            pCanvas.drawRoundRect(mRect, 15, 15, mPaint);         
+            //pCanvas.drawRoundRect(mRect, 15, 15, mPaint);
+            bg.setBorderColor(Color.WHITE);
+         } else {           
+            bg.setBorderColor(Color.BLACK);
          }
       }
    }

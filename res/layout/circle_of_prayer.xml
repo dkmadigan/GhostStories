@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7FFFFFFF" >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="700dp"
+        android:layout_height="380dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/background"
+        android:scaleType="fitXY"
+        android:src="@drawable/canvas3" />
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@id/background"
+        android:layout_alignRight="@id/background"
+        android:layout_alignTop="@id/background"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/circle_of_prayer"
+        android:scaleType="fitXY"
+        android:src="@drawable/circle_of_prayer" />
+    <ImageView
+        android:id="@+id/selected_token_border"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/selected_token"
+        android:scaleType="fitXY"
+        android:src="@drawable/cop_border" />
+
+    <LinearLayout
+        android:id="@+id/tokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/background"
+        android:layout_alignRight="@+id/background"
+        android:layout_below="@+id/selected_token_border"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/red_token"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@string/token"
+            android:scaleType="fitXY"
+            android:src="@drawable/tao_token_red" />
+
+        <ImageView
+            android:id="@+id/blue_token"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@string/selected_token"
+            android:scaleType="fitXY"
+            android:src="@drawable/tao_token_blue" />
+
+        <ImageView
+            android:id="@+id/yellow_token"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@string/selected_token"
+            android:scaleType="fitXY"
+            android:src="@drawable/tao_token_yellow" />
+
+        <ImageView
+            android:id="@+id/green_token"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@string/selected_token"
+            android:scaleType="fitXY"
+            android:src="@drawable/tao_token_green" />
+
+        <ImageView
+            android:id="@+id/black_token"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@string/selected_token"
+            android:scaleType="fitXY"
+            android:src="@drawable/tao_token_black" />
+    </LinearLayout>
+    
+    <com.views.ToggledImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/background"
+        android:layout_alignRight="@id/background"
+        android:layout_margin="5dp"
+        android:contentDescription="@string/close"
+        android:onClick="closeCombatView"
+        android:src="@drawable/close" />
+
+    <com.views.ToggledImageView
+        android:id="@+id/ok"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/close"
+        android:layout_toLeftOf="@id/close"
+        android:contentDescription="@string/ok"
+        android:src="@drawable/ok" />
+
+    <ImageView
+        android:id="@+id/selected_token"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:layout_alignBottom="@+id/selected_token_border"
+        android:layout_alignRight="@+id/selected_token_border"
+        android:layout_alignTop="@+id/selected_token_border"
+        android:layout_alignLeft="@+id/selected_token_border"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/selected_token"
+        android:scaleType="fitXY"
+        android:src="@drawable/tao_token_black" />
+
+</RelativeLayout>

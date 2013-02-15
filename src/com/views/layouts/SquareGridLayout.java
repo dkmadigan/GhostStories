@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridLayout;
 
+
 public class SquareGridLayout extends GridLayout {
    public SquareGridLayout(Context context) {
       super(context);

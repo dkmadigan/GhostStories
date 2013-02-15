@@ -29,6 +29,8 @@ public abstract class GhostStoriesBitmaps {
    public static Map<EColor, Map<ECardLocation, Bitmap>> sPlayerBoardBitmaps = 
          new EnumMap<EColor, Map<ECardLocation, Bitmap> >(EColor.class);
    public static Map<EColor, Bitmap> sPlayerBitmaps = 
+         new EnumMap<EColor, Bitmap>(EColor.class);   
+   public static Map<EColor, Bitmap> sPlayerTurnBitmaps = 
          new EnumMap<EColor, Bitmap>(EColor.class);
    
    public static void initBitmaps(Resources pResources) {
@@ -51,6 +53,7 @@ public abstract class GhostStoriesBitmaps {
       initHaunterBitmaps(pResources);
       initPlayerBoardBitmaps(pResources);
       initPlayerBitmaps(pResources);
+      initPlayerTurnBitmaps(pResources);
    }  
    
    private static void initHaunterBitmaps(Resources pResources) {
@@ -137,5 +140,16 @@ public abstract class GhostStoriesBitmaps {
             BitmapFactory.decodeResource(pResources, R.drawable.monk_yellow));
       sPlayerBitmaps.put(EColor.GREEN, 
             BitmapFactory.decodeResource(pResources, R.drawable.monk_green));
+   }
+   
+   private static void initPlayerTurnBitmaps(Resources pResources) {
+      sPlayerTurnBitmaps.put(EColor.RED, 
+            BitmapFactory.decodeResource(pResources, R.drawable.red_turn));
+      sPlayerTurnBitmaps.put(EColor.BLUE, 
+            BitmapFactory.decodeResource(pResources, R.drawable.blue_turn));
+      sPlayerTurnBitmaps.put(EColor.YELLOW, 
+            BitmapFactory.decodeResource(pResources, R.drawable.yellow_turn));
+      sPlayerTurnBitmaps.put(EColor.GREEN, 
+            BitmapFactory.decodeResource(pResources, R.drawable.green_turn));
    }
 }

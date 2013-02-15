@@ -12,16 +12,20 @@
         android:paddingLeft="60dp"
         android:paddingRight="60dp"
         android:paddingTop="15dp"
-        android:text="-Test Details"
         android:textColor="@android:color/black"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"/>
 
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
+        android:layout_alignParentBottom="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="50dp" >
+
         <games.ghoststories.views.aux_area.GhostDeckView
             android:id="@+id/ghost_deck"
             android:layout_width="130dp"
@@ -35,29 +39,26 @@
             gs:x_offset="0.85"
             gs:y_offset="0.1" />
 
-        <com.views.NumberedImageView
-            android:id="@+id/ghost_graveyard"
+        <games.ghoststories.views.aux_area.GhostGraveyardCardView
+            android:id="@+id/ghost_graveyard_card"
             android:layout_width="130dp"
             android:layout_height="195dp"
             android:layout_marginBottom="15dp"
             android:layout_toRightOf="@id/ghost_deck"
-            android:src="@drawable/ghost_card_back"
-            gs:text_color="0xFF000000"
-            gs:text_size="24"
-            gs:x_offset="0.9"
-            gs:y_offset="0.8" />
+            android:onClick="ghostGraveyardCB"
+            android:src="@drawable/ghost_card_back" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/black_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/ghost_deck"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/ghost_graveyard"
+            android:layout_toRightOf="@id/ghost_graveyard_card"
             android:src="@drawable/tao_token_black"
             gs:token_color="black" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/blue_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +67,7 @@
             android:src="@drawable/tao_token_blue"
             gs:token_color="blue" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/green_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,17 +76,17 @@
             android:src="@drawable/tao_token_green"
             gs:token_color="green" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/red_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/black_tau_tokens"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/ghost_graveyard"
+            android:layout_toRightOf="@id/ghost_graveyard_card"
             android:src="@drawable/tao_token_red"
             gs:token_color="red" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/yellow_tau_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,11 +115,12 @@
 
         <ImageView
             android:id="@+id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="-10dp"
+            android:contentDescription="@string/info"
             android:onClick="cardInfoCB"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
             android:src="@drawable/info" />
     </RelativeLayout>
 
@@ -127,7 +129,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom_layout"
-        android:layout_marginBottom="50dp"
         layout="@layout/player_info_area" />
 
 </RelativeLayout>

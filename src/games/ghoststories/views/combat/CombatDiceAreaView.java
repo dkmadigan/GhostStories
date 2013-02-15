@@ -1,39 +1,51 @@
 package games.ghoststories.views.combat;
 
+import java.util.EnumSet;
+
 import games.ghoststories.R;
+import games.ghoststories.data.GhostStoriesGameManager;
+import games.ghoststories.data.PlayerData;
+import games.ghoststories.enums.EDice;
+import games.ghoststories.enums.EPlayerAbility;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
-public class CombatDiceAreaView extends LinearLayout implements OnClickListener {
+public class CombatDiceAreaView extends LinearLayout {
 
    public CombatDiceAreaView(Context pContext) {
       super(pContext);
-      init();
    }
 
    public CombatDiceAreaView(Context pContext, AttributeSet pAttrs) {
       super(pContext, pAttrs);
-      init();
    }
 
    public CombatDiceAreaView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
-      init();
    }     
    
-   public void onClick(View v) {
-      //Start the rolling animation
-      ((CombatDiceView)findViewById(R.id.dice_1)).startDiceAnimation();
-      ((CombatDiceView)findViewById(R.id.dice_2)).startDiceAnimation();
-      ((CombatDiceView)findViewById(R.id.dice_3)).startDiceAnimation();
-      ((CombatDiceView)findViewById(R.id.extra_dice)).startDiceAnimation();
+   public void setPrimaryAttacker(PlayerData pPlayerData) {
+      mPrimaryAttacker = pPlayerData;
+      int numDice = GhostStoriesGameManager.getInstance().getNumDice();
+      getDiceView(EDice.DICE_1).setVisibility(EDice.DICE_1.ordinal() < numDice ? VISIBLE : GONE);
+      getDiceView(EDice.DICE_1).setVisibility(EDice.DICE_2.ordinal() < numDice ? VISIBLE : GONE);
+      getDiceView(EDice.DICE_1).setVisibility(EDice.DICE_3.ordinal() < numDice ? VISIBLE : GONE);
+                                       
+      //The strength of the mountain ability gives the player an extra dice
+      if(mPrimaryAttacker.getAbility() == EPlayerAbility.STRENGTH_OF_THE_MOUNTAIN &&
+            mPrimaryAttacker.getAbilityActive()) {
+         getDiceView(EDice.EXTRA_DICE).setVisibility(VISIBLE);
+      } else {
+         getDiceView(EDice.EXTRA_DICE).setVisibility(GONE);
+      }
    }
    
-   private void init() {
-      setOnClickListener(this);
+   private CombatDiceView getDiceView(EDice pDice) {
+      return ((CombatDiceView)findViewById(pDice.getViewId()));
    }
-
+   
+   private PlayerData mPrimaryAttacker;
 }

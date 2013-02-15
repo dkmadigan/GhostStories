@@ -30,23 +30,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/red_right" />
 
-            <ImageView
-                android:id="@+id/haunter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/haunter"
-                android:scaleType="fitXY"
-                android:src="@drawable/haunter_card"
-                android:visibility="invisible" />
-
-            <ImageView
-                android:id="@+id/highlight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/highlight"
-                android:scaleType="fitXY"
-                android:src="@drawable/card_halo"
-                android:visibility="invisible" />
+            <include layout="@layout/card_extras"/>
         </games.ghoststories.views.gameboard.PlayerBoardCardView>
 
         <games.ghoststories.views.gameboard.PlayerBoardCardView
@@ -65,23 +49,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/red_middle" />
 
-            <ImageView
-                android:id="@id/haunter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/haunter"
-                android:scaleType="fitXY"
-                android:src="@drawable/haunter_card"
-                android:visibility="invisible" />
-
-            <ImageView
-                android:id="@id/highlight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/highlight"
-                android:scaleType="fitXY"
-                android:src="@drawable/card_halo"
-                android:visibility="invisible" />
+            <include layout="@layout/card_extras"/>
         </games.ghoststories.views.gameboard.PlayerBoardCardView>
 
         <games.ghoststories.views.gameboard.PlayerBoardCardView
@@ -100,23 +68,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/red_left" />
 
-            <ImageView
-                android:id="@id/haunter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/haunter"
-                android:scaleType="fitXY"
-                android:src="@drawable/haunter_card"
-                android:visibility="invisible" />
-
-            <ImageView
-                android:id="@id/highlight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/highlight"
-                android:scaleType="fitXY"
-                android:src="@drawable/card_halo"
-                android:visibility="invisible" />
+            <include layout="@layout/card_extras"/>
         </games.ghoststories.views.gameboard.PlayerBoardCardView>
     </LinearLayout>
 

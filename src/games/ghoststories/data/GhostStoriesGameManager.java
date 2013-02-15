@@ -2,12 +2,12 @@ package games.ghoststories.data;
 
 import games.ghoststories.R;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
+import games.ghoststories.data.interfaces.IGameTokenListener;
 import games.ghoststories.data.interfaces.IGhostDeckListener;
 import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EDifficulty;
 import games.ghoststories.enums.EGamePhase;
-import games.ghoststories.enums.EPlayerAbility;
 import games.ghoststories.enums.ETileLocation;
 import games.ghoststories.enums.EVillageTile;
 import games.ghoststories.utils.XmlUtils;
@@ -55,6 +55,15 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * Add a listener to receive notifications when the number of tokens
+    * in the token repository changes.
+    * @param pListener
+    */
+   public void addGameTokenListener(IGameTokenListener pListener) {
+      mGameTokenListeners.add(pListener);
+   }   
+   
+   /**
     * Add a listener to receive notifications when the game phase is updated
     * @param pListener
     */
@@ -87,6 +96,15 @@ public class GhostStoriesGameManager {
       PlayerData currentPlayer = getCurrentPlayerData();
       GameBoardData currentBoard = getCurrentPlayerBoard();
       switch(mGamePhase) {
+      case TurnStart:
+         mGamePhase = EGamePhase.YinPhase1A;
+         if(getCurrentPlayerBoard().getNumHaunters() == 0) {
+            //If the next player has no haunter to advance then skip to the 
+            //next phase
+            notify = false;
+            advanceGamePhase();
+         }               
+         break;
       case YinPhase1A:
          mGamePhase = EGamePhase.YinPhase1B;
          if(currentBoard.getCursedDieRollCount() == 0) {
@@ -119,6 +137,9 @@ public class GhostStoriesGameManager {
          mGamePhase = EGamePhase.YangPhase2;
          break;
       case YangPhase2:
+         mGamePhase = EGamePhase.TaoistResolution;
+         break;
+      case TaoistResolution:
          mGamePhase = EGamePhase.YangPhase3;
          if(currentPlayer.getNumBuddhaTokens() == 0) {            
             //If the player has no buddhas then skip to the next phase
@@ -127,14 +148,8 @@ public class GhostStoriesGameManager {
          }
          break;
       case YangPhase3:
-         mGamePhase = EGamePhase.YinPhase1A;
-         updateCurrentPlayer();
-         if(!(getCurrentPlayerBoard().hasHaunter())) {
-            //If the next player has no haunter to advance then skip to the 
-            //next phase
-            notify = false;
-            advanceGamePhase();
-         }               
+         mGamePhase = EGamePhase.TurnStart;
+         updateCurrentPlayer();         
          break;
       }      
       
@@ -154,14 +169,17 @@ public class GhostStoriesGameManager {
    }
    
    /**
-    * @return The number of dice available to use by the player.
+    * @return The ghost graveyard data
     */
-   public int getNumDice(EColor pPlayerColor) {
-      //The strength of the mountain ability gives the player an extra dice
-      if(getPlayerData(pPlayerColor).getAbility() == 
-            EPlayerAbility.STRENGTH_OF_THE_MOUNTAIN) {
-         return mNumDice + 1;
-      }
+   public GhostGraveyardData getGhostGraveyardData() {
+      return mGhostGraveyard;
+   }
+   
+   /**
+    * @return The number of dice available to use. Does not take into account
+    * player special abilities.
+    */
+   public int getNumDice() {
       return mNumDice;
    }
    
@@ -176,6 +194,9 @@ public class GhostStoriesGameManager {
       try {
          List<GhostData> ghosts = XmlUtils.parseGhostXml(pContext, R.xml.ghosts);
          List<GhostData> incarnations = XmlUtils.parseGhostXml(pContext, R.xml.wufeng);
+         
+         //Initialize the supply of tokens
+         initSupply();
          
          //Create the deck of ghost cards
          mGhostDeck = new GhostDeckData(mDifficulty, ghosts, incarnations);                 
@@ -260,6 +281,21 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * Gets the players that are located on the specified tile
+    * @param pTile The tile to get the players on
+    * @return A list of players on the specified tile
+    */
+   public List<PlayerData> getPlayersOnTile(ETileLocation pTile) {
+      List<PlayerData> players = new ArrayList<PlayerData>();
+      for(PlayerData pd : mPlayerData.values()) {
+         if(pd.getLocation() == pTile) {
+            players.add(pd);
+         }
+      }
+      return players;
+   }
+   
+   /**
     * @return An unmodifiable list of player colors in the order that they take 
     * turns.
     */
@@ -319,7 +355,6 @@ public class GhostStoriesGameManager {
             XmlUtils.parseGameBoardXml(pContext, R.xml.gameboards);
       
       //Randomly choose a game board for each color
-      Random r = new Random();
       List<GameBoardData> redBoards = boards.get(EColor.RED);
       List<GameBoardData> blueBoards = boards.get(EColor.BLUE);
       List<GameBoardData> greenBoards = boards.get(EColor.GREEN);
@@ -327,6 +362,7 @@ public class GhostStoriesGameManager {
       
       if(!redBoards.isEmpty() && !blueBoards.isEmpty() && 
             !greenBoards.isEmpty() && !yellowBoards.isEmpty()) {
+         Random r = GhostStoriesConstants.sRandom;
          mGameBoards.put(EColor.RED, redBoards.get(r.nextInt(redBoards.size())));
          mGameBoards.put(EColor.BLUE, blueBoards.get(r.nextInt(blueBoards.size())));
          mGameBoards.put(EColor.GREEN, greenBoards.get(r.nextInt(greenBoards.size())));
@@ -350,6 +386,13 @@ public class GhostStoriesGameManager {
       mPlayerData.put(EColor.BLUE, createPlayerData("Blue Player", EColor.BLUE));
       mPlayerData.put(EColor.YELLOW, createPlayerData("Yellow Player", EColor.YELLOW));
       mPlayerData.put(EColor.GREEN, createPlayerData("Green Player", EColor.GREEN));
+   }
+   
+   /**
+    * Initialize the supply of tokens
+    */
+   private void initSupply() {
+      
    }
    
    /**
@@ -435,6 +478,8 @@ public class GhostStoriesGameManager {
    private EDifficulty mDifficulty;
    /** The deck of ghost cards **/
    private GhostDeckData mGhostDeck;
+   /** The ghosts in the ghost graveyard **/
+   private GhostGraveyardData mGhostGraveyard = new GhostGraveyardData();
    /** The player game boards **/
    private Map<EColor, GameBoardData> mGameBoards = 
          new EnumMap<EColor, GameBoardData>(EColor.class);
@@ -446,10 +491,13 @@ public class GhostStoriesGameManager {
       new EnumMap<ETileLocation, VillageTileData>(ETileLocation.class);
    
    /** The current game phase **/
-   private EGamePhase mGamePhase = EGamePhase.YinPhase3;
+   private EGamePhase mGamePhase = EGamePhase.TurnStart;
    /** Listeners for game phase updates **/
    private Set<IGamePhaseListener> mGamePhaseListeners = 
          new CopyOnWriteArraySet<IGamePhaseListener>();
+   /** Listeners for game token updates **/
+   private Set<IGameTokenListener> mGameTokenListeners = 
+         new CopyOnWriteArraySet<IGameTokenListener>();
    /** Listeners for ghost deck updates **/
    private Set<IGhostDeckListener> mGhostDeckListeners = 
          new CopyOnWriteArraySet<IGhostDeckListener>();   
@@ -460,4 +508,10 @@ public class GhostStoriesGameManager {
    
    /** The number of dice available to the player **/
    private int mNumDice = 3;
+   
+   /** The number of tao tokens available in the supply by color **/
+   private Map<EColor, Integer> mNumTaoTokens = 
+         new EnumMap<EColor, Integer>(EColor.class);
+   /** The number of qi tokens available in the supply **/
+   private int mNumQiTokens = 0;
 }

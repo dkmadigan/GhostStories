@@ -15,7 +15,7 @@
         android:src="@drawable/ghost_49_grave_walker" />
     
     <LinearLayout 
-        android:id="@+id/top_attack"
+        android:id="@+id/top_damage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/ghost"
@@ -25,17 +25,17 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="10dp"        
         android:orientation="horizontal">
-        <include layout="@layout/combat_attack"/>
+        <include layout="@layout/combat_damage"/>
     </LinearLayout>
         <LinearLayout 
-        android:id="@+id/bottom_attack"
+        android:id="@+id/bottom_damage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/top_attack"        
-        android:layout_below="@id/top_attack"    
-        android:layout_alignRight="@id/top_attack"           
+        android:layout_alignLeft="@id/top_damage"        
+        android:layout_below="@id/top_damage"    
+        android:layout_alignRight="@id/top_damage"           
         android:orientation="horizontal">
-        <include layout="@layout/combat_attack"/>
+        <include layout="@layout/combat_damage"/>
     </LinearLayout>
 
     <LinearLayout

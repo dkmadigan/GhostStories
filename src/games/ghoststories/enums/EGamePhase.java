@@ -4,6 +4,8 @@ package games.ghoststories.enums;
  * Defines the different game phases to each player turn.
  */
 public enum EGamePhase {
+   TurnStart("", ""),
+   
    YinPhase1A("Yin Phase 1A: Ghosts' Actions", 
          "-Update haunter positions<br />-Haunt tiles"),
          
@@ -22,6 +24,8 @@ public enum EGamePhase {
    YangPhase2("Yang Phase 2: Taoist Action",
          "-Request help from villager by tapping on current village tile OR perform exorcism by tapping on an adjacent ghost"),
          
+   TaoistResolution("", ""),
+   
    YangPhase3("Yang Phase 3: Place Buddha",
          "-Place Buddha by tapping on an adjacent empty ghost space");
 

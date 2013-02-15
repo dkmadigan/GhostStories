@@ -1,9 +1,11 @@
 package games.ghoststories.views.aux_area;
 
+import games.ghoststories.data.DragData;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesBitmaps;
 import games.ghoststories.data.interfaces.IGhostDeckListener;
+import games.ghoststories.enums.EDragItem;
 import games.ghoststories.utils.ImageViewUtils;
 
 import java.util.concurrent.Executor;
@@ -15,9 +17,10 @@ import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.interfaces.IDraggable;
 import com.views.NumberedImageView;
 
-public class GhostDeckView extends NumberedImageView implements IGhostDeckListener {
+public class GhostDeckView extends NumberedImageView implements IGhostDeckListener, IDraggable<DragData> {
    public GhostDeckView(Context pContext) {
       super(pContext);
       setShowNumber(false);
@@ -32,6 +35,14 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
       super(pContext, pAttrs, pDefStyle); 
       setShowNumber(false);
    }     
+   
+   /*
+    * (non-Javadoc)
+    * @see com.views.IDraggable#getDragData()
+    */
+   public DragData getDragData() {    
+      return new DragData(EDragItem.GHOST_CARD, mGhostDeckData.getTopCard(), this);
+   }
    
    /**
     * @return The bitmap of the top card. There are no guarantees that this 

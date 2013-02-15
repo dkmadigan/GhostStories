@@ -9,10 +9,20 @@
     <string name="village_tile">Village Tile</string>
     <string name="monk">Monk</string>
     <string name="player_ability">Player Ability</string>
-    <string name="combat_health">Ghost Health</string>
+    <string name="combat_health">Ghost Health</string> 
     <string name="combat_ghost">Ghost</string>
     <string name="background">Background</string>
     <string name="dice">Dice</string>
-    <string name="combat_attack">Tap Dice to Attack</string>
+    <string name="attack">Attack</string>
+    <string name="close">Close</string>
+    <string name="ok">OK</string>
+    <string name="info">Info</string>
+    <string name="combat_attack">Roll Dice To Attack</string>
+    <string name="combat_attack_2">God\'s Favorite: Tap Dice To Keep and Roll Again</string>
     <string name="combat_resolution">Drag Dice and Tao Tokens Onto Ghosts To Attack</string>
+    <string name="graveyard">Graveyard</string>
+    <string name="smoke">Smoke</string>
+    <string name="circle_of_prayer">Circle Of Prayer</string>
+    <string name="selected_token">Selected Token</string>
+    <string name="token">Token</string>
 </resources>

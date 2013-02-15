@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<games.ghoststories.views.graveyard.GraveyardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7FFFFFFF" >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="100dp"
+        android:background="@drawable/background3"
+        android:contentDescription="@string/background" />
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/background"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/graveyard"
+        android:src="@drawable/graveyard_title" />
+
+    <games.ghoststories.views.graveyard.GraveyardScrollView
+        android:id="@+id/graveyard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/background"
+        android:layout_alignRight="@id/background"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="30dp" >
+<!-- 
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/ghost_01_ghoul" />
+
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:layout_marginLeft="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ghost_02_walking_corpse" />
+
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/ghost_03_coffin_breakers" />
+
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/ghost_04_coffin_breakers" />
+
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/ghost_05_restless_dead" />
+
+            <ImageView
+                android:layout_width="@dimen/graveyard_card_width"
+                android:layout_height="@dimen/graveyard_card_height"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/ghost_06_zombie" />
+                 -->
+        </LinearLayout>
+    </games.ghoststories.views.graveyard.GraveyardScrollView>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/background"
+        android:layout_alignTop="@id/background"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="-10dp"
+        android:contentDescription="@string/close"
+        android:onClick="closeGraveyard"
+        android:src="@drawable/close" />
+
+</games.ghoststories.views.graveyard.GraveyardView>

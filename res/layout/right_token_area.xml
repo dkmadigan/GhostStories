@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/yellow_tau_tokens"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -22,7 +22,7 @@
             android:src="@drawable/tao_token_yellow"
             gs:token_color="yellow" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/red_tau_tokens"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -31,7 +31,7 @@
             android:src="@drawable/tao_token_red"
             gs:token_color="red" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/green_tau_tokens"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -40,7 +40,7 @@
             android:src="@drawable/tao_token_green"
             gs:token_color="green" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/blue_tau_tokens"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -49,7 +49,7 @@
             android:src="@drawable/tao_token_blue"
             gs:token_color="blue" />
 
-        <games.ghoststories.views.common.TauTokenView
+        <games.ghoststories.views.common.TaoTokenView
             android:id="@+id/black_tau_tokens"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -126,16 +126,16 @@ public class GameBoardData {
    }
    
    /**
-    * @return Whether or not this game board currently contains a haunter
+    * @return The number of haunters on the current board
     */
-   public boolean hasHaunter() {
-      boolean hasHaunter = false;
+   public int getNumHaunters() {
+      int numHaunters = 0;
       for(GhostData gd : mGhosts.values()) {
          if(gd.getHaunterLocation() != EHaunterLocation.NONE) {
-            hasHaunter = true;
+            numHaunters++;
          }
       }
-      return hasHaunter;
+      return numHaunters;
    }
    
    /**

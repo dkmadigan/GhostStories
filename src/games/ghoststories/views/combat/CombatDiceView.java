@@ -1,19 +1,23 @@
 package games.ghoststories.views.combat;
 
-import games.ghoststories.R;
+import games.ghoststories.data.DragData;
+import games.ghoststories.data.GhostStoriesConstants;
+import games.ghoststories.enums.EDiceSide;
+import games.ghoststories.enums.EDragItem;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-public class CombatDiceView extends ImageView {
+import com.interfaces.IDraggable;
+import com.views.ToggledImageView;
+
+public class CombatDiceView extends ToggledImageView implements IDraggable<DragData> {
 
    public CombatDiceView(Context pContext) {
       super(pContext);
@@ -30,13 +34,14 @@ public class CombatDiceView extends ImageView {
       init();
    }
 
-   public void startDiceAnimation() {
+   public void startDiceAnimation(Runnable pRunnable) {      
       if(!mAnimating) {
          mAnimating = true;
          mAnimationCount = 0;
          animateDice();
          mHandler.sendMessageDelayed(Message.obtain(mHandler, 0, 0), 100);
-      }
+         mRunnable = pRunnable;
+      }       
    }
 
    private void animateDice() {
@@ -47,6 +52,10 @@ public class CombatDiceView extends ImageView {
       mAnimating = false;            
       animate().cancel();
    }
+   
+   public DragData getDragData() {
+      return new DragData(EDragItem.COMBAT_DICE, mDiceSide, this);
+   }
 
    private Runnable mEndAction = new Runnable() {
       public void run() {
@@ -54,6 +63,9 @@ public class CombatDiceView extends ImageView {
          mAnimationCount++;
          if(mAnimationCount >= sMaxAnimationCount) {
             cancelDiceAnimation();
+            if(mRunnable != null) {
+               mRunnable.run();
+            }
          } else {
             animateDice();   
          }         
@@ -62,19 +74,28 @@ public class CombatDiceView extends ImageView {
 
    private int mFactor = 1;
    private boolean mAnimating = false;
-   private void init() {
-      Random r = new Random();
-      int rotation = r.nextInt() % 360;
+   protected static final List<EDiceSide> sDiceSides = 
+         Arrays.asList(EDiceSide.values());
+   
+   protected int getNextDiceDrawable() {
+      mDiceSide = sDiceSides.get(GhostStoriesConstants.sRandom.nextInt(
+            sDiceSides.size()));
+      return mDiceSide.getDiceDrawable();
+   }
+   
+   private void init() {      
+      int rotation = GhostStoriesConstants.sRandom.nextInt(360);
       setRotation(rotation);
       
-      //Pick a random dice color as the starting color
-      setImageResource(sDiceResources.get(sRandom.nextInt(sDiceResources.size())));
+      //Pick a random dice color as the starting color          
+      setImageResource(getNextDiceDrawable());
    }         
 
-   private static Random sRandom = new Random();
+   protected EDiceSide mDiceSide;
    private Handler mHandler = new DiceRollerHandler(this);
    private int mAnimationCount = 0;
    private static int sMaxAnimationCount = 10;
+   private Runnable mRunnable;
 
    static class DiceRollerHandler extends Handler {
       private WeakReference<CombatDiceView> mRef;
@@ -83,22 +104,12 @@ public class CombatDiceView extends ImageView {
       }
 
       @Override
-      public void handleMessage(Message msg) {           
-         if(mRef.get() != null && mRef.get().mAnimating) {
-            int value = sRandom.nextInt(sDiceResources.size());        
-            mRef.get().setImageResource(sDiceResources.get(value));                  
+      public void handleMessage(Message msg) {  
+         CombatDiceView view = mRef.get();
+         if(view != null && view.mAnimating) {                   
+            view.setImageResource(view.getNextDiceDrawable());                  
             sendMessageDelayed(Message.obtain(this, 0, 0), 100);
          }         
       }
-   };
-   
-   private static List<Integer> sDiceResources = new ArrayList<Integer>();
-   static {
-      sDiceResources.add(R.drawable.tao_dice_black);
-      sDiceResources.add(R.drawable.tao_dice_blue);
-      sDiceResources.add(R.drawable.tao_dice_green);
-      sDiceResources.add(R.drawable.tao_dice_red);
-      sDiceResources.add(R.drawable.tao_dice_yellow);
-      sDiceResources.add(R.drawable.tao_dice_white);
    };
 }

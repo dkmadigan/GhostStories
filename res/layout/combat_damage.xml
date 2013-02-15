@@ -1,7 +1,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <games.ghoststories.views.combat.CombatAttackView
-        android:id="@+id/combat_attack_1"
+    <games.ghoststories.views.combat.CombatDamageView
+        android:id="@+id/combat_damage_1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -9,8 +9,8 @@
         android:src="@drawable/tao_token_black"
         android:visibility="invisible" />
 
-    <games.ghoststories.views.combat.CombatAttackView
-        android:id="@+id/combat_attack_2"
+    <games.ghoststories.views.combat.CombatDamageView
+        android:id="@+id/combat_damage_2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -18,8 +18,8 @@
         android:src="@drawable/tao_dice_yellow"
         android:visibility="invisible" />
 
-    <games.ghoststories.views.combat.CombatAttackView
-        android:id="@+id/combat_attack_3"
+    <games.ghoststories.views.combat.CombatDamageView
+        android:id="@+id/combat_damage_3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -27,8 +27,8 @@
         android:src="@drawable/tao_token_red"
         android:visibility="invisible" />
 
-    <games.ghoststories.views.combat.CombatAttackView
-        android:id="@+id/combat_attack_4"
+    <games.ghoststories.views.combat.CombatDamageView
+        android:id="@+id/combat_damage_4"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

@@ -1,5 +1,4 @@
-<games.ghoststories.views.combat.CombatView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<games.ghoststories.views.combat.CombatView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +15,7 @@
         android:layout_marginTop="50dp"
         android:contentDescription="@string/background"
         android:scaleType="fitXY"
-        android:src="@drawable/canvas" />
+        android:src="@drawable/canvas3" />
 
     <include
         android:id="@+id/info_area_1"
@@ -58,7 +57,7 @@
         android:layout_marginTop="15dp"
         layout="@layout/combat_player_info" />
 
-    <games.ghoststories.views.combat.CombatInstructions
+    <games.ghoststories.views.combat.CombatInstructionsView
         android:id="@+id/instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +81,8 @@
             android:id="@+id/dice_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/dice"
             android:src="@drawable/tao_dice_blue" />
@@ -91,7 +91,8 @@
             android:id="@+id/dice_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/dice"
             android:src="@drawable/tao_dice_yellow" />
@@ -99,22 +100,34 @@
         <games.ghoststories.views.combat.CombatDiceView
             android:id="@+id/dice_3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/dice"
             android:src="@drawable/tao_dice_white" />
 
-        <games.ghoststories.views.combat.CombatDiceView
+        <games.ghoststories.views.combat.ExtraCombatDiceView
             android:id="@+id/extra_dice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/dice"
             android:src="@drawable/extra_tao_dice_green" />
+
+        <games.ghoststories.views.combat.CombatRollView
+            android:id="@+id/attack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/attack"
+            android:src="@drawable/roll" />
     </games.ghoststories.views.combat.CombatDiceAreaView>
-    
+
     <LinearLayout
         android:id="@+id/combat_ghosts"
         android:layout_width="wrap_content"
@@ -139,4 +152,23 @@
             layout="@layout/combat_ghost" />
     </LinearLayout>
 
+    <com.views.ToggledImageView
+        android:id="@+id/close"
+        android:contentDescription="@string/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/background"
+        android:layout_alignRight="@id/background"
+        android:layout_margin="5dp"
+        android:onClick="closeCombatView"
+        android:src="@drawable/close" />
+    
+    <com.views.ToggledImageView
+        android:id="@+id/ok"
+        android:contentDescription="@string/ok"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/close"
+        android:layout_toLeftOf="@id/close"       
+        android:src="@drawable/ok" />    
 </games.ghoststories.views.combat.CombatView>

@@ -1,10 +1,12 @@
 package games.ghoststories.views.aux_area;
 
+import games.ghoststories.R;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
 import games.ghoststories.enums.EGamePhase;
 import games.ghoststories.utils.GameUtils;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -30,8 +32,17 @@ public class GamePhaseDetailsView extends TextView implements IGamePhaseListener
    }
    
    private void init() {
-      GhostStoriesGameManager.getInstance().addGamePhaseListener(this);
-      updateText(GhostStoriesGameManager.getInstance().getCurrentGamePhase());
+      if(isInEditMode()) {
+         setText(EGamePhase.YangPhase2.getText());
+      } else {
+         GhostStoriesGameManager.getInstance().addGamePhaseListener(this);
+         /*
+         Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), 
+            "fonts/segoescb.ttf");
+         setTypeface(myTypeface);
+          */      
+         updateText(GhostStoriesGameManager.getInstance().getCurrentGamePhase());
+      }
    }
    
    private void updateText(final EGamePhase pGamePhase) {

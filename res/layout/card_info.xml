@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<games.ghoststories.views.aux_area.CardInfoView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
         android:layout_marginRight="280dp"
         android:layout_marginLeft="280dp"
         android:scaleType="fitXY"
-        android:src="@drawable/canvas"/>
+        android:src="@drawable/canvas3"/>
 
      <ImageView
         android:id="@+id/card"
@@ -47,13 +48,14 @@
     
     <ImageView
         android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="992dp"
-        android:layout_marginTop="85dp"
-        android:scaleX="2.0"
-        android:scaleY="2.0"
+        android:contentDescription="@string/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/background"
+        android:layout_alignTop="@id/background"
+        android:layout_marginTop="-10dp"
+        android:layout_marginRight="-10dp"
         android:src="@drawable/close"
-        android:onClick="closeCardInfoCB" />
+        android:onClick="closeCardInfo" />
 
-</RelativeLayout>
+</games.ghoststories.views.aux_area.CardInfoView>

@@ -1,0 +1,29 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/haunter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/haunter"
+        android:scaleType="fitXY"
+        android:src="@drawable/haunter_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/highlight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/highlight"
+        android:scaleType="fitXY"
+        android:src="@drawable/card_halo"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/smoke_effect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/smoke"
+        android:contentDescription="@string/smoke"
+        android:visibility="invisible" />
+
+</merge>

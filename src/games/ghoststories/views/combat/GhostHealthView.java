@@ -26,6 +26,14 @@ public class GhostHealthView extends ImageView {
       super(pContext, pAttrs, pDefStyle);
    }
    
+   public EColor getColor() {
+      return mColor; 
+   }
+   
+   public boolean isActive() {
+      return mActive;
+   }
+   
    public void setColor(EColor pColor) {
       setImageResource(GameUtils.getTaoTokenId(pColor));
       GameUtils.invalidateView(this);
@@ -57,4 +65,5 @@ public class GhostHealthView extends ImageView {
    
    private boolean mActive = true;
    private RectF mRect = null;
+   private EColor mColor = null;
 }

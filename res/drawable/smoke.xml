@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/smoke_plume_1" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_2" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_3" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_4" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_5" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_6" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_7" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_8" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_9" android:duration="100" />
+    <item android:drawable="@drawable/smoke_plume_10" android:duration="100" />
+</animation-list>
