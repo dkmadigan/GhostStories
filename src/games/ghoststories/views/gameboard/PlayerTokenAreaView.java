@@ -31,18 +31,18 @@ public class PlayerTokenAreaView extends LinearLayout {
       
       //Update the different token views in this player area      
       BuddhaTokenView buddhaTokenView = (BuddhaTokenView)findViewById(R.id.buddha_tokens);
-      buddhaTokenView.setPlayerData(mPlayerData);
+      buddhaTokenView.setData(mPlayerData);
       
       QiTokenView qiTokenView = (QiTokenView)findViewById(R.id.qi_tokens);
-      qiTokenView.setPlayerData(mPlayerData);
+      qiTokenView.setData(mPlayerData);
       
       for(EColor color : EColor.values()) {
-         TaoTokenView tauTokenView = (TaoTokenView)findViewById(color.getTokenId());
-         tauTokenView.setPlayerData(mPlayerData);
+         TaoTokenView taoTokenView = (TaoTokenView)findViewById(color.getTokenId());
+         taoTokenView.setData(mPlayerData);
       }
             
       YinYangTokenView yinYangTokenView = (YinYangTokenView)findViewById(R.id.yin_yang);
-      yinYangTokenView.setPlayerData(mPlayerData);      
+      yinYangTokenView.setData(mPlayerData);      
       
       ImageView abilityView = (ImageView)findViewById(R.id.ability);
       if(abilityView.getDrawable() == null) {

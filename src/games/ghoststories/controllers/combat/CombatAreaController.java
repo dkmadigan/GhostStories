@@ -124,10 +124,10 @@ public class CombatAreaController {
       for(PlayerInfoView piv : mPlayerViews) {
          if(piv.getVisibility() == View.VISIBLE) {
             for(EColor c : EColor.values()) {
-               TaoTokenView tauTokenView = 
+               TaoTokenView taoTokenView = 
                      (TaoTokenView)piv.findViewById(c.getTokenId());
-               tauTokenView.setOnTouchListener(new DragTouchListener());
-               tauTokenView.setOnDragListener(new TaoTokenDragListener());
+               taoTokenView.setOnTouchListener(new DragTouchListener());
+               taoTokenView.setOnDragListener(new TaoTokenDragListener());
             }     
          }
       }
@@ -149,10 +149,10 @@ public class CombatAreaController {
       for(PlayerInfoView piv : mPlayerViews) {
          if(piv.getVisibility() == View.VISIBLE) {
             for(EColor c : EColor.values()) {
-               TaoTokenView tauTokenView = 
+               TaoTokenView taoTokenView = 
                      (TaoTokenView)piv.findViewById(c.getTokenId());
-               tauTokenView.setOnTouchListener(null);
-               tauTokenView.setOnDragListener(null);
+               taoTokenView.setOnTouchListener(null);
+               taoTokenView.setOnDragListener(null);
             }     
          }
       }

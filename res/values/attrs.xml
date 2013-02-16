@@ -7,7 +7,7 @@
         <attr name="text_color" format="integer"/>
     </declare-styleable>
     
-    <declare-styleable name="TauTokenView">
+    <declare-styleable name="TaoTokenView">
         <attr name="token_color">
             <enum name="black" value="0" />
             <enum name="blue" value="1" />

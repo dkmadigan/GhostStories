@@ -73,8 +73,8 @@
             <Red>4</Red>
         </Resistance>
         <EnterAbility></EnterAbility>
-        <TurnAbility>ALL_LOSE_TAU</TurnAbility>
-        <ExorciseAbility>ALL_LOSE_TAU</ExorciseAbility>
+        <TurnAbility>ALL_LOSE_TAO</TurnAbility>
+        <ExorciseAbility>ALL_LOSE_TAO</ExorciseAbility>
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>   
     
@@ -82,7 +82,7 @@
         <Resistance>
             <Blue>3</Blue>
         </Resistance>
-        <EnterAbility>NO_TAU</EnterAbility>
+        <EnterAbility>NO_TAO</EnterAbility>
         <TurnAbility></TurnAbility>        
         <ExorciseAbility>QI_AND_YINYANG</ExorciseAbility>
     </Ghost>

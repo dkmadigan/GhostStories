@@ -80,11 +80,10 @@ public class GhostStoriesGameManager {
    }
    
    /**
-    * Adjust the number of available dice by the specified value.
-    * @param pValue The value to adjust the dice by
+    * Increases the amount of available dice by 1
     */
-   public void adjustNumDice(int pValue) {
-      mNumDice = Math.max(0, mNumDice + pValue);
+   public void addDice() {
+      mNumDice++;
    }
    
    /**
@@ -304,6 +303,14 @@ public class GhostStoriesGameManager {
    }
    
    /**
+    * @return The token supply containing the remaining Tao Tokens and Qi Tokens
+    * available to the players.
+    */
+   public TokenSupplyData getTokenSupply() {
+      return mTokenSupply;
+   }
+   
+   /**
     * Gets the village tile where the passed in player is currently at.
     * @param pColor The color of the player to get the tile for
     * @return The tile where the player is at
@@ -342,6 +349,13 @@ public class GhostStoriesGameManager {
     */
    public Map<ETileLocation, VillageTileData> getVillageTiles() {
       return Collections.unmodifiableMap(mVillageTiles);
+   }
+   
+   /**
+    * Decreases the amount of available dice by 1
+    */
+   public void removeDice() {
+      mNumDice = Math.max(0, mNumDice - 1);
    }
    
    /**
@@ -392,7 +406,11 @@ public class GhostStoriesGameManager {
     * Initialize the supply of tokens
     */
    private void initSupply() {
-      
+      //There are 5 tokens of each color and 20 Qi tokens in the initial supply
+      mTokenSupply.setNumQi(20);
+      for(EColor color : EColor.values()) {
+         mTokenSupply.setNumTaoTokens(color, 4);   
+      }      
    }
    
    /**
@@ -429,18 +447,25 @@ public class GhostStoriesGameManager {
       //Initialize the player data based on the current difficulty
       switch(mDifficulty) {
       case INITIATE:
-         pd.setQi(4);
-         pd.setNumTauTokens(EColor.BLACK, 1);
-         pd.setNumTauTokens(pColor, 1);
+         pd.setNumQi(4);
+         mTokenSupply.removeQi(4);
+         pd.setNumTaoTokens(EColor.BLACK, 1);
+         mTokenSupply.removeTaoToken(EColor.BLACK);
+         pd.setNumTaoTokens(pColor, 1);
+         mTokenSupply.removeTaoToken(pColor);
          break;
       case NORMAL:
       case NIGHTMARE:
-         pd.setQi(3);
-         pd.setNumTauTokens(pColor, 1);
+         pd.setNumQi(3);
+         mTokenSupply.removeQi(3);
+         pd.setNumTaoTokens(pColor, 1);
+         mTokenSupply.removeTaoToken(pColor);
          break;      
       case HELL:     
-         pd.setQi(3);
-         pd.setNumTauTokens(pColor, 1);
+         pd.setNumQi(3);
+         mTokenSupply.removeQi(3);
+         pd.setNumTaoTokens(pColor, 1);
+         mTokenSupply.removeTaoToken(pColor);
          pd.setYinYangAvailable(false);
          break;
       }
@@ -509,9 +534,6 @@ public class GhostStoriesGameManager {
    /** The number of dice available to the player **/
    private int mNumDice = 3;
    
-   /** The number of tao tokens available in the supply by color **/
-   private Map<EColor, Integer> mNumTaoTokens = 
-         new EnumMap<EColor, Integer>(EColor.class);
-   /** The number of qi tokens available in the supply **/
-   private int mNumQiTokens = 0;
+   /** The token supply **/
+   private TokenSupplyData mTokenSupply;
 }

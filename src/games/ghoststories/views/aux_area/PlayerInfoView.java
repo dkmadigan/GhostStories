@@ -66,22 +66,22 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       //Update the different token views in this player area      
       BuddhaTokenView buddhaTokenView = (BuddhaTokenView)findViewById(R.id.buddha_tokens);
       if(buddhaTokenView != null) {
-         buddhaTokenView.setPlayerData(mPlayerData);
+         buddhaTokenView.setData(mPlayerData);
       }
       
       QiTokenView qiTokenView = (QiTokenView)findViewById(R.id.qi_tokens);
       if(qiTokenView != null) {
-         qiTokenView.setPlayerData(mPlayerData);
+         qiTokenView.setData(mPlayerData);
       }
       
       for(EColor c : EColor.values()) {
-         TaoTokenView tauTokenView = (TaoTokenView)findViewById(c.getTokenId());
-         tauTokenView.setPlayerData(mPlayerData);
+         TaoTokenView taoTokenView = (TaoTokenView)findViewById(c.getTokenId());
+         taoTokenView.setData(mPlayerData);
       }
             
       YinYangTokenView yinYangTokenView = (YinYangTokenView)findViewById(R.id.yin_yang);
       if(yinYangTokenView != null) {
-         yinYangTokenView.setPlayerData(mPlayerData);
+         yinYangTokenView.setData(mPlayerData);
       }
       
       mPaint.setColor(color.getColor());      

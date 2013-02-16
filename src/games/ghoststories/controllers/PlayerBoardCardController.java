@@ -105,7 +105,7 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
          switch(ability) {
          case ALL_LOSE_ABILITY: //TODO Handle this
             break;
-         case ALL_LOSE_TAU: //TODO Handle this
+         case ALL_LOSE_TAO: //TODO Handle this
             break;
          case CLEAR_CIRCLE_OF_PRAYER:
             gm.getVillageTile(EVillageTile.CIRCLE_OF_PRAYER).setTokenColor(null);
@@ -121,7 +121,7 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
             gm.getPlayerData(mGameBoardData.getColor()).setAbilityActive(false);
             break;
          case LOSE_DIE:
-            gm.adjustNumDice(-1);
+            gm.removeDice();
             break;
          case SUMMON_GHOST:
             //TODO Probably need to make it obvious you need to redraw a ghost

@@ -16,5 +16,5 @@ public class CircleOfPrayerView extends RelativeLayout {
 
    public CircleOfPrayerView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
-   }
+   }      
 }

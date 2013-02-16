@@ -106,7 +106,7 @@
         </Resistance>
         <EnterAbility></EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TWO_TAO</ExorciseAbility>
     </Ghost>
     
     <Ghost name="Lich" id="11" color="YELLOW" image="@drawable/ghost_11_lich">
@@ -206,7 +206,7 @@
         </Resistance>
         <EnterAbility></EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TWO_TAO</ExorciseAbility>
     </Ghost>
     
     <Ghost name="Fury of depth" id="22" color="BLUE" image="@drawable/ghost_22_fury_of_depth">
@@ -306,7 +306,7 @@
         </Resistance>
         <EnterAbility></EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TWO_TAO</ExorciseAbility>
     </Ghost> 
     
     <Ghost name="Great Putrid" id="33" color="GREEN" image="@drawable/ghost_33_great_putrid">
@@ -406,7 +406,7 @@
         </Resistance>
         <EnterAbility></EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TWO_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TWO_TAO</ExorciseAbility>
     </Ghost>        
     
     <Ghost name="Raging One" id="44" color="RED" image="@drawable/ghost_44_raging_one">
@@ -424,7 +424,7 @@
         </Resistance>
         <EnterAbility>HAUNT_BOARD</EnterAbility>
         <TurnAbility>HAUNT</TurnAbility>
-        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TAO</ExorciseAbility>
     </Ghost>    
     
     <Ghost name="Repellent Beauty" id="46" color="BLACK" image="@drawable/ghost_46_repellent_beauty">
@@ -433,7 +433,7 @@
         </Resistance>
         <EnterAbility>LOSE_DIE</EnterAbility>
         <TurnAbility>DICE_IMMUNITY</TurnAbility>
-        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TAO</ExorciseAbility>
     </Ghost>    
     
     <Ghost name="Severed Heads" id="47" color="BLACK" image="@drawable/ghost_47_severed_heads">
@@ -443,7 +443,7 @@
         <EnterAbility>LOSE_DIE</EnterAbility>
         <EnterAbility>SUMMON_GHOST</EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TAO</ExorciseAbility>
     </Ghost>      
     
     <Ghost name="Severed Heads" id="48" color="BLACK" image="@drawable/ghost_48_severed_heads">
@@ -453,7 +453,7 @@
         <EnterAbility>LOSE_DIE</EnterAbility>
         <EnterAbility>SUMMON_GHOST</EnterAbility>
         <TurnAbility></TurnAbility>
-        <ExorciseAbility>GAIN_TAU</ExorciseAbility>
+        <ExorciseAbility>GAIN_TAO</ExorciseAbility>
     </Ghost>   
     
     <Ghost name="Grave Walker" id="49" color="BLACK" image="@drawable/ghost_49_grave_walker">
@@ -469,7 +469,7 @@
         <Resistance>
             <Black>2</Black>
         </Resistance>
-        <EnterAbility>NO_TAU</EnterAbility>
+        <EnterAbility>NO_TAO</EnterAbility>
         <TurnAbility></TurnAbility>
         <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
         <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
@@ -479,7 +479,7 @@
         <Resistance>
             <Black>2</Black>
         </Resistance>
-        <EnterAbility>NO_TAU</EnterAbility>
+        <EnterAbility>NO_TAO</EnterAbility>
         <TurnAbility></TurnAbility>
         <ExorciseAbility>ROLL_CURSE_DIE</ExorciseAbility>
         <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
@@ -516,7 +516,7 @@
         <Resistance>
             <Black>4</Black>
         </Resistance>
-        <EnterAbility>ALL_LOSE_TAU</EnterAbility>
+        <EnterAbility>ALL_LOSE_TAO</EnterAbility>
         <TurnAbility>ROLL_CURSE_DIE</TurnAbility>
         <ExorciseAbility>QI_OR_YINYANG</ExorciseAbility>
     </Ghost>

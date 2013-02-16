@@ -1,6 +1,7 @@
 package games.ghoststories.views.common;
 
 import games.ghoststories.data.PlayerData;
+import games.ghoststories.data.TokenSupplyData;
 import android.content.Context;
 import android.util.AttributeSet;
 
@@ -38,10 +39,10 @@ public class QiTokenView extends AbstractNumberedTokenView {
    
    /*
     * (non-Javadoc)
-    * @see games.ghoststories.data.IPlayerDataListener#playerDataUpdated()
+    * @see games.ghoststories.data.interfaces.ITokenListener#tokenDataUpdated()
     */
-   public void playerDataUpdated() {
-      int numTokens = mPlayerData.getQi();
+   public void tokenDataUpdated() {
+      int numTokens = mData.getNumQi();
       if(numTokens != getNumber()) {
          setNumber(numTokens);
       }      
@@ -49,11 +50,11 @@ public class QiTokenView extends AbstractNumberedTokenView {
    
    /*
     * (non-Javadoc)
-    * @see games.ghoststories.views.AbstractNumberedTokenView#setPlayerData(games.ghoststories.data.PlayerData)
+    * @see games.ghoststories.views.common.AbstractNumberedTokenView#setData(games.ghoststories.data.TokenSupplyData)
     */
    @Override
-   public void setPlayerData(PlayerData pData) {
-      super.setPlayerData(pData);
-      setNumber(mPlayerData.getQi());
+   public void setData(TokenSupplyData pData) {
+      super.setData(pData);
+      setNumber(pData.getNumQi());
    }
 }

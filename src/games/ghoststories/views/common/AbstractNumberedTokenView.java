@@ -1,14 +1,15 @@
 package games.ghoststories.views.common;
 
 import games.ghoststories.data.PlayerData;
-import games.ghoststories.data.interfaces.IPlayerDataListener;
+import games.ghoststories.data.TokenSupplyData;
+import games.ghoststories.data.interfaces.ITokenListener;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import com.views.NumberedImageView;
 
-public abstract class AbstractNumberedTokenView extends NumberedImageView implements IPlayerDataListener {
+public abstract class AbstractNumberedTokenView extends NumberedImageView implements ITokenListener {
    /**
     * Constructor 
     * @param pContext The context the view is running in
@@ -39,12 +40,12 @@ public abstract class AbstractNumberedTokenView extends NumberedImageView implem
    }
    
    /**
-    * Sets the player data used to populate this view
-    * @param pData The player data
+    * Sets the data used to populate this view
+    * @param pData The data
     */
-   public void setPlayerData(PlayerData pData) {
-      mPlayerData = pData;
-      mPlayerData.addPlayerDataListener(this);
+   public void setData(TokenSupplyData pData) {
+      mData = pData;
+      mData.addTokenListener(this);
    }
    
    /*
@@ -63,6 +64,6 @@ public abstract class AbstractNumberedTokenView extends NumberedImageView implem
    /** The y offset of the text **/
    private static final float sYOffset = 0.7f;   
    
-   /** The player data **/
-   protected PlayerData mPlayerData;
+   /** The data **/
+   protected TokenSupplyData mData;
 }

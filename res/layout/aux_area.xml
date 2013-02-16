@@ -49,7 +49,7 @@
             android:src="@drawable/ghost_card_back" />
 
         <games.ghoststories.views.common.TaoTokenView
-            android:id="@+id/black_tau_tokens"
+            android:id="@+id/black_tao_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/ghost_deck"
@@ -59,39 +59,39 @@
             gs:token_color="black" />
 
         <games.ghoststories.views.common.TaoTokenView
-            android:id="@+id/blue_tau_tokens"
+            android:id="@+id/blue_tao_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/ghost_deck"
-            android:layout_toRightOf="@id/black_tau_tokens"
+            android:layout_toRightOf="@id/black_tao_tokens"
             android:src="@drawable/tao_token_blue"
             gs:token_color="blue" />
 
         <games.ghoststories.views.common.TaoTokenView
-            android:id="@+id/green_tau_tokens"
+            android:id="@+id/green_tao_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/ghost_deck"
-            android:layout_toRightOf="@id/blue_tau_tokens"
+            android:layout_toRightOf="@id/blue_tao_tokens"
             android:src="@drawable/tao_token_green"
             gs:token_color="green" />
 
         <games.ghoststories.views.common.TaoTokenView
-            android:id="@+id/red_tau_tokens"
+            android:id="@+id/red_tao_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/black_tau_tokens"
+            android:layout_below="@id/black_tao_tokens"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/ghost_graveyard_card"
             android:src="@drawable/tao_token_red"
             gs:token_color="red" />
 
         <games.ghoststories.views.common.TaoTokenView
-            android:id="@+id/yellow_tau_tokens"
+            android:id="@+id/yellow_tao_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/blue_tau_tokens"
-            android:layout_toRightOf="@id/red_tau_tokens"
+            android:layout_below="@id/blue_tao_tokens"
+            android:layout_toRightOf="@id/red_tao_tokens"
             android:src="@drawable/tao_token_yellow"
             gs:token_color="yellow" />
 
@@ -99,8 +99,8 @@
             android:id="@+id/qi_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/green_tau_tokens"
-            android:layout_toRightOf="@id/yellow_tau_tokens"
+            android:layout_below="@id/green_tao_tokens"
+            android:layout_toRightOf="@id/yellow_tao_tokens"
             android:src="@drawable/qi_token" />
 
         <Button
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/ghost_deck"
-            android:layout_toRightOf="@+id/green_tau_tokens"
+            android:layout_toRightOf="@+id/green_tao_tokens"
             android:onClick="nextButtonCB"
             android:text="NEXT" />
 

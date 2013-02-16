@@ -40,7 +40,7 @@ public class YinYangTokenView extends ImageView {
     * Sets the player data used to populate this view
     * @param pData The player data
     */
-   public void setPlayerData(PlayerData pData) {
+   public void setData(PlayerData pData) {
       mPlayerData = pData;
       switch(mPlayerData.getColor()) {
       case BLUE:

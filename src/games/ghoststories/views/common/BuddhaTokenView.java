@@ -2,6 +2,7 @@ package games.ghoststories.views.common;
 
 import games.ghoststories.R;
 import games.ghoststories.data.PlayerData;
+import games.ghoststories.data.TokenSupplyData;
 import games.ghoststories.utils.ImageViewUtils;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -36,26 +37,24 @@ public class BuddhaTokenView extends AbstractNumberedTokenView {
    
    /*
     * (non-Javadoc)
-    * @see games.ghoststories.data.IPlayerDataListener#playerDataUpdated()
+    * @see games.ghoststories.data.interfaces.ITokenListener#tokenDataUpdated()
     */
-   public void playerDataUpdated() { 
+   public void tokenDataUpdated() { 
       int numTokens = mPlayerData.getNumBuddhaTokens();
       if(numTokens != getNumber()) {
          setNumber(numTokens);
       }
    }
-   
-   /*
-    * (non-Javadoc)
-    * @see games.ghoststories.views.AbstractNumberedTokenView#setPlayerData(games.ghoststories.data.PlayerData)
-    */
-   @Override
-   public void setPlayerData(final PlayerData pData) {      
-      super.setPlayerData(pData);
+      
+   public void setData(PlayerData pData) {
+      super.setData(pData);
+      mPlayerData = pData;
       setNumber(mPlayerData.getNumBuddhaTokens());             
       if(getDrawable() == null) {
          ImageViewUtils.setBoardLocationResource(this, pData.getBoardLocation(), 
                R.drawable.buddha);
       }      
-   }     
+   } 
+   
+   private PlayerData mPlayerData;
 }

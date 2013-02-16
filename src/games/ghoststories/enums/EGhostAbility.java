@@ -13,9 +13,9 @@ public enum EGhostAbility {
     */
    ALL_LOSE_ABILITY,
    /*
-    * All players lose one tau token, if they have any
+    * All players lose one tao token, if they have any
     */
-   ALL_LOSE_TAU,
+   ALL_LOSE_TAO,
    /*
     * Discard the Tao token on the "Circle of Prayer" village tile
     */
@@ -30,13 +30,13 @@ public enum EGhostAbility {
     */
    EMPTY_OPPOSITE_TILE,
    /*
-    * Player receives one tau token of their choice
+    * Player receives one tao token of their choice
     */
-   GAIN_TAU,
+   GAIN_TAO,
    /*
-    * Player receives two tau tokens of their choice
+    * Player receives two tao tokens of their choice
     */
-   GAIN_TWO_TAU,
+   GAIN_TWO_TAO,
    /*
     * Adds a haunter to the card
     */
@@ -66,9 +66,9 @@ public enum EGhostAbility {
     */
    LOSE_QI,
    /*
-    * Players cannot use their tau tokens while this ghost is not defeated
+    * Players cannot use their tao tokens while this ghost is not defeated
     */
-   NO_TAU,
+   NO_TAO,
    /*
     * Incarnation reward. One Qi and 1 Yin-Yang token is returned to the group.
     * Players can decide whom they will assign these rewards.
