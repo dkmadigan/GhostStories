@@ -6,6 +6,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * View representing the player yin yang token
+ */
 public class YinYangTokenView extends ImageView {
    /**
     * Constructor 
@@ -60,5 +63,6 @@ public class YinYangTokenView extends ImageView {
       }
    }
    
+   /** The player data **/
    private PlayerData mPlayerData;
 }

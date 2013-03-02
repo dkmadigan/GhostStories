@@ -2,7 +2,8 @@ package games.ghoststories.utils;
 
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostData;
-import games.ghoststories.data.VillageTileData;
+import games.ghoststories.data.village.VillageTileData;
+import games.ghoststories.data.village.VillageTileDataFactory;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EGhostAbility;
 import games.ghoststories.enums.EPlayerAbility;
@@ -171,9 +172,9 @@ public class XmlUtils {
                   int activeImageId = parser.getAttributeResourceValue(
                         null, "active_image", -1);
                   int hauntedImageId = parser.getAttributeResourceValue(
-                        null, "haunted_image", -1);
-                  villageTiles.add(new VillageTileData(tileName, tileType,
-                        activeImageId, hauntedImageId));                                                                     
+                        null, "haunted_image", -1);                  
+                  villageTiles.add(VillageTileDataFactory.createVillageTileData(
+                        tileType, tileName, activeImageId, hauntedImageId));                                                                   
                }
                break;
             }

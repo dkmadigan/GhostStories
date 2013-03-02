@@ -6,6 +6,7 @@ import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
+import games.ghoststories.data.village.CircleOfPrayerTileData;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EDragItem;
 import games.ghoststories.enums.EGamePhase;
@@ -26,7 +27,20 @@ import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 
+/**
+ * Controller class that handles user interactions with the player game boards.
+ * This includes dragging and dropping of ghosts onto valid game boards and
+ * initiating combat by clicking on the ghosts. Each space on a player game
+ * board is represented by a single {@link PlayerBoardCardController}.
+ */
 public class PlayerBoardCardController implements OnDragListener, OnClickListener {
+   
+   /**
+    * Constructor
+    * @param pGameBoardData The data for game board
+    * @param pView The view for the game board
+    * @param pCardLocation The location of the game board
+    */
    public PlayerBoardCardController(GameBoardData pGameBoardData, 
          PlayerBoardCardView pView, ECardLocation pCardLocation) {
       mGameBoardData = pGameBoardData;
@@ -36,6 +50,10 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
       mView.setOnClickListener(this);
    }
 
+   /*
+    * (non-Javadoc)
+    * @see android.view.View.OnClickListener#onClick(android.view.View)
+    */
    public void onClick(View pView) {   
       //Only allow clicking on the ghost during the attack phase if there
       //is a ghost on this space and it is attackable
@@ -49,8 +67,7 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
          //Inflate the combat view
          Activity activity = (Activity)mView.getContext();
          LayoutInflater li = activity.getLayoutInflater();         
-
-         //TODO May need to supply the root component.         
+  
          CombatView view = (CombatView)li.inflate(R.layout.combat, null);
 
          //Find the other players who are on this tile
@@ -72,6 +89,10 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see android.view.View.OnDragListener#onDrag(android.view.View, android.view.DragEvent)
+    */
    public boolean onDrag(View pView, DragEvent pEvent) {
       boolean handle = false;
       Object data = pEvent.getLocalState();
@@ -98,6 +119,10 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
       return handle;
    }
 
+   /**
+    * Perform the ghosts enter ability when dropped on the game board
+    * @param pData The ghost to perform the enter ability for
+    */
    private void handleEnterAbility(GhostData pData) {
       GhostStoriesGameManager gm = GhostStoriesGameManager.getInstance();
       boolean advanceGamePhase = true;
@@ -108,7 +133,9 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
          case ALL_LOSE_TAO: //TODO Handle this
             break;
          case CLEAR_CIRCLE_OF_PRAYER:
-            gm.getVillageTile(EVillageTile.CIRCLE_OF_PRAYER).setTokenColor(null);
+            CircleOfPrayerTileData tileData = 
+            (CircleOfPrayerTileData)gm.getVillageTile(EVillageTile.CIRCLE_OF_PRAYER);
+            tileData.setTokenColor(null);
             break;
          case HAUNT_BOARD:
             pData.setHaunterLocation(EHaunterLocation.BOARD, null);
@@ -136,7 +163,10 @@ public class PlayerBoardCardController implements OnDragListener, OnClickListene
       }         
    }
 
-   private final GameBoardData mGameBoardData;
-   private final PlayerBoardCardView mView;
+   /** The location of the space this controller handles **/
    private final ECardLocation mCardLocation;
+   /** The data for the game board **/
+   private final GameBoardData mGameBoardData;
+   /** The view for the game board **/
+   private final PlayerBoardCardView mView;   
 }

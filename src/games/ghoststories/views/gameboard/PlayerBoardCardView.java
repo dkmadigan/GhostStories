@@ -1,5 +1,8 @@
 package games.ghoststories.views.gameboard;
 
+import com.utils.AnimationUtils2;
+import com.utils.ImageViewUtils;
+
 import games.ghoststories.R;
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostData;
@@ -15,7 +18,6 @@ import games.ghoststories.enums.EGamePhase;
 import games.ghoststories.enums.EHaunterLocation;
 import games.ghoststories.utils.BitmapUtils;
 import games.ghoststories.utils.GameUtils;
-import games.ghoststories.utils.ImageViewUtils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -182,7 +184,7 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
          //
       } else if(pOldLocation == EHaunterLocation.TILE && 
             pNewLocation == EHaunterLocation.CARD) {         
-         GameUtils.animateXY(mHaunterImageView, 
+         AnimationUtils2.animateXY(mHaunterImageView, 
                (int)mCardImageView.getX(), 
                (int)mCardImageView.getY(), 
                sHaunterAnimationDuration, pRunnable);               
@@ -222,17 +224,17 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
       switch(mGameBoardData.getLocation()) {
       case BOTTOM:
       case TOP:
-         GameUtils.translationY(mHaunterImageView, 
+         AnimationUtils2.translationY(mHaunterImageView, 
                mHaunterImageView.getHeight() * -pValue, 
                sHaunterAnimationDuration, pEndAction);         
          break;
       case RIGHT:
-         GameUtils.translationX(mHaunterImageView, 
+         AnimationUtils2.translationX(mHaunterImageView, 
                mHaunterImageView.getWidth() * -pValue, 
                sHaunterAnimationDuration, pEndAction);          
          break;
       case LEFT:
-         GameUtils.translationX(mHaunterImageView, 
+         AnimationUtils2.translationX(mHaunterImageView, 
                mHaunterImageView.getWidth() * pValue, 
                sHaunterAnimationDuration, pEndAction);           
          break;
@@ -249,7 +251,7 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
             GhostStoriesBitmaps.sPlayerBoardBitmaps.get(
                mGameBoardData.getColor()).get(mCardLocation);
       mHaunterBitmap = GhostStoriesBitmaps.sHaunterBitmaps.get(
-            mGameBoardData.getLocation()).get(EHaunterLocation.CARD);
+            mGameBoardData.getLocation());
       switch(mGameBoardData.getLocation()) {
       case BOTTOM:
       case TOP:     
@@ -302,10 +304,10 @@ implements IGhostDeckListener, IGameBoardListener, IGhostListener, IGamePhaseLis
    private void updateBoardImage() {
       if(mGhostData == null) {
          //No ghost at this spot so draw the empty bitmap
-         ImageViewUtils.setImageBitmapEDT(mCardImageView, mEmptyBitmap);
+         ImageViewUtils.setImageBitmap(mCardImageView, mEmptyBitmap);
       } else {
          //There is a ghost at this spot so draw the ghost image
-         ImageViewUtils.setBoardLocationResource(mCardImageView, 
+         GameUtils.setBoardLocationResource(mCardImageView, 
                mGameBoardData.getLocation(), 
                mGhostData.getImageId());
       }              

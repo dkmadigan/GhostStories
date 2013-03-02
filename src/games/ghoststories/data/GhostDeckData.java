@@ -6,9 +6,9 @@ import games.ghoststories.enums.EDifficulty;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * <p>Data representation of the current deck of ghost cards. Upon creation,
@@ -149,5 +149,5 @@ public class GhostDeckData {
    
    /** The set of listeners for ghost deck updates **/
    private Set<IGhostDeckListener> mListeners = 
-         new HashSet<IGhostDeckListener>();
+         new CopyOnWriteArraySet<IGhostDeckListener>();
 }

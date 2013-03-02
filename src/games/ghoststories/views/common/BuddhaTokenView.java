@@ -2,11 +2,14 @@ package games.ghoststories.views.common;
 
 import games.ghoststories.R;
 import games.ghoststories.data.PlayerData;
-import games.ghoststories.data.TokenSupplyData;
-import games.ghoststories.utils.ImageViewUtils;
+import games.ghoststories.utils.GameUtils;
 import android.content.Context;
 import android.util.AttributeSet;
 
+/**
+ * Token view representing the number of Buddhas that a player has in their 
+ * supply.
+ */
 public class BuddhaTokenView extends AbstractNumberedTokenView {
    /**
     * Constructor 
@@ -46,15 +49,20 @@ public class BuddhaTokenView extends AbstractNumberedTokenView {
       }
    }
       
+   /**
+    * Sets the data model used to populate the token view.
+    * @param pData The data model
+    */
    public void setData(PlayerData pData) {
       super.setData(pData);
       mPlayerData = pData;
       setNumber(mPlayerData.getNumBuddhaTokens());             
       if(getDrawable() == null) {
-         ImageViewUtils.setBoardLocationResource(this, pData.getBoardLocation(), 
+         GameUtils.setBoardLocationResource(this, pData.getBoardLocation(), 
                R.drawable.buddha);
       }      
    } 
    
+   /** The player data **/
    private PlayerData mPlayerData;
 }

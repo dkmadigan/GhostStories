@@ -10,6 +10,10 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * View that represents the ghost graveyard located in the aux area.
+ */
+//TODO Don't really like the look of this view, look at updating it
 public class GhostGraveyardCardView extends ImageView {
 
    /**
@@ -59,5 +63,6 @@ public class GhostGraveyardCardView extends ImageView {
       }
    }     
    
+   /** Used to draw the xout bitmap **/
    private RectF mRect = null;
 }

@@ -1,9 +1,9 @@
 package games.ghoststories.data;
 
 import java.util.EnumMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import games.ghoststories.data.interfaces.IGameBoardListener;
 import games.ghoststories.enums.ECardLocation;
@@ -119,13 +119,6 @@ public class GameBoardData {
    }
    
    /**
-    * @return The number of ghosts occupying this board
-    */
-   public int getNumGhosts() {
-      return mGhosts.values().size();
-   }
-   
-   /**
     * @return The number of haunters on the current board
     */
    public int getNumHaunters() {
@@ -136,6 +129,13 @@ public class GameBoardData {
          }
       }
       return numHaunters;
+   }
+   
+   /**
+    * @return Whether or not this board is filled with ghosts
+    */
+   public boolean isBoardFilled() {
+      return mGhosts.values().size() == 3;
    }
    
    /**
@@ -206,5 +206,5 @@ public class GameBoardData {
    private EBoardLocation mLocation;
    /** The set of listeners for ghost deck updates **/
    private Set<IGameBoardListener> mListeners = 
-         new HashSet<IGameBoardListener>();
+         new CopyOnWriteArraySet<IGameBoardListener>();
 }

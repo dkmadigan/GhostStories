@@ -4,10 +4,14 @@ import games.ghoststories.data.interfaces.ITokenListener;
 import games.ghoststories.enums.EColor;
 
 import java.util.EnumMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * Data model for a token supply. This is used for the main game token supply
+ * as well as each player token supply.
+ */
 public class TokenSupplyData {
 
    /**
@@ -47,18 +51,30 @@ public class TokenSupplyData {
       }
    }   
    
+   /**
+    * Adds a listener for token supply updates
+    * @param pListener The listener to add
+    */
    public void addTokenListener(ITokenListener pListener) {    
       mListeners.add(pListener);
    }
    
-   public int getNumTaoTokens(EColor pColor) {
-      return mTaoTokens.get(pColor);
-   }
-   
+   /**
+    * @return The number of Qi in this supply
+    */
    public int getNumQi() {
       return mNumQi;
    }  
    
+   /**
+    * Gets the number of tao tokens of the specified color
+    * @param pColor The color of token to get
+    * @return The number of tao tokens of the given color
+    */
+   public int getNumTaoTokens(EColor pColor) {
+      return mTaoTokens.get(pColor);
+   }
+         
    /**
     * Removes a single Qi from the supply
     */
@@ -95,24 +111,48 @@ public class TokenSupplyData {
       }
    }
    
+   /**
+    * Removes a token listener
+    * @param pListener The listener to remove
+    */
+   public void removeTokenListener(ITokenListener pListener) {
+      mListeners.remove(pListener);
+   }
+   
+   /**
+    * Sets the number of tao tokens of a particular color
+    * @param pColor The color of the token to set
+    * @param pNumTokens The number of tokens
+    */
    public void setNumTaoTokens(EColor pColor, int pNumTokens) {
       mTaoTokens.put(pColor, pNumTokens);
       notifyListeners();
    }
    
+   /**
+    * Sets the number of qi
+    * @param pNumQi The number of qi
+    */
    public void setNumQi(int pNumQi) {
       mNumQi = pNumQi;
       notifyListeners();
    }
    
+   /**
+    * Notify listeners that the token supply was updated
+    */
    protected void notifyListeners() {
       for(ITokenListener listener : mListeners) {
          listener.tokenDataUpdated();
       }
    }
    
-   protected Set<ITokenListener> mListeners = new HashSet<ITokenListener>();
+   /** Set of token supply listeners **/
+   protected Set<ITokenListener> mListeners = 
+         new CopyOnWriteArraySet<ITokenListener>();
+   /** The number of qi in the supply **/
    protected int mNumQi = 0;
+   /** The number of tao tokens in the supply **/
    protected final Map<EColor, Integer> mTaoTokens = 
          new EnumMap<EColor, Integer>(EColor.class);
 }

@@ -1,5 +1,8 @@
 package games.ghoststories.enums;
 
+/**
+ * Defines the different village tiles
+ */
 public enum EVillageTile {
    BUDDHIST_TEMPLE,
    CEMETERY,

@@ -1,7 +1,6 @@
 package com.views.listeners;
 
 import android.content.ClipData;
-import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;

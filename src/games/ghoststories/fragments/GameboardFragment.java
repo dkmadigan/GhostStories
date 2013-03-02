@@ -7,7 +7,7 @@ import games.ghoststories.controllers.VillageTileController;
 import games.ghoststories.data.GameBoardData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
-import games.ghoststories.data.VillageTileData;
+import games.ghoststories.data.village.VillageTileData;
 import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.ECardLocation;
 import games.ghoststories.enums.EColor;
@@ -29,10 +29,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridLayout.Spec;
-import android.widget.TableLayout;
 
+/**
+ * Fragment representing the game board area. The game board contains the four
+ * different player areas and the village tile area. The player areas include
+ * the card locations and player token areas.
+ */
+//TODO This class is pretty ugly in the way it builds the layout. Look to try
+//and improve this.
 public class GameboardFragment extends Fragment {
    
+   /*
+    * (non-Javadoc)
+    * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+    */
    @Override
    public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer,
          Bundle pSavedInstanceState) {            

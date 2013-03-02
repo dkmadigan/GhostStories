@@ -1,9 +1,6 @@
 package games.ghoststories.views.aux_area;
 
-import com.drawable.shapes.GradientRectangle;
-
 import games.ghoststories.R;
-import games.ghoststories.data.GhostStoriesBitmaps;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
@@ -15,43 +12,67 @@ import games.ghoststories.views.common.QiTokenView;
 import games.ghoststories.views.common.TaoTokenView;
 import games.ghoststories.views.common.YinYangTokenView;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
-import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.drawable.shapes.GradientRectangle;
+
+/**
+ * High level view that shows all of the info for a player. This includes:
+ * <li>Qi
+ * <li>Tao Tokens
+ * <li>Buddhas
+ * <li>Yin Yang 
+ */
 public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
 
+   /**
+    * Constructor
+    * @param pContext
+    */
    public PlayerInfoView(Context pContext) {
       super(pContext);
       initialize();
    }
 
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    */
    public PlayerInfoView(Context pContext, AttributeSet pAttrs) {
       super(pContext, pAttrs);
       initialize();
    }
 
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    * @param pDefStyle
+    */
    public PlayerInfoView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
       initialize();
    }
    
+   /*
+    * (non-Javadoc)
+    * @see games.ghoststories.data.interfaces.IGamePhaseListener#gamePhaseUpdated(games.ghoststories.enums.EGamePhase)
+    */
    public void gamePhaseUpdated(EGamePhase pGamePhase) {  
       //When it is a new players turn invalidate the view and redraw
       GameUtils.invalidateView(this);
    }
    
+   /**
+    * Sets the data used to populate the contents of the views contained within
+    * the player info area.
+    * @param pPlayerData The data model
+    */
    public void setPlayerData(PlayerData pPlayerData) {
       mPlayerData = pPlayerData;
             
@@ -59,7 +80,6 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       int lightColor = color.getLightColor();
       int darkColor = color.getDarkColor();
       setBackground(new GradientRectangle(Orientation.TOP_BOTTOM, 
-            //color.getLightColor(), color.getDarkColor(), 25));
             Color.argb(125, Color.red(lightColor), Color.green(lightColor), Color.blue(lightColor)),
             Color.argb(125, Color.red(darkColor), Color.green(darkColor), Color.blue(darkColor)), 25,
             sInstanceCount == 2 ? Color.WHITE : Color.BLACK));      
@@ -83,27 +103,23 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       if(yinYangTokenView != null) {
          yinYangTokenView.setData(mPlayerData);
       }
-      
-      mPaint.setColor(color.getColor());      
+        
       GameUtils.invalidateView(this);
    }
 
+   /*
+    * (non-Javadoc)
+    * @see android.widget.LinearLayout#onDraw(android.graphics.Canvas)
+    */
    @Override
    protected void onDraw(Canvas pCanvas) {
       super.onDraw(pCanvas);
-      
-      if(mRect == null) {
-         mRect = new RectF(0, 0, getWidth(), getHeight());
-      }
 
-      if(isInEditMode()) {    
-
-      } else {
+      if(!isInEditMode()) {
          //Highlight the player data if it is their turn
          GradientRectangle bg = ((GradientRectangle)getBackground());
          if(mPlayerData != null && mPlayerData.getColor() == 
                GhostStoriesGameManager.getInstance().getCurrentPlayerData().getColor()) {
-            //pCanvas.drawRoundRect(mRect, 15, 15, mPaint);
             bg.setBorderColor(Color.WHITE);
          } else {           
             bg.setBorderColor(Color.BLACK);
@@ -111,13 +127,10 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
       }
    }
    
-   private void initialize() {
-      mPaint.setStyle(Style.STROKE);
-      mPaint.setStrokeWidth(6.0f);
-      mPaint.setAntiAlias(true);
-      mPaint.setDither(true);
-      mPaint.setStrokeCap(Paint.Cap.ROUND);
-      mPaint.setStrokeJoin(Paint.Join.ROUND);  
+   /**
+    * Initialize the view
+    */
+   private void initialize() {  
       if(!isInEditMode()) {
          GhostStoriesGameManager.getInstance().addGamePhaseListener(this);
       } else {
@@ -139,9 +152,10 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
          sInstanceCount++;
       }
    }
-   
-   private Paint mPaint = new Paint();
-   private PlayerData mPlayerData = null;
-   private RectF mRect = null;
+
+   /** Debug field used to test layout in editor mode **/
    private static int sInstanceCount = 0;
+   
+   /** The data model **/
+   private PlayerData mPlayerData = null;
 }

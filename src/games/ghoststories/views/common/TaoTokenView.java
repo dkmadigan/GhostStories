@@ -17,6 +17,16 @@ import com.interfaces.IDraggable;
 public class TaoTokenView extends AbstractNumberedTokenView implements IDraggable<DragData>{
 
    /**
+    * Class used to hold the drag data for this view
+    */
+   public class TokenDragData {      
+      /** The color of the token **/
+      public EColor mColor;
+      /** The player data for this token **/
+      public TokenSupplyData mData;
+   }
+   
+   /**
     * Constructor 
     * @param pContext The context the view is running in
     */
@@ -64,7 +74,10 @@ public class TaoTokenView extends AbstractNumberedTokenView implements IDraggabl
     * @see com.interfaces.IDraggable#getDragData()
     */
    public DragData getDragData() {
-      return new DragData(EDragItem.COMBAT_TAO, mTokenColor, this);
+      TokenDragData data = new TokenDragData();
+      data.mColor = mTokenColor;
+      data.mData = mData;
+      return new DragData(EDragItem.COMBAT_TAO, data, this);
    }
    
    /*

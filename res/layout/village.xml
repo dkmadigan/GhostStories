@@ -1,101 +1,126 @@
-<games.ghoststories.views.gameboard.VillageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/village"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:clipChildren="false"
-    android:background="@android:color/transparent">
+    android:clipToPadding="false"
+    android:orientation="vertical">
 
-    <TableRow android:layout_weight="1" 
-        android:clipChildren="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:orientation="horizontal" >
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_1"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
-            android:scaleType="fitXY"            
-            android:src="@drawable/village_buddhist_temple"> 
+            android:scaleType="fitXY"
+            android:src="@drawable/village_buddhist_temple" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_2"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_cemetery">
+            android:src="@drawable/village_cemetery" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_3"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_circle_of_prayer">
+            android:src="@drawable/village_circle_of_prayer" >
         </games.ghoststories.views.gameboard.VillageTileView>
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow android:layout_weight="1" 
-        android:clipChildren="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:orientation="horizontal" >
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_4"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_guardhouse">
+            android:src="@drawable/village_guardhouse" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_5"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_herbalists_shop">
+            android:src="@drawable/village_herbalists_shop" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_6"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="match_parent"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_night_watchmans_beat">
+            android:src="@drawable/village_night_watchmans_beat" >
         </games.ghoststories.views.gameboard.VillageTileView>
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow android:layout_weight="1" 
-        android:clipChildren="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:orientation="horizontal" >
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_7"
             android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_pavilion_of_the_heavenly_wind">
+            android:src="@drawable/village_pavilion_of_the_heavenly_wind" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_8"
             android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_sorcerers_hut">
+            android:src="@drawable/village_sorcerers_hut" >
         </games.ghoststories.views.gameboard.VillageTileView>
 
         <games.ghoststories.views.gameboard.VillageTileView
             android:id="@+id/village_tile_9"
             android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:contentDescription="@string/village_tile"
             android:scaleType="fitXY"
-            android:src="@drawable/village_taoist_altar">
+            android:src="@drawable/village_taoist_altar" >
         </games.ghoststories.views.gameboard.VillageTileView>
-    </TableRow>
-</games.ghoststories.views.gameboard.VillageView>
+    </LinearLayout>
+</LinearLayout>

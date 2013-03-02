@@ -1,16 +1,7 @@
 package games.ghoststories.activities;
 
-import games.ghoststories.R;
-import games.ghoststories.data.GhostData;
-import games.ghoststories.data.GhostDeckData;
-import games.ghoststories.data.GhostGraveyardData;
-import games.ghoststories.data.GhostStoriesGameManager;
-import games.ghoststories.enums.EGamePhase;
-import games.ghoststories.utils.GameUtils;
-import games.ghoststories.views.GameScreen;
-import games.ghoststories.views.aux_area.GhostGraveyardCardView;
-import games.ghoststories.views.combat.CombatView;
-import games.ghoststories.views.graveyard.GraveyardScrollView;
+import com.utils.AnimationUtils2;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -19,6 +10,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import games.ghoststories.R;
+import games.ghoststories.data.GhostData;
+import games.ghoststories.data.GhostDeckData;
+import games.ghoststories.data.GhostGraveyardData;
+import games.ghoststories.data.GhostStoriesGameManager;
+import games.ghoststories.enums.EGamePhase;
+import games.ghoststories.views.GameScreen;
+import games.ghoststories.views.combat.CombatView;
+import games.ghoststories.views.graveyard.GraveyardScrollView;
 
 /**
  * Activity for the main game screen.
@@ -58,8 +59,29 @@ public class GameScreenActivity extends FragmentActivity {
          card.setImageResource(topCard.getImageId());         
          addContentView(view, new ViewGroup.LayoutParams(
                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-         GameUtils.runAnimation(R.anim.expand_view, view);
+         AnimationUtils2.runAnimation(R.anim.expand_view, view);
       }                     
+   }
+   
+   /**
+    * Called to close the card info view
+    * @param pView
+    */
+   public void closeCardInfo(View pView) {
+      ViewGroup cardInfoView = (ViewGroup)pView.getParent();
+      ViewGroup parent = (ViewGroup)cardInfoView.getParent();
+      parent.removeView(cardInfoView);
+   }
+   
+   /**
+    * Called when the close button is pressed on the combat view
+    * @param pView
+    */
+   public void closeCombatView(View pView) {      
+      CombatView combatView = (CombatView)pView.getParent();
+      combatView.destroy();
+      ViewGroup vg = (ViewGroup)(combatView.getParent());
+      vg.removeView(combatView);
    }
    
    /**
@@ -87,28 +109,7 @@ public class GameScreenActivity extends FragmentActivity {
       addContentView(view, new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
    }
-   
-   /**
-    * Called to close the card info view
-    * @param pView
-    */
-   public void closeCardInfo(View pView) {
-      ViewGroup cardInfoView = (ViewGroup)pView.getParent();
-      ViewGroup parent = (ViewGroup)cardInfoView.getParent();
-      parent.removeView(cardInfoView);
-   }
-   
-   /**
-    * Called when the close button is pressed on the combat view
-    * @param pView
-    */
-   public void closeCombatView(View pView) {      
-      CombatView combatView = (CombatView)pView.getParent();
-      combatView.destroy();
-      ViewGroup vg = (ViewGroup)(combatView.getParent());
-      vg.removeView(combatView);
-   }
-   
+         
    /**
     * Called when the "NEXT" button is pressed. Debug function only.
     * @param pView

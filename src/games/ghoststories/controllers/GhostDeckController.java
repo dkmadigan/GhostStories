@@ -1,17 +1,16 @@
 package games.ghoststories.controllers;
 
-import android.view.DragEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import com.views.listeners.DragTouchListener;
-
 import games.ghoststories.data.DragData;
-import games.ghoststories.data.GhostData;
 import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.enums.EDragItem;
 import games.ghoststories.enums.EGamePhase;
 import games.ghoststories.views.aux_area.GhostDeckView;
+import android.view.DragEvent;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.views.listeners.DragTouchListener;
 
 /**
  * Controller class responsible for handling interactions with the ghost deck.

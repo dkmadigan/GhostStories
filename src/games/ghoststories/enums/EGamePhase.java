@@ -1,8 +1,9 @@
 package games.ghoststories.enums;
 
 /**
- * Defines the different game phases to each player turn.
+ * Defines the different game phases to each player turn
  */
+//TODO Use strings.xml
 public enum EGamePhase {
    TurnStart("", ""),
    
@@ -29,19 +30,32 @@ public enum EGamePhase {
    YangPhase3("Yang Phase 3: Place Buddha",
          "-Place Buddha by tapping on an adjacent empty ghost space");
 
+   /**
+    * Constructor
+    * @param pPhaseName The name of the phase
+    * @param pPhaseText The instructional text for the phase
+    */
    private EGamePhase(String pPhaseName, String pPhaseText) {
       mPhaseName = pPhaseName;
       mPhaseText = pPhaseText;
    }
    
+   /**
+    * @return The name of the phase
+    */
    public String getName() {
       return mPhaseName;
    }
    
+   /**
+    * @return The instructional text for the phase
+    */
    public String getText() {
       return mPhaseText;
    }
    
+   /** The name of the phase **/
    private String mPhaseName;
+   /** The instructional text for the phase **/
    private String mPhaseText;
 }

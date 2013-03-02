@@ -6,7 +6,6 @@ import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesBitmaps;
 import games.ghoststories.data.interfaces.IGhostDeckListener;
 import games.ghoststories.enums.EDragItem;
-import games.ghoststories.utils.ImageViewUtils;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -18,19 +17,43 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.interfaces.IDraggable;
+import com.utils.ImageViewUtils;
 import com.views.NumberedImageView;
 
-public class GhostDeckView extends NumberedImageView implements IGhostDeckListener, IDraggable<DragData> {
+/**
+ * View that represents the ghost deck. The ghost deck can either have the top
+ * card face down or face up. If the top card is face up and it is the correct
+ * game phase then this supports dragging and dropping the card onto the
+ * player game boards.
+ */
+public class GhostDeckView extends NumberedImageView implements 
+IGhostDeckListener, IDraggable<DragData> {
+   
+   /**
+    * Constructor
+    * @param pContext
+    */
    public GhostDeckView(Context pContext) {
       super(pContext);
       setShowNumber(false);
    }
    
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    */
    public GhostDeckView(Context pContext, AttributeSet pAttrs) {
       this(pContext, pAttrs, 0);
       setShowNumber(false);
    }
    
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    * @param pDefStyle
+    */
    public GhostDeckView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle); 
       setShowNumber(false);
@@ -42,14 +65,6 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
     */
    public DragData getDragData() {    
       return new DragData(EDragItem.GHOST_CARD, mGhostDeckData.getTopCard(), this);
-   }
-   
-   /**
-    * @return The bitmap of the top card. There are no guarantees that this 
-    * bitmap has already been loaded.
-    */
-   public Bitmap getTopCardBitmap() {
-      return mTopCardBitmap;
    }
    
    /*
@@ -67,7 +82,7 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
          } else {
             flipTopCard();   
          }         
-      } else {
+      } else {         
          //Top card is not flipped so load the back of the card and load the 
          //ready the top card bitmap  
          showCardBack(topCard);
@@ -101,14 +116,14 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
       //card is not yet loaded wait for it to load and then set it on the UI
       //thread
       if(mTopCardBitmap != null) {
-         ImageViewUtils.setImageBitmapEDT(this, mTopCardBitmap);
+         ImageViewUtils.setImageBitmap(this, mTopCardBitmap);
       } else {
          //Card is not yet loaded. Push a runnable onto the thread doing the
          //loading. When this task runs the image should be loaded.
          sExecutor.execute(new Runnable() {
             public void run() {             
                if(mTopCardBitmap != null) { //This better be true
-                  ImageViewUtils.setImageBitmapEDT(GhostDeckView.this, mTopCardBitmap);
+                  ImageViewUtils.setImageBitmap(GhostDeckView.this, mTopCardBitmap);
                } else {
                   Log.e("GhostDeckView", "Error loading bitmap");
                }
@@ -117,6 +132,12 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
       }
    }
    
+   /**
+    * Loads the bitmap of the top card on the ghost deck. We do this as soon 
+    * as the previous top card is removed from the deck so it is ready when
+    * the player flips the top card. Push the task off onto a background thread
+    * to ensure that it is loaded before trying to show it in {@link #flipTopCard()}.
+    */
    private void loadTopCardBitmap() {      
       sExecutor.execute(new Runnable() {
          public void run() {          
@@ -127,15 +148,24 @@ public class GhostDeckView extends NumberedImageView implements IGhostDeckListen
       });
    }
    
+   /**
+    * Sets the bitmap for this view to the back of the card. The view varies 
+    * depending on whether the card is a WuFeng card or regular ghost card.
+    * @param pCard The top card
+    */
    private void showCardBack(GhostData pCard) {
       if(pCard.isWuFeng()) {
-         ImageViewUtils.setImageBitmapEDT(this, GhostStoriesBitmaps.sWuFengCardBitmap);   
+         ImageViewUtils.setImageBitmap(this, GhostStoriesBitmaps.sWuFengCardBitmap);   
       } else {
-         ImageViewUtils.setImageBitmapEDT(this, GhostStoriesBitmaps.sGhostCardBitmap);
+         ImageViewUtils.setImageBitmap(this, GhostStoriesBitmaps.sGhostCardBitmap);
       }
    }
    
-   private static final Executor sExecutor = Executors.newSingleThreadExecutor();      
-   private GhostDeckData mGhostDeckData;   
+   /** Thread used to preload the top card bitmap **/
+   private static final Executor sExecutor = Executors.newSingleThreadExecutor();
+   
+   /** Model for this view **/
+   private GhostDeckData mGhostDeckData;
+   /** Bitmap of the current top card **/
    private Bitmap mTopCardBitmap = null;
 }

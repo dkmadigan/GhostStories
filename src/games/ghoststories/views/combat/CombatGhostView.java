@@ -18,20 +18,45 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+/**
+ * View for a single ghost during the combat phase of the game. This view contains
+ * the image of the ghost, a layer for showing damage to the ghost that sits 
+ * on top of the ghost image, and the current health of the ghost below the
+ * ghost image. 
+ */
 public class CombatGhostView extends RelativeLayout implements IGhostListener {
 
+   /**
+    * Constructor
+    * @param pContext
+    */
    public CombatGhostView(Context pContext) {
       super(pContext);
    }
 
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    */
    public CombatGhostView(Context pContext, AttributeSet pAttrs) {
       super(pContext, pAttrs);
    }
 
+   /**
+    * Constructor
+    * @param pContext
+    * @param pAttrs
+    * @param pDefStyle
+    */
    public CombatGhostView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
    }      
    
+   /**
+    * Adds a damage token to the ghost.
+    * @param pTokenId The drawable resource id of the token to add
+    */
    public void addDamageToken(int pTokenId) {
      for(CombatDamageView cdv : mDamageViews) {
         if(cdv.getVisibility() == INVISIBLE) {
@@ -79,6 +104,11 @@ public class CombatGhostView extends RelativeLayout implements IGhostListener {
       }
    }
    
+   /**
+    * Sets the data model to use for this ghost view. Populates the ghost image,
+    * and ghost health using the model
+    * @param pGhostData The ghost data model
+    */
    public void setGhostData(GhostData pGhostData) {
       mGhostData = pGhostData;
       mNumActiveHealthViews = 0;
@@ -117,6 +147,11 @@ public class CombatGhostView extends RelativeLayout implements IGhostListener {
       GameUtils.invalidateView(this);
    }
    
+   /**
+    * Helper method for building the health area under the ghost. Returns the 
+    * next unused health view.
+    * @return The next unused health view
+    */
    private GhostHealthView getNextView() {
       GhostHealthView view = null;
       View healthRow = null;
@@ -157,10 +192,23 @@ public class CombatGhostView extends RelativeLayout implements IGhostListener {
       
       return view;
    }
-      
-   private GhostData mGhostData = null;   
+   
+   /**
+    *  The health views that are active for this ghost -- The layout contains
+    *  the maximum number of possible health views but we only activate a certain
+    *  number based on the ghost health.
+    **/
    private Map<EColor, List<GhostHealthView>> mActiveHealthViews =          
          new HashMap<EColor, List<GhostHealthView>>();
+   /** Counter for the current total number of active health views **/
    private int mNumActiveHealthViews = 0;
+   
+   /** 
+    * List of damage views that lie on the ghost. These are updated as damage
+    * is dealt to the ghost
+    **/
    private List<CombatDamageView> mDamageViews = new ArrayList<CombatDamageView>();
+   
+   /** The ghost data model **/
+   private GhostData mGhostData = null;            
 }

@@ -289,10 +289,6 @@ public class GhostData {
 
    /** The color of the ghost card **/
    private final EColor mColor;
-   /** The abilities of the ghost upon entry **/
-   private final List<EGhostAbility> mEnterAbilities;
-   /** The abilities of the ghost upon exorcism **/
-   private final List<EGhostAbility> mExorciseAbilities;
    /** Listeners for updates to this ghost data**/
    private Set<IGhostListener> mGhostListeners = 
          new CopyOnWriteArraySet<IGhostListener>();
@@ -312,12 +308,18 @@ public class GhostData {
    private boolean mIsWuFeng;
    /** The name of the ghost **/
    private final String mName;
+   
+   /** The abilities of the ghost upon entry **/
+   private final List<EGhostAbility> mEnterAbilities;
+   /** The abilities of the ghost upon exorcism **/
+   private final List<EGhostAbility> mExorciseAbilities;
+   /** The abilities of the ghost that occurs every turn **/
+   private final List<EGhostAbility> mTurnAbilities;
+   
    /** Current resistance of this ghost **/
    private Map<EColor, Integer> mResistance;
    /** The total resistance count **/
    private int mHealth = 0;
    /** Full health resistance for this ghost **/
-   private final Map<EColor, Integer> mFullHealth;
-   /** The abilities of the ghost that occurs every turn **/
-   private final List<EGhostAbility> mTurnAbilities;
+   private final Map<EColor, Integer> mFullHealth;      
 }

@@ -1,6 +1,5 @@
 package games.ghoststories.views.common;
 
-import games.ghoststories.data.PlayerData;
 import games.ghoststories.data.TokenSupplyData;
 import android.content.Context;
 import android.util.AttributeSet;

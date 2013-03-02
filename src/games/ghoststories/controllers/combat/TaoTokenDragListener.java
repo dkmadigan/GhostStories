@@ -8,11 +8,18 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 
-public class TaoTokenDragListener implements OnDragListener {
+/**
+ * Drag and drop listener for the Tao Tokens during combat. These tokens
+ * can be dragged from the player area at the top down onto the ghosts. If
+ * the drag was successfully applied to a ghost, then decrement the token 
+ * readout.
+ */
+/*package*/ class TaoTokenDragListener implements OnDragListener {
 
-   public TaoTokenDragListener() {
-   }
-
+   /*
+    * (non-Javadoc)
+    * @see android.view.View.OnDragListener#onDrag(android.view.View, android.view.DragEvent)
+    */
    public boolean onDrag(View pView, DragEvent pEvent) {
       boolean handled = false;
       Object localState = pEvent.getLocalState();

@@ -1,19 +1,14 @@
-package games.ghoststories.data;
-
-import java.util.HashSet;
+package games.ghoststories.data.village;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
-import android.graphics.Point;
 import android.view.View;
-import games.ghoststories.data.interfaces.IGameBoardListener;
 import games.ghoststories.data.interfaces.IVillageTileListener;
-import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.ETileLocation;
 import games.ghoststories.enums.EVillageTile;
 
 /**
- * Data class representing a single village tile
- * TODO Probably should make this immutable
+ * Data class representing a single village tile.
  */
 public class VillageTileData {
    /**
@@ -65,23 +60,7 @@ public class VillageTileData {
     */
    public String getName() {
       return mName;
-   }
-   
-   /**
-    * Gets the number of buddhas - only valid for buddhist temple tile
-    * @return The number of buddhas
-    */
-   public int getNumBuddhas() {
-      return mType == EVillageTile.BUDDHIST_TEMPLE ? mNumBuddhas : 0;
-   }
-   
-   /**
-    * Gets the token color - only valid for circle of prayer tile
-    * @return The token color
-    */
-   public EColor getTokenColor() {
-      return mType == EVillageTile.CIRCLE_OF_PRAYER ? mTokenColor : null;
-   }
+   }   
    
    /**
     * @return The type of the tile
@@ -128,25 +107,6 @@ public class VillageTileData {
    }
    
    /**
-    * Sets the number of buddhas on this tile - only valid for the buddhist 
-    * temple tile.
-    * @param pNumBuddhas The number of buddhas on the tile.
-    */
-   public void setNumBuddhas(int pNumBuddhas) {
-      mNumBuddhas = pNumBuddhas;
-      notifyListeners();
-   }
-   
-   /**
-    * Sets the token color for the circle of prayer village tile.
-    * @param pTokenColor The color of the token
-    */
-   public void setTokenColor(EColor pTokenColor) {
-      mTokenColor = pTokenColor;
-      notifyListeners();
-   }
-   
-   /**
     * @param pId The village tile view id
     */
    public void setViewId(int pId) {
@@ -156,7 +116,7 @@ public class VillageTileData {
    /**
     * Notifies listeners that the data has changed
     */
-   private void notifyListeners() {
+   protected void notifyListeners() {
       for(IVillageTileListener listener : mListeners) {
          listener.villageTileUpdated();
       }
@@ -170,15 +130,11 @@ public class VillageTileData {
    private boolean mIsActive;
    /** The set of listeners for ghost deck updates **/
    private Set<IVillageTileListener> mListeners = 
-         new HashSet<IVillageTileListener>();
+         new CopyOnWriteArraySet<IVillageTileListener>();
    /** The tile location **/
    private ETileLocation mLocation;
    /** The name of this village tile **/
    private final String mName;
-   /** The number of buddhas - used for buddhist temple tile **/
-   private int mNumBuddhas = 0;
-   /** The token - used for circle of prayer tile **/
-   private EColor mTokenColor = null;
    /** The type of village tile **/
    private final EVillageTile mType;
    /** The village tile view id **/

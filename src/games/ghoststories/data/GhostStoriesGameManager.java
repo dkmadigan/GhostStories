@@ -4,6 +4,7 @@ import games.ghoststories.R;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
 import games.ghoststories.data.interfaces.IGameTokenListener;
 import games.ghoststories.data.interfaces.IGhostDeckListener;
+import games.ghoststories.data.village.VillageTileData;
 import games.ghoststories.enums.EBoardLocation;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EDifficulty;
@@ -33,6 +34,7 @@ import android.util.Log;
  * <li>Exorcised Ghosts
  * <li>Player Data
  * <li>Game Board Information
+ * <li>Token Supply
  * <br>
  * 
  * The function {@link #initializeGame()} must be called at the start of the 
@@ -114,7 +116,7 @@ public class GhostStoriesGameManager {
          break;
       case YinPhase1B:
          mGamePhase = EGamePhase.YinPhase2;
-         if(currentBoard.getNumGhosts() < 3) {
+         if(!currentBoard.isBoardFilled()) {
             //No board overrun so skip to the next phase
             notify = false;
             advanceGamePhase();
@@ -122,7 +124,7 @@ public class GhostStoriesGameManager {
          break;
       case YinPhase2:
          mGamePhase = EGamePhase.YinPhase3;
-         if(currentBoard.getNumGhosts() == 3) {
+         if(currentBoard.isBoardFilled()) {
             //There was a board overrun so do not draw a new ghost and
             //skip to the next phase
             notify = false;

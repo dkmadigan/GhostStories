@@ -1,6 +1,5 @@
 package games.ghoststories.views.common;
 
-import games.ghoststories.data.PlayerData;
 import games.ghoststories.data.TokenSupplyData;
 import games.ghoststories.data.interfaces.ITokenListener;
 import android.content.Context;
@@ -9,6 +8,10 @@ import android.util.AttributeSet;
 
 import com.views.NumberedImageView;
 
+/**
+ * Abstract class for the different numbered token views. This includes the
+ * Tao Tokens, Qi Tokens and Buddha Tokens.
+ */
 public abstract class AbstractNumberedTokenView extends NumberedImageView implements ITokenListener {
    /**
     * Constructor 

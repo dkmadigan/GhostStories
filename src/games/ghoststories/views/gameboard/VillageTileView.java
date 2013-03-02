@@ -1,16 +1,18 @@
 package games.ghoststories.views.gameboard;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import games.ghoststories.data.GhostStoriesBitmaps;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
-import games.ghoststories.data.VillageTileData;
 import games.ghoststories.data.interfaces.IGamePhaseListener;
 import games.ghoststories.data.interfaces.IVillageTileListener;
+import games.ghoststories.data.village.VillageTileData;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EGamePhase;
 import games.ghoststories.utils.GameUtils;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -49,13 +51,6 @@ IGamePhaseListener, IVillageTileListener {
    public VillageTileView(Context pContext, AttributeSet pAttrs, int pDefStyle) {
       super(pContext, pAttrs, pDefStyle);
       initialize();
-   }
-   
-   /**
-    * Performs any initialization necessary for this view.
-    */
-   private void initialize() {
-      GhostStoriesGameManager.getInstance().addGamePhaseListener(this);      
    }
    
    /*
@@ -105,11 +100,6 @@ IGamePhaseListener, IVillageTileListener {
       GameUtils.invalidateView(this);
    }
    
-   @Override
-   protected void dispatchDraw(Canvas canvas) {    
-      super.dispatchDraw(canvas);
-   }
-   
    /*
     * (non-Javadoc)
     * @see android.widget.ImageView#onDraw(android.graphics.Canvas)
@@ -128,7 +118,7 @@ IGamePhaseListener, IVillageTileListener {
             if(mHighlightRect == null) {
                mHighlightRect = new Rect(0,  0,  getWidth(), getHeight());
             }
-            pCanvas.drawBitmap(GhostStoriesBitmaps.sHighlightCardBitmap, null, 
+            pCanvas.drawBitmap(GhostStoriesBitmaps.sHighlightBitmap, null, 
                   mHighlightRect, null);
          }
          
@@ -142,27 +132,46 @@ IGamePhaseListener, IVillageTileListener {
       }            
    }
    
+   /**
+    * Gets the {@link Rect} used to place the player of the specified color
+    * @param pColor The color of the player to get the {@link Rect} for
+    * @return The {@link Rect} used to place the player on the tile
+    */
    private Rect getRect(EColor pColor) {
-      int h = getHeight();
-      int w = getWidth();
-      switch(pColor) {
-      case RED:
-         return new Rect(w/4, 0, w/2, h/3);
-      case BLUE:
-         return new Rect(w/2, 0, (w/4)*3, h/3);
-      case GREEN:
-         return new Rect(w/4, h/3, w/2, (h/3)*2);
-      case YELLOW:
-         return new Rect(w/2, h/3, (w/4)*3, (h/3)*2);
-      default:
-         break;
-      }
-      return null;
+      Rect r = mPlayerRects.get(pColor);
+      if(r == null) {
+         int h = getHeight();
+         int w = getWidth();
+         switch(pColor) {
+         case RED:
+            r = new Rect(w/4, 0, w/2, h/3);
+         case BLUE:
+            r = new Rect(w/2, 0, (w/4)*3, h/3);
+         case GREEN:
+            r = new Rect(w/4, h/3, w/2, (h/3)*2);
+         case YELLOW:
+            r = new Rect(w/2, h/3, (w/4)*3, (h/3)*2);
+         default:
+            break;
+         }
+         mPlayerRects.put(pColor, r);
+      }           
+      return r;
+   }
+   
+   /**
+    * Performs any initialization necessary for this view.
+    */
+   private void initialize() {
+      GhostStoriesGameManager.getInstance().addGamePhaseListener(this);      
    }
    
    /** The village tile data to use for this view **/
    private VillageTileData mData;
-   /** Whether or not this village tile is highlighted **/
-   private boolean mIsHighlighted = false;
+   /** Rect used for highlighting tiles **/
    private Rect mHighlightRect = null;
+   /** Whether or not this village tile is highlighted **/
+   private boolean mIsHighlighted = false;   
+   /** Defines the places that the different players are placed on the tile **/
+   private Map<EColor, Rect> mPlayerRects = new HashMap<EColor, Rect>();
 }

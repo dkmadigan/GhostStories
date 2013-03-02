@@ -6,6 +6,9 @@ import java.util.Map;
 
 import games.ghoststories.R;
 
+/**
+ * Defines the different village tile locations
+ */
 public enum ETileLocation {
    TOP_LEFT(R.id.village_tile_1),
    TOP_CENTER(R.id.village_tile_2),
@@ -17,19 +20,32 @@ public enum ETileLocation {
    BOTTOM_CENTER(R.id.village_tile_8),
    BOTTOM_RIGHT(R.id.village_tile_9);
    
+   /**
+    * Constructor
+    * @param pLayoutId The view id for the tile
+    */
    private ETileLocation(final int pLayoutId) {
       mLayoutId = pLayoutId;
    }
    
+   /**
+    * @return The view id for the tile
+    */
    public int getLayoutId() {
       return mLayoutId;
    }
    
+   /**
+    * @return The set of tiles that are adjacent to this tile
+    */
    public EnumSet<ETileLocation> getAdjacentTiles() {
       return sAdjacentTileMap.get(this);
    }
    
+   /** The view id for the tile **/
    private final int mLayoutId;
+   
+   /** The map containing the adjacent tile information **/
    private static Map<ETileLocation, EnumSet<ETileLocation> > sAdjacentTileMap = 
          new EnumMap<ETileLocation, EnumSet<ETileLocation> >(ETileLocation.class);
    static {

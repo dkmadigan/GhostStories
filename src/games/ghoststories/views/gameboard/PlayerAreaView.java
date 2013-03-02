@@ -15,27 +15,50 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+/**
+ * View representing a single player area. A player area is composed of the
+ * player board and the player token area.
+ */
 public class PlayerAreaView extends LinearLayout {
+   
+   /**
+    * Constructor
+    * @param context
+    */
    public PlayerAreaView(Context context) {
       super(context);      
       initialize();
    }
    
+   /**
+    * Constructor
+    * @param context
+    * @param attrs
+    */
    public PlayerAreaView(Context context, AttributeSet attrs) {
       super(context, attrs);
       initialize();
    }
    
+   /**
+    * Constructor
+    * @param context
+    * @param attrs
+    * @param defStyle
+    */
    public PlayerAreaView(Context context, AttributeSet attrs, int defStyle) {
       super(context, attrs, defStyle);
       initialize();
    } 
       
+   /**
+    * Sets the game board data for this player. Used to draw the correct 
+    * background color based on the player color.
+    * @param pGameBoardData The game board data
+    */
    public void setGameBoardData(GameBoardData pGameBoardData) {
       mGameBoardData = pGameBoardData;  
-      EColor color = mGameBoardData.getColor();
-      mPaint.setColor(color.getColor());
-      
+      EColor color = mGameBoardData.getColor();     
       int lightColor = color.getLightColor();
       int darkColor = color.getDarkColor();
       setBackground(new GradientRectangle(Orientation.TOP_BOTTOM, 
@@ -46,27 +69,11 @@ public class PlayerAreaView extends LinearLayout {
       GameUtils.invalidateView(this);
    }
    
-   @Override
-   protected void onDraw(Canvas pCanvas) {      
-      super.onDraw(pCanvas);      
-      
-      if(!isInEditMode()) {
-         if(mRect == null) {                              
-            mRect = new RectF(0, 0, getWidth(), getHeight());
-         }
-         //pCanvas.drawRoundRect(mRect, 15, 15, mPaint);
-      }      
-   }
-   
+   /**
+    * Initialize the view
+    */
    private void initialize() {
-      setWillNotDraw(false);
-      mPaint.setStyle(Style.STROKE);
-      mPaint.setStrokeWidth(6.0f);
-      mPaint.setAntiAlias(true);
-      mPaint.setDither(true);
-      mPaint.setStrokeCap(Paint.Cap.ROUND);
-      mPaint.setStrokeJoin(Paint.Join.ROUND);
-      
+      setWillNotDraw(false);          
       if(isInEditMode()) {
          //Cheap hack to test layouts in editor mode.                
          if(sInstanceCount+1 < EColor.values().length) {
@@ -81,9 +88,11 @@ public class PlayerAreaView extends LinearLayout {
          }
       }      
    }
-   
-   private GameBoardData mGameBoardData = null;
-   private Paint mPaint = new Paint();
-   private RectF mRect = null;
+  
+   /** Used to debug in editor mode **/
    private static int sInstanceCount = 0;
+   
+   /** The game board data associated with this view **/
+   private GameBoardData mGameBoardData = null;
+  
 }
