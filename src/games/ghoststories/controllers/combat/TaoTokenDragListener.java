@@ -3,7 +3,6 @@ package games.ghoststories.controllers.combat;
 import games.ghoststories.data.DragData;
 import games.ghoststories.enums.EDragItem;
 import games.ghoststories.views.common.TaoTokenView;
-import android.graphics.Color;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
@@ -15,7 +14,7 @@ import android.view.View.OnDragListener;
  * readout.
  */
 /*package*/ class TaoTokenDragListener implements OnDragListener {
-
+   
    /*
     * (non-Javadoc)
     * @see android.view.View.OnDragListener#onDrag(android.view.View, android.view.DragEvent)
@@ -33,7 +32,6 @@ import android.view.View.OnDragListener;
                if(pEvent.getResult()) {
                   TaoTokenView tokenView = (TaoTokenView)pView;
                   tokenView.decrement();
-                  tokenView.setTextColor(Color.RED);
                }
                handled = true;
                break;
@@ -44,5 +42,4 @@ import android.view.View.OnDragListener;
       }
       return handled;
    }
-
 }

@@ -6,7 +6,9 @@ import games.ghoststories.enums.EColor;
 import games.ghoststories.enums.EDiceSide;
 import games.ghoststories.enums.EDragItem;
 import games.ghoststories.utils.GameUtils;
+import games.ghoststories.views.combat.CombatDamageView.CombatDamageDragData;
 import games.ghoststories.views.combat.CombatGhostView;
+import games.ghoststories.views.common.TaoTokenView;
 import games.ghoststories.views.common.TaoTokenView.TokenDragData;
 
 import java.util.Map;
@@ -41,22 +43,64 @@ import android.view.View.OnDragListener;
       if(localState instanceof DragData) {
          DragData dragData = (DragData)localState;
          EDragItem dragItem = dragData.getDragItem();
-         if(dragItem.isCombatDragItem()) {            
+         CombatGhostView cgv = (CombatGhostView)pView;
+         if(dragItem.isCombatDragItem() || dragItem.isCombatDamageDragItem()) {            
             switch(pEvent.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:            
                handle = true;
                break;
             case DragEvent.ACTION_DROP:
-               Object data = dragData.getData();
-               CombatGhostView cgv = (CombatGhostView)pView;
+               Object data = dragData.getData();              
                switch(dragItem) {
                case COMBAT_DICE:
-                  handle = handleDiceDrag(cgv, (EDiceSide)data);
+                  handle = handleDiceDrop(cgv, (EDiceSide)data, dragData.getView());
                   break;
                case COMBAT_TAO:
                   TokenDragData taoData = (TokenDragData)data;
-                  handle = handleTaoTokenDrag(cgv, taoData.mColor);
+                  handle = handleTaoTokenDrop(cgv, taoData.mColor, dragData.getView());
+                  break;
+               case DAMAGE_DICE:
+               case DAMAGE_TAO:
+                  CombatDamageDragData combatDragData = 
+                     (CombatDamageDragData)dragData.getData();
+                  handle = (combatDragData.mGhostView == pView);
+                  break;
                default:
+                  break;
+               }               
+               break;
+            case DragEvent.ACTION_DRAG_ENDED:
+               if(!pEvent.getResult()) {                  
+                  switch(dragData.getDragItem()) {
+                  case DAMAGE_DICE:     
+                  {                     
+                     CombatDamageDragData combatDragData = 
+                           (CombatDamageDragData)dragData.getData(); 
+                     if(combatDragData.mGhostView == cgv) {
+                        cgv.removeDamageToken(combatDragData.mId);
+                        mData.updateResistance(combatDragData.mColor, 1);
+                        combatDragData.mOwner.setEnabled(true);
+                        handle = true;
+                     }
+                     break;
+                  }                     
+                  case DAMAGE_TAO:
+                  {
+                     CombatDamageDragData combatDragData = 
+                           (CombatDamageDragData)dragData.getData(); 
+                     if(combatDragData.mGhostView == cgv) {
+                        cgv.removeDamageToken(combatDragData.mId);
+                        mData.updateResistance(combatDragData.mColor, 1);
+                        ((TaoTokenView)combatDragData.mOwner).increment();
+                        handle = true;
+                     }
+                     break;
+                  }                                         
+                  case COMBAT_DICE:
+                  case COMBAT_TAO:
+                  default:
+                     break;
+                  }                                    
                }
                break;
             }
@@ -70,10 +114,12 @@ import android.view.View.OnDragListener;
     * if the attack is valid and applies the attack if it is.
     * @param pView The view of the ghost in the combat area
     * @param pDice The dice type that was dropped on the ghost
+    * @param pOwnerView The owner dice view
     * @return <code>true</code> if the attack was applied, <code>false</code>
     *         if the attack was invalid and not applied
     */
-   private boolean handleDiceDrag(CombatGhostView pView, EDiceSide pDice) {
+   private boolean handleDiceDrop(CombatGhostView pView, EDiceSide pDice,
+         View pOwnerView) {
       boolean handle = false;
       //TODO Handle the extra dice graphic
       int drawable = pDice.getDiceDrawable();      
@@ -85,7 +131,8 @@ import android.view.View.OnDragListener;
             if(health != null && health > 0) {
                //Ghost still has health left of this color so update health
                mData.updateResistance(entry.getKey(), -1);                        
-               pView.addDamageToken(drawable);
+               pView.addDamageToken(drawable, pOwnerView, EDragItem.DAMAGE_DICE,
+                     pDice.getColor());
                handle = true;
             }
          }
@@ -96,7 +143,8 @@ import android.view.View.OnDragListener;
          if(health != null && health > 0) {
             //Ghost still has health left of this color so update health
             mData.updateResistance(color, -1);                        
-            pView.addDamageToken(drawable);
+            pView.addDamageToken(drawable, pOwnerView, EDragItem.DAMAGE_DICE,
+                  pDice.getColor());
             handle = true;
          } 
       }
@@ -108,10 +156,12 @@ import android.view.View.OnDragListener;
     * if the attack is valid and applies the attack if it is.
     * @param pView The view of the ghost in the combat area
     * @param pColor The color of token that was dropped on the ghost
+    * @param pOwnerView The owner token view
     * @return <code>true</code> if the attack was applied, <code>false</code>
     *         if the attack was invalid and not applied
     */
-   private boolean handleTaoTokenDrag(CombatGhostView pView, EColor pColor) {
+   private boolean handleTaoTokenDrop(CombatGhostView pView, EColor pColor,
+         View pOwnerView) {
       boolean handle = false;
       int drawable = GameUtils.getTaoTokenId(pColor);
       Map<EColor, Integer> resistance = mData.getResistance();
@@ -120,7 +170,7 @@ import android.view.View.OnDragListener;
       if(health != null && health > 0) {
          //Ghost still has health left of this color so update health
          mData.updateResistance(pColor, -1);                        
-         pView.addDamageToken(drawable);
+         pView.addDamageToken(drawable, pOwnerView, EDragItem.DAMAGE_TAO, pColor);
          handle = true;
       } 
       return handle;

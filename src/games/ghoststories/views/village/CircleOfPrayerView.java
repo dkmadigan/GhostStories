@@ -1,4 +1,4 @@
-package games.ghoststories.views.cop;
+package games.ghoststories.views.village;
 
 import android.content.Context;
 import android.util.AttributeSet;

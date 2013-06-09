@@ -17,13 +17,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * in order to build the deck.
  * <p>The deck is built as follows for each of the different difficulty levels:
  * <li>{@link EDifficulty#INITIATE} : 45 ghosts, 1 incarnation, 10 ghosts
- * <li>{@link EDifficulty#NORMAL} : 45 ghosts, 1 incarnation, 10 ghosts 
+ * <li>{@link EDifficulty#NORMAL} : 45 ghosts, 1 incarnation, 10 ghosts
  * (same as Initiate)
- * <li>{@link EDifficulty#NIGHTMARE} : 10 ghosts, 1 incarnation, 10 ghosts, 
- * 1 incarnation, 10 ghosts, 1 incarnation, 10 ghosts, 1 incarnation, rest of 
+ * <li>{@link EDifficulty#NIGHTMARE} : 10 ghosts, 1 incarnation, 10 ghosts,
+ * 1 incarnation, 10 ghosts, 1 incarnation, 10 ghosts, 1 incarnation, rest of
  * the ghost deck
- * <li>{@linke EDifficulty#HELL} : 10 ghosts, 1 incarnation, 10 ghosts, 
- * 1 incarnation, 10 ghosts, 1 incarnation, 10 ghosts, 1 incarnation, rest of 
+ * <li>{@linke EDifficulty#HELL} : 10 ghosts, 1 incarnation, 10 ghosts,
+ * 1 incarnation, 10 ghosts, 1 incarnation, 10 ghosts, 1 incarnation, rest of
  * the ghost deck (Same as Nightmare)
  */
 public class GhostDeckData {
@@ -31,8 +31,8 @@ public class GhostDeckData {
     * Constructor
     * @param pDifficulty The difficulty used to build the deck
     */
-   public GhostDeckData(EDifficulty pDifficulty, List<GhostData> pGhosts, 
-         List<GhostData> pIncarnations) {       
+   public GhostDeckData(EDifficulty pDifficulty, List<GhostData> pGhosts,
+         List<GhostData> pIncarnations) {
 
       //Shuffle the lists
       Collections.shuffle(pGhosts);
@@ -64,8 +64,15 @@ public class GhostDeckData {
          mGhostDeck = new ArrayDeque<GhostData>();
          break;
       }
-   }   
-   
+   }
+
+   /**
+    * Dispose of the ghost deck
+    */
+   public void dispose() {
+      mListeners.clear();
+   }
+
    /**
     * Add a listener for updates to the ghost deck
     * @param pListener The listener
@@ -73,7 +80,7 @@ public class GhostDeckData {
    public void addGhostDeckListener(IGhostDeckListener pListener) {
       mListeners.add(pListener);
    }
-   
+
    /**
     * Adds a card to the top of the deck.
     * @param pGhostData The data of the card to add
@@ -82,14 +89,14 @@ public class GhostDeckData {
       mGhostDeck.push(pGhostData);
       notifyListeners();
    }
-   
+
    /**
     * Sets the status of the top card to flipped
     */
    public void flipTopCard() {
       GhostData data = mGhostDeck.peek();
       if(data != null) {
-         data.setIsFlipped(!data.isFlipped());         
+         data.setIsFlipped(!data.isFlipped());
          notifyListeners();
       }
    }
@@ -106,8 +113,8 @@ public class GhostDeckData {
     */
    public GhostData getTopCard() {
       return mGhostDeck.peek();
-   }   
-   
+   }
+
    /**
     * Removes a listener from the listener list
     * @param pListener The listener to remove
@@ -124,15 +131,15 @@ public class GhostDeckData {
       notifyListeners();
       return topCard;
    }
-   
+
    /**
     * Sets the dragging state of the top card
-    * @param pDragging 
+    * @param pDragging
     */
    public void setTopCardDragging(boolean pDragging) {
       GhostData topCard = mGhostDeck.peek();
       topCard.setIsDragging(pDragging);
-      notifyListeners();      
+      notifyListeners();
    }
 
    /**
@@ -143,11 +150,11 @@ public class GhostDeckData {
          listener.ghostDeckUpdated();
       }
    }
-   
+
    /** The ghost deck **/
    private final Deque<GhostData> mGhostDeck;
-   
+
    /** The set of listeners for ghost deck updates **/
-   private Set<IGhostDeckListener> mListeners = 
+   private final Set<IGhostDeckListener> mListeners =
          new CopyOnWriteArraySet<IGhostDeckListener>();
 }

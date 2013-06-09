@@ -1,7 +1,8 @@
--Implement a Ghost Graveyard View
--Update combat view to allow removing applied dice/tao tokens
--Handle killing ghosts
 -Auto apply dice/tokens to ghosts during combat
 -Make combat directions more obvious
 -Implement players abilities
 -Implement village abilities
+
+-Update event propagation to be more generic and avoid all the specific
+listener interfaces. Try something where change events are fired with 
+string indicators of the event.

@@ -14,10 +14,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 
 /**
- * Data class representing a single ghost card. 
+ * Data class representing a single ghost card.
  */
 public class GhostData {
-   
+
    /**
     * Constructor
     * @param pName The name of the ghost
@@ -31,9 +31,9 @@ public class GhostData {
     * @param pIsWuFeng Whether or not this ghost is a WuFeng incarnation
     */
    public GhostData(String pName, int pId, EColor pColor, int pImageId,
-         Map<EColor, Integer> pResistance, 
+         Map<EColor, Integer> pResistance,
          List<EGhostAbility> pEnterAbilities,
-         List<EGhostAbility> pTurnAbilities, 
+         List<EGhostAbility> pTurnAbilities,
          List<EGhostAbility> pExorciseAbilities,
          boolean pIsWuFeng) {
       mName = pName;
@@ -44,7 +44,7 @@ public class GhostData {
       mFullHealth = new HashMap<EColor, Integer>(pResistance);
       mEnterAbilities = new ArrayList<EGhostAbility>(pEnterAbilities);
       mTurnAbilities =  new ArrayList<EGhostAbility>(pTurnAbilities);
-      mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);    
+      mExorciseAbilities =  new ArrayList<EGhostAbility>(pExorciseAbilities);
       mIsWuFeng = pIsWuFeng;
       if(pTurnAbilities.contains(EGhostAbility.HAUNT)) {
          mHaunterLocation = EHaunterLocation.CARD;
@@ -54,8 +54,15 @@ public class GhostData {
          mHaunterLocation = EHaunterLocation.TILE;
       }
       updateHealth();
-   }   
-   
+   }
+
+   /**
+    * Dispose of this ghost model
+    */
+   public void dispose() {
+      mGhostListeners.clear();
+   }
+
    /*
     * (non-Javadoc)
     * @see java.lang.Object#hashCode()
@@ -64,20 +71,20 @@ public class GhostData {
    public int hashCode() {
       return mId;
    }
-   
+
    /*
     * (non-Javadoc)
     * @see java.lang.Object#equals(java.lang.Object)
     */
    @Override
-   public boolean equals(Object o) {      
+   public boolean equals(Object o) {
       boolean equals = false;
       if(o instanceof GhostData) {
          equals = ((GhostData)o).mId == mId;
       }
       return equals;
    }
-   
+
    /**
     * Adds a listener for updates to this ghost data
     * @param pListener The listener to add
@@ -85,7 +92,7 @@ public class GhostData {
    public void addGhostListener(IGhostListener pListener) {
       mGhostListeners.add(pListener);
    }
-        
+
    /**
     * @return Color of the ghost
     */
@@ -106,7 +113,7 @@ public class GhostData {
    public List<EGhostAbility> getExorciseAbilities() {
       return mExorciseAbilities;
    }
-   
+
    /**
     * @return The haunter location for the ghost
     */
@@ -127,7 +134,7 @@ public class GhostData {
    public int getImageId() {
       return mImageId;
    }
-   
+
    /**
     * @return The total amount of health this ghost has left
     */
@@ -155,35 +162,35 @@ public class GhostData {
    public List<EGhostAbility> getTurnAbilities() {
       return mTurnAbilities;
    }
-   
+
    /**
     * @return true if this ghost has no more health, false otherwise
     */
    public boolean isDead() {
       return mIsDead;
    }
-   
+
    /**
     * @return Whether or not this card is being dragged
     */
    public boolean isDragging() {
       return mIsDragging;
    }
-   
+
    /**
     * @return Whether or not this card is flipped over
     */
    public boolean isFlipped() {
       return mIsFlipped;
    }
-   
+
    /**
     * @return Whether or not this is a wu feng incarnation
     */
    public boolean isWuFeng() {
       return mIsWuFeng;
    }
-   
+
    /**
     * Sets the status of this ghost to killed and notifies listeners
     */
@@ -193,7 +200,7 @@ public class GhostData {
          listener.ghostKilled();
       }
    }
-   
+
    /**
     * Removes a listener for updates to this ghost data
     * @param pListener The listener to remove
@@ -201,11 +208,11 @@ public class GhostData {
    public void removeGhostListener(IGhostListener pListener) {
       mGhostListeners.remove(pListener);
    }
-   
+
    /**
     * Reset the resistance of this ghost to full health
     */
-   public void resetResistance() {      
+   public void resetResistance() {
       mResistance = new HashMap<EColor, Integer>(mFullHealth);
    }
 
@@ -214,7 +221,7 @@ public class GhostData {
     * @param pHaunterLocation
     * @param pRunnable
     */
-   public void setHaunterLocation(EHaunterLocation pHaunterLocation, 
+   public void setHaunterLocation(EHaunterLocation pHaunterLocation,
          Runnable pRunnable) {
       EHaunterLocation oldHaunterLocation = mHaunterLocation;
       mHaunterLocation = pHaunterLocation;
@@ -222,7 +229,7 @@ public class GhostData {
          listener.haunterUpdated(oldHaunterLocation, mHaunterLocation, pRunnable);
       }
    }
-   
+
    /**
     * Sets whether or not this card is being dragged
     * @param pDragging
@@ -230,18 +237,18 @@ public class GhostData {
    public void setIsDragging(boolean pDragging) {
       mIsDragging = pDragging;
    }
-   
+
    /**
     * Sets whether or not this card is flipped over
-    * @param pFlipped 
+    * @param pFlipped
     */
    public void setIsFlipped(boolean pFlipped) {
       mIsFlipped = pFlipped;
-   }     
-   
+   }
+
    /**
     * Increments or decrements the resistance value for a given color by the
-    * specified amount 
+    * specified amount
     * @param pColor The color of the resistance to update
     * @param pIncOrDec The increment/decrement value
     */
@@ -249,11 +256,11 @@ public class GhostData {
       Integer resistance = mResistance.get(pColor);
       if(resistance != null) {
          resistance = Math.max(0, resistance + pIncOrDec);
-         mResistance.put(pColor, resistance);         
-         updateHealth();         
+         mResistance.put(pColor, resistance);
+         updateHealth();
          for(IGhostListener listener : mGhostListeners) {
             listener.resistanceUpdated();
-         }         
+         }
       }
    }
 
@@ -262,7 +269,7 @@ public class GhostData {
     * @see java.lang.Object#toString()
     */
    @Override
-   public String toString() {      
+   public String toString() {
       StringBuilder sb = new StringBuilder("---------------------------------\n");
       sb.append("id = ").append(mId).append("\n");
       sb.append("name = ").append(mName).append("\n");
@@ -275,7 +282,7 @@ public class GhostData {
       sb.append("---------------------------------").append("\n");
       return sb.toString();
    }
-   
+
    /**
     * Compute and set the health for this ghost. The health is the total amount
     * of resistance across all colors.
@@ -290,7 +297,7 @@ public class GhostData {
    /** The color of the ghost card **/
    private final EColor mColor;
    /** Listeners for updates to this ghost data**/
-   private Set<IGhostListener> mGhostListeners = 
+   private final Set<IGhostListener> mGhostListeners =
          new CopyOnWriteArraySet<IGhostListener>();
    /** The location of the haunter for this ghost **/
    private EHaunterLocation mHaunterLocation = EHaunterLocation.NONE;
@@ -305,21 +312,21 @@ public class GhostData {
    /** Whether or not this ghost card has been flipped over **/
    private boolean mIsFlipped = false;
    /** Whether or not this ghost is a wu feng incarnation **/
-   private boolean mIsWuFeng;
+   private final boolean mIsWuFeng;
    /** The name of the ghost **/
    private final String mName;
-   
+
    /** The abilities of the ghost upon entry **/
    private final List<EGhostAbility> mEnterAbilities;
    /** The abilities of the ghost upon exorcism **/
    private final List<EGhostAbility> mExorciseAbilities;
    /** The abilities of the ghost that occurs every turn **/
    private final List<EGhostAbility> mTurnAbilities;
-   
+
    /** Current resistance of this ghost **/
    private Map<EColor, Integer> mResistance;
    /** The total resistance count **/
    private int mHealth = 0;
    /** Full health resistance for this ghost **/
-   private final Map<EColor, Integer> mFullHealth;      
+   private final Map<EColor, Integer> mFullHealth;
 }

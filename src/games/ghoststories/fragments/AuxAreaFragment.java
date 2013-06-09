@@ -5,9 +5,12 @@ import games.ghoststories.controllers.GhostDeckController;
 import games.ghoststories.data.GhostDeckData;
 import games.ghoststories.data.GhostStoriesGameManager;
 import games.ghoststories.data.PlayerData;
+import games.ghoststories.data.TokenSupplyData;
 import games.ghoststories.enums.EColor;
 import games.ghoststories.views.aux_area.GhostDeckView;
 import games.ghoststories.views.aux_area.PlayerInfoView;
+import games.ghoststories.views.common.QiTokenView;
+import games.ghoststories.views.common.TaoTokenView;
 
 import java.util.List;
 
@@ -49,6 +52,16 @@ public class AuxAreaFragment extends Fragment {
          setupPlayerInfoView(playerInfoArea, getPlayerInfoId(i), 
                gm.getPlayerData(playerOrder.get(i)));
       }
+      
+      //Setup the token supply
+      TokenSupplyData supply = gm.getTokenSupply();
+      for(EColor c : EColor.values()) {
+         TaoTokenView tokenView = 
+               (TaoTokenView)auxAreaView.findViewById(c.getTokenId());
+         tokenView.setData(supply);
+      }
+      QiTokenView qiView = (QiTokenView)auxAreaView.findViewById(R.id.qi_tokens);
+      qiView.setData(supply);
       
       return auxAreaView;
    }        

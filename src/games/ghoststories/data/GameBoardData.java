@@ -1,17 +1,17 @@
 package games.ghoststories.data;
 
+import games.ghoststories.data.interfaces.IGameBoardListener;
+import games.ghoststories.enums.EBoardLocation;
+import games.ghoststories.enums.ECardLocation;
+import games.ghoststories.enums.EColor;
+import games.ghoststories.enums.EGhostAbility;
+import games.ghoststories.enums.EHaunterLocation;
+import games.ghoststories.enums.EPlayerAbility;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import games.ghoststories.data.interfaces.IGameBoardListener;
-import games.ghoststories.enums.ECardLocation;
-import games.ghoststories.enums.EColor;
-import games.ghoststories.enums.EBoardLocation;
-import games.ghoststories.enums.EGhostAbility;
-import games.ghoststories.enums.EHaunterLocation;
-import games.ghoststories.enums.EPlayerAbility;
 
 /**
  * Data class representing one of the player game boards
@@ -32,9 +32,17 @@ public class GameBoardData {
       mAbility = pAbility;
       mEmptyImageIds.put(ECardLocation.LEFT, pLeftImageId);
       mEmptyImageIds.put(ECardLocation.MIDDLE, pMiddleImageId);
-      mEmptyImageIds.put(ECardLocation.RIGHT, pRightImageId);     
-   }   
-   
+      mEmptyImageIds.put(ECardLocation.RIGHT, pRightImageId);
+   }
+
+   /**
+    * Dispose of this data model.
+    */
+   public void dispose() {
+      mGhosts.clear();
+      mListeners.clear();
+   }
+
    /**
     * Adds a listener for updates to this game board
     * @param pListener The listener to add
@@ -42,7 +50,7 @@ public class GameBoardData {
    public void addGameBoardListener(IGameBoardListener pListener) {
       mListeners.add(pListener);
    }
-   
+
    /**
     * Adds the ghost to this board at the given location
     * @param pGhost
@@ -52,21 +60,21 @@ public class GameBoardData {
       mGhosts.put(pLocation, pGhost);
       notifyListeners();
    }
-   
+
    /**
     * @return The ability of this game board
     */
    public EPlayerAbility getAbility() {
       return mAbility;
    }
-   
+
    /**
     * @return The color of this game board
     */
    public EColor getColor() {
       return mColor;
    }
-   
+
    /**
     * @return How many times the player must roll the cursed die based on
     * the number of haunters with that ability on the board.
@@ -80,7 +88,7 @@ public class GameBoardData {
       }
       return count;
    }
-   
+
    /**
     * @param pCardLocation The card location to get the ghost data for
     * @return The data for the ghost at the specified card location or null
@@ -89,7 +97,7 @@ public class GameBoardData {
    public GhostData getGhostData(ECardLocation pCardLocation) {
       return mGhosts.get(pCardLocation);
    }
-   
+
    /**
     * @param pCardLocation The card location to get the empty id for
     * @return The empty image resource id
@@ -97,7 +105,7 @@ public class GameBoardData {
    public int getEmptyImageId(ECardLocation pCardLocation) {
       return mEmptyImageIds.get(pCardLocation);
    }
-   
+
    /**
     * @param pCardLocation The card location to get the id for
     * @return The image id for the specified location
@@ -108,16 +116,16 @@ public class GameBoardData {
          return mEmptyImageIds.get(pCardLocation);
       } else {
          return data.getImageId();
-      }           
+      }
    }
-   
+
    /**
     * @return The location of this game board
     */
    public EBoardLocation getLocation() {
       return mLocation;
    }
-   
+
    /**
     * @return The number of haunters on the current board
     */
@@ -130,14 +138,14 @@ public class GameBoardData {
       }
       return numHaunters;
    }
-   
+
    /**
     * @return Whether or not this board is filled with ghosts
     */
    public boolean isBoardFilled() {
       return mGhosts.values().size() == 3;
    }
-   
+
    /**
     * Removes a listener for updates to this game board
     * @param pListener The listener to remove
@@ -145,7 +153,7 @@ public class GameBoardData {
    public void removeGameBoardListener(IGameBoardListener pListener) {
       mListeners.remove(pListener);
    }
-   
+
    /**
     * Removes the ghost from the given card location
     * @param pLocation The location to remove the card from
@@ -154,14 +162,14 @@ public class GameBoardData {
       mGhosts.remove(pLocation);
       notifyListeners();
    }
-   
+
    /**
     * @param pLocation The location of this game board
     */
    public void setLocation(EBoardLocation pLocation) {
       mLocation = pLocation;
    }
-   
+
    /*
     * (non-Javadoc)
     * @see java.lang.Object#toString()
@@ -179,10 +187,10 @@ public class GameBoardData {
             sb.append(" ").append(loc.toString()).append(" = ").append(
                   mEmptyImageIds.get(loc));
          }
-      }      
+      }
       return sb.toString();
    }
-   
+
    /**
     * Notify listeners that the ghost deck has been updated
     */
@@ -191,20 +199,20 @@ public class GameBoardData {
          listener.gameBoardUpdated();
       }
    }
-   
+
    /** The player ability associated with this game board **/
    private final EPlayerAbility mAbility;
    /** The color of the game board **/
    private final EColor mColor;
    /** The image resource ids to use for this board when no card is present **/
-   private final Map<ECardLocation, Integer> mEmptyImageIds = 
-         new EnumMap<ECardLocation, Integer>(ECardLocation.class);   
+   private final Map<ECardLocation, Integer> mEmptyImageIds =
+         new EnumMap<ECardLocation, Integer>(ECardLocation.class);
    /** The card on the board **/
-   private final Map<ECardLocation, GhostData> mGhosts = 
+   private final Map<ECardLocation, GhostData> mGhosts =
          new EnumMap<ECardLocation, GhostData>(ECardLocation.class);
    /** The location of the game board **/
    private EBoardLocation mLocation;
    /** The set of listeners for ghost deck updates **/
-   private Set<IGameBoardListener> mListeners = 
+   private final Set<IGameBoardListener> mListeners =
          new CopyOnWriteArraySet<IGameBoardListener>();
 }

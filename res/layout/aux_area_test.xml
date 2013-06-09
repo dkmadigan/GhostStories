@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:scaleType="fitXY"
         android:src="@drawable/title" />
-
+    
     <include
         android:id="@+id/menu_bar"
         android:layout_width="wrap_content"

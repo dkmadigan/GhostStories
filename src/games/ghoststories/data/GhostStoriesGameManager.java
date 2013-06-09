@@ -36,26 +36,26 @@ import android.util.Log;
  * <li>Game Board Information
  * <li>Token Supply
  * <br>
- * 
- * The function {@link #initializeGame()} must be called at the start of the 
+ *
+ * The function {@link #initializeGame()} must be called at the start of the
  * game to setup all necessary game data.
  */
 public class GhostStoriesGameManager {
    /**
-    * Holds the static instance of the game manager    
+    * Holds the static instance of the game manager
     */
    private static class INSTANCE_HOLDER {
-      public static final GhostStoriesGameManager sInstance = 
+      public static final GhostStoriesGameManager sInstance =
             new GhostStoriesGameManager();
    }
-   
+
    /**
     * @return The static instance of the {@link GhostStoriesGameManager}
     */
    public static GhostStoriesGameManager getInstance() {
       return INSTANCE_HOLDER.sInstance;
    }
-   
+
    /**
     * Add a listener to receive notifications when the number of tokens
     * in the token repository changes.
@@ -63,16 +63,16 @@ public class GhostStoriesGameManager {
     */
    public void addGameTokenListener(IGameTokenListener pListener) {
       mGameTokenListeners.add(pListener);
-   }   
-   
+   }
+
    /**
     * Add a listener to receive notifications when the game phase is updated
     * @param pListener
     */
    public void addGamePhaseListener(IGamePhaseListener pListener) {
-      mGamePhaseListeners.add(pListener);      
+      mGamePhaseListeners.add(pListener);
    }
-   
+
    /**
     * Add a listener to receive notifications when the ghost deck is updated
     * @param pListener
@@ -80,19 +80,22 @@ public class GhostStoriesGameManager {
    public void addGhostDeckListener(IGhostDeckListener pListener) {
       mGhostDeckListeners.add(pListener);
    }
-   
+
    /**
     * Increases the amount of available dice by 1
     */
    public void addDice() {
       mNumDice++;
    }
-   
+
    /**
     * Advances the game to the next game phase. Will update to the next player's
     * turn if currently at the last phase.
     */
    public void advanceGamePhase() {
+      //Save the state before advancing the game phase
+      saveGame(false);
+
       boolean notify = true;
       PlayerData currentPlayer = getCurrentPlayerData();
       GameBoardData currentBoard = getCurrentPlayerBoard();
@@ -100,11 +103,11 @@ public class GhostStoriesGameManager {
       case TurnStart:
          mGamePhase = EGamePhase.YinPhase1A;
          if(getCurrentPlayerBoard().getNumHaunters() == 0) {
-            //If the next player has no haunter to advance then skip to the 
+            //If the next player has no haunter to advance then skip to the
             //next phase
             notify = false;
             advanceGamePhase();
-         }               
+         }
          break;
       case YinPhase1A:
          mGamePhase = EGamePhase.YinPhase1B;
@@ -142,18 +145,18 @@ public class GhostStoriesGameManager {
          break;
       case TaoistResolution:
          mGamePhase = EGamePhase.YangPhase3;
-         if(currentPlayer.getNumBuddhaTokens() == 0) {            
+         if(currentPlayer.getNumBuddhaTokens() == 0) {
             //If the player has no buddhas then skip to the next phase
             notify = false;
-            advanceGamePhase();            
+            advanceGamePhase();
          }
          break;
       case YangPhase3:
          mGamePhase = EGamePhase.TurnStart;
-         updateCurrentPlayer();         
+         updateCurrentPlayer();
          break;
-      }      
-      
+      }
+
       //Notify listeners that the game phase has changed
       if(notify) {
          for(IGamePhaseListener listener : mGamePhaseListeners) {
@@ -161,21 +164,21 @@ public class GhostStoriesGameManager {
          }
       }
    }
-   
+
    /**
     * @return The ghost deck data
     */
    public GhostDeckData getGhostDeckData() {
       return mGhostDeck;
    }
-   
+
    /**
     * @return The ghost graveyard data
     */
    public GhostGraveyardData getGhostGraveyardData() {
       return mGhostGraveyard;
    }
-   
+
    /**
     * @return The number of dice available to use. Does not take into account
     * player special abilities.
@@ -183,7 +186,7 @@ public class GhostStoriesGameManager {
    public int getNumDice() {
       return mNumDice;
    }
-   
+
    /**
     * Called to initialize the game. Sets up all necessary game data before
     * returning. It is recommended to call this on a background thread to avoid
@@ -192,38 +195,42 @@ public class GhostStoriesGameManager {
     */
    public void initializeGame(EDifficulty pDifficulty, Context pContext) {
       mDifficulty = pDifficulty;
+      mGamePhase = EGamePhase.TurnStart;
+      mCurrentPlayerIndex = 0;
+      mNumDice = 3;
       try {
+         mGhostGraveyard = new GhostGraveyardData();
          List<GhostData> ghosts = XmlUtils.parseGhostXml(pContext, R.xml.ghosts);
          List<GhostData> incarnations = XmlUtils.parseGhostXml(pContext, R.xml.wufeng);
-         
+
          //Initialize the supply of tokens
          initSupply();
-         
-         //Create the deck of ghost cards
-         mGhostDeck = new GhostDeckData(mDifficulty, ghosts, incarnations);                 
 
-         //Initialize the game boards      
-         initGameBoards(pContext);      
-         
+         //Create the deck of ghost cards
+         mGhostDeck = new GhostDeckData(mDifficulty, ghosts, incarnations);
+
+         //Initialize the game boards
+         initGameBoards(pContext);
+
          //Initialize the village tiles
          initVillageTiles(pContext);
-         
+
          //Initialize the players
          initPlayerData();
          setupPlayerOrder();
-         
+
       } catch (Exception pException) {
          Log.e("GhostStoriesGameManager", "Exception",  pException);
       }
    }
-   
+
    /**
     * @return The current phase of the game
     */
    public EGamePhase getCurrentGamePhase() {
       return mGamePhase;
    }
-   
+
    /**
     * Gets the {@link PlayerData} for the player whose turn it currently is
     * @return The {@link PlayerData} for the current player
@@ -231,7 +238,7 @@ public class GhostStoriesGameManager {
    public PlayerData getCurrentPlayerData() {
       return mPlayerData.get(mPlayerOrder.get(mCurrentPlayerIndex));
    }
-   
+
    /**
     * Gets the {@link GameBoardData} for the current player
     * @return The {@link GameBoardData} for the current player
@@ -239,7 +246,7 @@ public class GhostStoriesGameManager {
    public GameBoardData getCurrentPlayerBoard() {
       return mGameBoards.get(getCurrentPlayerData().getColor());
    }
-   
+
    /**
     * Gets the game board data for the passed in {@link EColor}
     * @param pColor The color to get the game board for
@@ -248,7 +255,7 @@ public class GhostStoriesGameManager {
    public GameBoardData getGameBoard(EColor pColor) {
       return mGameBoards.get(pColor);
    }
-   
+
    /**
     * Gets the game board at the specified {@link EBoardLocation}
     * @param pLocation The location to get the game board for
@@ -264,23 +271,23 @@ public class GhostStoriesGameManager {
       }
       return data;
    }
-   
+
    /**
     * @return The map of game boards for the current game
     */
    public Map<EColor, GameBoardData> getGameBoards() {
       return Collections.unmodifiableMap(mGameBoards);
    }
-   
+
    /**
     * Gets the player data for the specified {@link EColor}
     * @param pColor the color of the player data to get
-    * @return The player data of the requested color 
+    * @return The player data of the requested color
     */
    public PlayerData getPlayerData(EColor pColor) {
       return mPlayerData.get(pColor);
    }
-   
+
    /**
     * Gets the players that are located on the specified tile
     * @param pTile The tile to get the players on
@@ -295,15 +302,15 @@ public class GhostStoriesGameManager {
       }
       return players;
    }
-   
+
    /**
-    * @return An unmodifiable list of player colors in the order that they take 
+    * @return An unmodifiable list of player colors in the order that they take
     * turns.
     */
    public List<EColor> getPlayerOrder() {
       return Collections.unmodifiableList(mPlayerOrder);
    }
-   
+
    /**
     * @return The token supply containing the remaining Tao Tokens and Qi Tokens
     * available to the players.
@@ -311,7 +318,7 @@ public class GhostStoriesGameManager {
    public TokenSupplyData getTokenSupply() {
       return mTokenSupply;
    }
-   
+
    /**
     * Gets the village tile where the passed in player is currently at.
     * @param pColor The color of the player to get the tile for
@@ -320,8 +327,8 @@ public class GhostStoriesGameManager {
    public VillageTileData getVillageTile(EColor pColor) {
       return mVillageTiles.get(mPlayerData.get(pColor).getLocation());
    }
-   
-   
+
+
    /**
     * Gets the village tile at the passed in {@link ETileLocation}
     * @param pLocation The location to get the tile for
@@ -330,7 +337,7 @@ public class GhostStoriesGameManager {
    public VillageTileData getVillageTile(ETileLocation pLocation) {
       return mVillageTiles.get(pLocation);
    }
-   
+
    /**
     * Gets the specified village tile.
     * @param pVillageTile The village tile to get
@@ -345,38 +352,68 @@ public class GhostStoriesGameManager {
       }
       return vtd;
    }
-   
+
    /**
     * @return The map of village tiles
     */
    public Map<ETileLocation, VillageTileData> getVillageTiles() {
       return Collections.unmodifiableMap(mVillageTiles);
    }
-   
+
    /**
     * Decreases the amount of available dice by 1
     */
    public void removeDice() {
       mNumDice = Math.max(0, mNumDice - 1);
    }
-   
+
+   /**
+    * Saves the current state of the game
+    * @param pClearData Whether or not to clear the game data after saving
+    */
+   public void saveGame(boolean pClearData) {
+      //TODO Figure out how to save the state
+
+      if(pClearData) {
+         mGhostDeck.dispose();
+         mGhostGraveyard.dispose();
+         for(GameBoardData gbd : mGameBoards.values()) {
+            gbd.dispose();
+         }
+         mGameBoards.clear();
+         for(PlayerData pd : mPlayerData.values()) {
+            pd.dispose();
+         }
+         mPlayerData.clear();
+         for(VillageTileData vtd : mVillageTiles.values()) {
+            vtd.dipose();
+         }
+         mVillageTiles.clear();
+         mGamePhaseListeners.clear();
+         mGameTokenListeners.clear();
+         mGhostDeckListeners.clear();
+         mPlayerOrder.clear();
+         mTokenSupply.dispose();
+      }
+   }
+
    /**
     * Initialize the game boards by parsing the xml of game boards and then
     * randomly choosing a single game board for each player color.
     * @param pContext The context used to initialize the game boards
     */
    private void initGameBoards(Context pContext) throws IOException {
-      //Initialize the game boards 
-      Map<EColor, List<GameBoardData>> boards = 
+      //Initialize the game boards
+      Map<EColor, List<GameBoardData>> boards =
             XmlUtils.parseGameBoardXml(pContext, R.xml.gameboards);
-      
+
       //Randomly choose a game board for each color
       List<GameBoardData> redBoards = boards.get(EColor.RED);
       List<GameBoardData> blueBoards = boards.get(EColor.BLUE);
       List<GameBoardData> greenBoards = boards.get(EColor.GREEN);
       List<GameBoardData> yellowBoards = boards.get(EColor.YELLOW);
-      
-      if(!redBoards.isEmpty() && !blueBoards.isEmpty() && 
+
+      if(!redBoards.isEmpty() && !blueBoards.isEmpty() &&
             !greenBoards.isEmpty() && !yellowBoards.isEmpty()) {
          Random r = GhostStoriesConstants.sRandom;
          mGameBoards.put(EColor.RED, redBoards.get(r.nextInt(redBoards.size())));
@@ -384,7 +421,7 @@ public class GhostStoriesGameManager {
          mGameBoards.put(EColor.GREEN, greenBoards.get(r.nextInt(greenBoards.size())));
          mGameBoards.put(EColor.YELLOW, yellowBoards.get(r.nextInt(yellowBoards.size())));
       }
-      
+
       //Randomize the locations of the game boards
       List<EBoardLocation> locs = Arrays.asList(EBoardLocation.values());
       Collections.shuffle(locs);
@@ -393,8 +430,8 @@ public class GhostStoriesGameManager {
       mGameBoards.get(EColor.GREEN).setLocation(locs.get(2));
       mGameBoards.get(EColor.YELLOW).setLocation(locs.get(3));
    }
-   
-   /** 
+
+   /**
     * Initializes the player data
     */
    private void initPlayerData() {
@@ -403,29 +440,30 @@ public class GhostStoriesGameManager {
       mPlayerData.put(EColor.YELLOW, createPlayerData("Yellow Player", EColor.YELLOW));
       mPlayerData.put(EColor.GREEN, createPlayerData("Green Player", EColor.GREEN));
    }
-   
+
    /**
     * Initialize the supply of tokens
     */
    private void initSupply() {
+      mTokenSupply = new TokenSupplyData();
       //There are 5 tokens of each color and 20 Qi tokens in the initial supply
       mTokenSupply.setNumQi(20);
       for(EColor color : EColor.values()) {
-         mTokenSupply.setNumTaoTokens(color, 4);   
-      }      
+         mTokenSupply.setNumTaoTokens(color, 4);
+      }
    }
-   
+
    /**
     * Initialize the village tiles
     * @param pContext The context used to initialize the village tiles
     */
    private void initVillageTiles(Context pContext) {
-      //Initialize the village tiles 
-      List<VillageTileData> tiles = 
+      //Initialize the village tiles
+      List<VillageTileData> tiles =
             XmlUtils.parseVillageXml(pContext, R.xml.village);
-      //Randomly order the tiles 
+      //Randomly order the tiles
       Collections.shuffle(tiles);
-      
+
       //TODO Error check this
       ETileLocation tileLocs[] = ETileLocation.values();
       for(int i = 0; i < tileLocs.length; ++i) {
@@ -435,7 +473,7 @@ public class GhostStoriesGameManager {
          mVillageTiles.put(loc, villageTile);
       }
    }
-      
+
    /**
     * Creates a {@link PlayerData} using the given color and name and based on
     * the currently set difficulty level.
@@ -445,7 +483,7 @@ public class GhostStoriesGameManager {
     */
    private PlayerData createPlayerData(String pName, EColor pColor) {
       PlayerData pd = new PlayerData(pName, pColor, mGameBoards.get(pColor));
-      
+
       //Initialize the player data based on the current difficulty
       switch(mDifficulty) {
       case INITIATE:
@@ -462,8 +500,8 @@ public class GhostStoriesGameManager {
          mTokenSupply.removeQi(3);
          pd.setNumTaoTokens(pColor, 1);
          mTokenSupply.removeTaoToken(pColor);
-         break;      
-      case HELL:     
+         break;
+      case HELL:
          pd.setNumQi(3);
          mTokenSupply.removeQi(3);
          pd.setNumTaoTokens(pColor, 1);
@@ -471,10 +509,10 @@ public class GhostStoriesGameManager {
          pd.setYinYangAvailable(false);
          break;
       }
-            
+
       return pd;
    }
-   
+
    /**
     * Sets up the order of the player's turns
     */
@@ -484,58 +522,58 @@ public class GhostStoriesGameManager {
       mPlayerOrder.add(getGameBoard(EBoardLocation.TOP).getColor());
       mPlayerOrder.add(getGameBoard(EBoardLocation.RIGHT).getColor());
    }
-   
+
    /**
     * Updates the current player to the next one
     */
    private void updateCurrentPlayer() {
-      mCurrentPlayerIndex++;  
+      mCurrentPlayerIndex++;
       if(mCurrentPlayerIndex >= mPlayerOrder.size()) {
          mCurrentPlayerIndex = 0;
       }
    }
-        
+
    /**
     * Constructor
     */
-   private GhostStoriesGameManager() {      
+   private GhostStoriesGameManager() {
    }
-   
+
    /** The current difficulty level **/
    private EDifficulty mDifficulty;
    /** The deck of ghost cards **/
    private GhostDeckData mGhostDeck;
    /** The ghosts in the ghost graveyard **/
-   private GhostGraveyardData mGhostGraveyard = new GhostGraveyardData();
+   private GhostGraveyardData mGhostGraveyard;
    /** The player game boards **/
-   private Map<EColor, GameBoardData> mGameBoards = 
+   private final Map<EColor, GameBoardData> mGameBoards =
          new EnumMap<EColor, GameBoardData>(EColor.class);
    /** The player data **/
-   private Map<EColor, PlayerData> mPlayerData = 
-         new EnumMap<EColor, PlayerData>(EColor.class);   
-   /** The village tiles **/   
-   private Map<ETileLocation, VillageTileData> mVillageTiles = 
+   private final Map<EColor, PlayerData> mPlayerData =
+         new EnumMap<EColor, PlayerData>(EColor.class);
+   /** The village tiles **/
+   private final Map<ETileLocation, VillageTileData> mVillageTiles =
       new EnumMap<ETileLocation, VillageTileData>(ETileLocation.class);
-   
+
    /** The current game phase **/
-   private EGamePhase mGamePhase = EGamePhase.TurnStart;
+   private EGamePhase mGamePhase;
    /** Listeners for game phase updates **/
-   private Set<IGamePhaseListener> mGamePhaseListeners = 
+   private final Set<IGamePhaseListener> mGamePhaseListeners =
          new CopyOnWriteArraySet<IGamePhaseListener>();
    /** Listeners for game token updates **/
-   private Set<IGameTokenListener> mGameTokenListeners = 
+   private final Set<IGameTokenListener> mGameTokenListeners =
          new CopyOnWriteArraySet<IGameTokenListener>();
    /** Listeners for ghost deck updates **/
-   private Set<IGhostDeckListener> mGhostDeckListeners = 
-         new CopyOnWriteArraySet<IGhostDeckListener>();   
+   private final Set<IGhostDeckListener> mGhostDeckListeners =
+         new CopyOnWriteArraySet<IGhostDeckListener>();
    /** The index of the current player **/
    private int mCurrentPlayerIndex = 0;
    /** The order of player turns **/
-   private List<EColor> mPlayerOrder = new ArrayList<EColor>();
-   
+   private final List<EColor> mPlayerOrder = new ArrayList<EColor>();
+
    /** The number of dice available to the player **/
    private int mNumDice = 3;
-   
+
    /** The token supply **/
    private TokenSupplyData mTokenSupply;
 }

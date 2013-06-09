@@ -1,5 +1,7 @@
 package com.views;
 
+import com.views.listeners.DragTouchListener;
+
 import games.ghoststories.R;
 import games.ghoststories.utils.GameUtils;
 import android.content.Context;
@@ -11,6 +13,8 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -20,6 +24,27 @@ import android.widget.ImageView;
  */
 public class NumberedImageView extends ImageView {
 
+   /**
+    * Default drag listener for a numbered image view. This will not allow 
+    * dragging if the number is 0.
+    */
+   public static class DefaultDragTouchListener extends DragTouchListener {
+      /*
+       * (non-Javadoc)
+       * @see com.views.listeners.DragTouchListener#onTouch(android.view.View, android.view.MotionEvent)
+       */
+      @Override
+      public boolean onTouch(View pView, MotionEvent pEvent) {
+         if(pView instanceof NumberedImageView) {
+            if(((NumberedImageView)pView).mNumber > 0) {
+               return super.onTouch(pView, pEvent);
+            }
+         }
+         
+         return false;
+      }
+   }
+   
    /**
     * Constructor
     * @param pContext The context the view is running in

@@ -1,7 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<games.ghoststories.views.TitleScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<games.ghoststories.views.title.TitleScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_screen"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/title">
-</games.ghoststories.views.TitleScreen>
+    android:gravity="center"
+    android:background="@drawable/title"
+    android:orientation="vertical" >
+
+    <games.ghoststories.views.title.TitleButton 
+        android:id="@+id/new_game"
+        android:background="@android:color/transparent"
+        android:textColor="@drawable/title_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="50sp"      
+        style="?android:attr/borderlessButtonStyle"  
+        android:text="@string/new_game"
+        android:onClick="newGameSelected"/>
+    <games.ghoststories.views.title.TitleButton 
+        android:id="@+id/continue_game"
+        android:background="@android:color/transparent"
+        android:textColor="@drawable/title_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="50sp"
+        android:enabled="false"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/continue_game"
+        android:onClick="continueGameSelected"/>
+    <games.ghoststories.views.title.TitleButton
+        android:id="@+id/settings"        
+        android:background="@android:color/transparent"
+        android:textColor="@drawable/title_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="50sp"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/settings"
+        android:onClick="settingsSelected"/>       
+        
+    <TextView 
+        android:id="@+id/loading"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="50sp"
+        android:text="@string/loading"
+        android:shadowColor="@color/black"
+        android:shadowDx="-4.0"
+        android:shadowDy="-4.0"
+        android:shadowRadius="8.0"
+        android:visibility="gone"/>
+</games.ghoststories.views.title.TitleScreen>

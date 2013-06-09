@@ -145,12 +145,16 @@ IGamePhaseListener, IVillageTileListener {
          switch(pColor) {
          case RED:
             r = new Rect(w/4, 0, w/2, h/3);
+            break;
          case BLUE:
             r = new Rect(w/2, 0, (w/4)*3, h/3);
+            break;
          case GREEN:
             r = new Rect(w/4, h/3, w/2, (h/3)*2);
+            break;
          case YELLOW:
             r = new Rect(w/2, h/3, (w/4)*3, (h/3)*2);
+            break;
          default:
             break;
          }

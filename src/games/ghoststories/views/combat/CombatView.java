@@ -1,13 +1,14 @@
 package games.ghoststories.views.combat;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import games.ghoststories.R;
 import games.ghoststories.controllers.combat.CombatAreaController;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.PlayerData;
 import games.ghoststories.views.aux_area.PlayerInfoView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -16,7 +17,7 @@ import android.widget.RelativeLayout;
 
 /**
  * Top level view for the combat area that shows during the combat phase of
- * the game. 
+ * the game.
  */
 public class CombatView extends RelativeLayout {
 
@@ -51,10 +52,10 @@ public class CombatView extends RelativeLayout {
    }
 
    /**
-    * Destroy this view
+    * Dispose this view
     */
-   public void destroy() {
-      mController.destroy();
+   public void dispose() {
+      mController.dispose();
    }
 
    /**
@@ -64,27 +65,27 @@ public class CombatView extends RelativeLayout {
     * @param pGhost1 The first ghost being attacked
     * @param pGhost2 The second ghost being attacked or <code>null</code> if N/A
     */
-   public void setCombatData(PlayerData pPrimaryAttacker, 
-         List<PlayerData> pSecondaryAttackers, GhostData pGhost1, 
+   public void setCombatData(PlayerData pPrimaryAttacker,
+         List<PlayerData> pSecondaryAttackers, GhostData pGhost1,
          GhostData pGhost2) {
       //Info area 1 is for the primary player
       PlayerInfoView pi1 = (PlayerInfoView)findViewById(R.id.info_area_1);
       pi1.setPlayerData(pPrimaryAttacker);
       pi1.setVisibility(VISIBLE);
 
-      //Info area 2-4 are for any supporting players      
+      //Info area 2-4 are for any supporting players
       List<PlayerInfoView> playerViews = new ArrayList<PlayerInfoView>();
       playerViews.add((PlayerInfoView)findViewById(R.id.info_area_2));
       playerViews.add((PlayerInfoView)findViewById(R.id.info_area_3));
       playerViews.add((PlayerInfoView)findViewById(R.id.info_area_4));
       for(PlayerInfoView piv : playerViews) {
          piv.setVisibility(INVISIBLE);
-      }      
+      }
       for(int i = 0; i < pSecondaryAttackers.size(); ++i) {
          PlayerInfoView view = playerViews.get(i);
          PlayerData data = pSecondaryAttackers.get(i);
          view.setVisibility(VISIBLE);
-         view.setPlayerData(data);         
+         view.setPlayerData(data);
       }
 
       //Set the ghost data
@@ -102,22 +103,22 @@ public class CombatView extends RelativeLayout {
          ghost2.setVisibility(VISIBLE);
       }
 
-      CombatDiceAreaView diceContainer = 
+      CombatDiceAreaView diceContainer =
             (CombatDiceAreaView)findViewById(R.id.combat_dice);
-      diceContainer.setPrimaryAttacker(pPrimaryAttacker);      
+      diceContainer.setPrimaryAttacker(pPrimaryAttacker);
 
-      //TODO Should this really be creating the controller? 
+      //TODO Should this really be creating the controller?
       //Probably should be passed in.
-      mController = new CombatAreaController(this, pPrimaryAttacker, 
+      mController = new CombatAreaController(this, pPrimaryAttacker,
             pSecondaryAttackers, pGhost1, pGhost2);
    }
 
    /**
-    * Initialize this view 
+    * Initialize this view
     */
    private void init() {
       //Ignore touches so they don't propagate to the background
-      setOnTouchListener(new OnTouchListener() {         
+      setOnTouchListener(new OnTouchListener() {
          public boolean onTouch(View v, MotionEvent event) {
             return true;
          }

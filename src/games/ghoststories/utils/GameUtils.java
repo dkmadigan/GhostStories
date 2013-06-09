@@ -42,7 +42,7 @@ public abstract class GameUtils {
       switch(pTile) {
       case TOP_LEFT:
          gd1 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.RIGHT);
-         gd2 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.RIGHT);         
+         gd2 = gm.getGameBoard(EBoardLocation.LEFT).getGhostData(ECardLocation.LEFT);         
          break;
       case TOP_CENTER:
          gd1 = gm.getGameBoard(EBoardLocation.TOP).getGhostData(ECardLocation.MIDDLE);

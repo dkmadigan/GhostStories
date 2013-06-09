@@ -69,6 +69,13 @@ public class TaoTokenView extends AbstractNumberedTokenView implements IDraggabl
       a.recycle();
    }
    
+   /**
+    * @return The color of this token
+    */
+   public EColor getColor() {
+      return mTokenColor;
+   }
+   
    /*
     * (non-Javadoc)
     * @see com.interfaces.IDraggable#getDragData()

@@ -69,6 +69,13 @@ public class PlayerInfoView extends LinearLayout implements IGamePhaseListener {
    }
    
    /**
+    * @return The {@link PlayerData} for this view
+    */
+   public PlayerData getPlayerData() {
+      return mPlayerData;
+   }
+   
+   /**
     * Sets the data used to populate the contents of the views contained within
     * the player info area.
     * @param pPlayerData The data model

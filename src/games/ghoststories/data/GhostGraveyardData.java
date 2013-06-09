@@ -9,7 +9,14 @@ import java.util.List;
  * all of the ghosts that have been defeated by the players.
  */
 public class GhostGraveyardData {
-   
+
+   /**
+    * Dispose of the data
+    */
+   public void dispose() {
+      mGhosts.clear();
+   }
+
    /**
     * Adds a ghost to the ghost graveyard
     * @param pGhostData The ghost to add
@@ -17,7 +24,7 @@ public class GhostGraveyardData {
    public void addGhost(GhostData pGhostData) {
       mGhosts.add(pGhostData);
    }
-   
+
    /**
     * @return A list of ghosts in the ghost graveyard
     */
@@ -26,5 +33,5 @@ public class GhostGraveyardData {
    }
 
    /** The ghosts in the graveyard **/
-   private List<GhostData> mGhosts = new ArrayList<GhostData>();
+   private final List<GhostData> mGhosts = new ArrayList<GhostData>();
 }

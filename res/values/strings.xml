@@ -21,8 +21,12 @@
     <string name="combat_attack_2">God\'s Favorite: Tap Dice To Keep and Roll Again</string>
     <string name="combat_resolution">Drag Dice and Tao Tokens Onto Ghosts To Attack</string>
     <string name="graveyard">Graveyard</string>
-    <string name="smoke">Smoke</string>
+    <string name="smoke">Smoke</string>    
     <string name="circle_of_prayer">Circle Of Prayer</string>
     <string name="selected_token">Selected Token</string>
     <string name="token">Token</string>
+    <string name="new_game">New Game</string>
+    <string name="continue_game">Continue Game</string>
+    <string name="settings">Settings</string>
+    <string name="loading">Loading</string>
 </resources>

@@ -1,15 +1,18 @@
 package games.ghoststories.views.combat;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import games.ghoststories.R;
 import games.ghoststories.data.GhostData;
 import games.ghoststories.data.interfaces.IGhostListener;
 import games.ghoststories.enums.EColor;
+import games.ghoststories.enums.EDragItem;
 import games.ghoststories.enums.EHaunterLocation;
 import games.ghoststories.utils.GameUtils;
 import android.content.Context;
@@ -56,15 +59,37 @@ public class CombatGhostView extends RelativeLayout implements IGhostListener {
    /**
     * Adds a damage token to the ghost.
     * @param pTokenId The drawable resource id of the token to add
+    * @param pOwner The owner view
+    * @param pType The type of the owner view
+    * @param pColor The color of the damage token
     */
-   public void addDamageToken(int pTokenId) {
+   public void addDamageToken(int pTokenId, View pOwner, EDragItem pType,
+         EColor pColor) {
      for(CombatDamageView cdv : mDamageViews) {
         if(cdv.getVisibility() == INVISIBLE) {
            cdv.setImageResource(pTokenId);
            cdv.setVisibility(VISIBLE);
+           cdv.setData(pOwner, this, pType, pColor, pTokenId);
+           mDamageViewMap.put(pTokenId, cdv);
            break;
         }
      }
+   }
+   
+   /**
+    * Removes a damage token on the ghost
+    * @param pTokenId The id of the token to remove
+    */
+   public void removeDamageToken(int pTokenId) {
+      CombatDamageView cdv = mDamageViewMap.get(pTokenId);
+      cdv.setVisibility(INVISIBLE);
+   }
+   
+   /**
+    * @return The list of {@link CombatDamageView}s for this ghost 
+    */
+   public List<CombatDamageView> getDamageViews() {
+      return Collections.unmodifiableList(mDamageViews);
    }
    
    /*
@@ -208,6 +233,10 @@ public class CombatGhostView extends RelativeLayout implements IGhostListener {
     * is dealt to the ghost
     **/
    private List<CombatDamageView> mDamageViews = new ArrayList<CombatDamageView>();
+   
+   /** Mapping to keep track of the view associated with each damage view **/
+   private Map<Integer, CombatDamageView> mDamageViewMap = 
+         new ConcurrentHashMap<Integer, CombatDamageView>();
    
    /** The ghost data model **/
    private GhostData mGhostData = null;            

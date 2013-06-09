@@ -8,5 +8,8 @@ import java.util.Random;
  */
 public abstract class GhostStoriesConstants {
    /** Random number generator **/
-   public static Random sRandom = new SecureRandom();
+   public static final Random sRandom = new SecureRandom();
+   
+   /** Font to use for labels **/
+   public static final String sFont = "fonts/samurai.ttf";
 }

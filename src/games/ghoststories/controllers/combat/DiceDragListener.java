@@ -20,7 +20,7 @@ import android.view.View.OnDragListener;
       Object localState = pEvent.getLocalState();
       if(localState instanceof DragData) {
          DragData dragData = (DragData)localState;
-         //Only handle Dice Drags for my view
+         //Dragging from the dice to the ghost
          if(dragData.getView() == pView && 
                dragData.getDragItem() == EDragItem.COMBAT_DICE) {
             switch(pEvent.getAction()) {
@@ -37,5 +37,4 @@ import android.view.View.OnDragListener;
       }
       return handled;
    }
-
 }

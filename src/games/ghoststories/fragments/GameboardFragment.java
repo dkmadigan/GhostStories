@@ -107,7 +107,7 @@ public class GameboardFragment extends Fragment {
       initVillageTiles(gridLayout);
       
       //Setup the player token areas
-      initPlayerTokenAreas(gridLayout);                                  
+      initPlayerTokenAreas(gridLayout);         
       
       return gridLayout;
    }
